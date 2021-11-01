@@ -24,7 +24,7 @@ public class RequestTests extends TestBase {
     }
 
     @Test
-    @AllureId("#5701")
+    @AllureId("5701")
     @DisplayName("Создание запроса на питомца")
     void CreateRequestTest() {
 
@@ -50,7 +50,7 @@ public class RequestTests extends TestBase {
     }
 
     @Test
-    @AllureId("#5702")
+    @AllureId("5702")
     @DisplayName("Удаление запроса на питомца")
     void DeleteRequestTest() {
         LoginTests loginTests = new LoginTests();

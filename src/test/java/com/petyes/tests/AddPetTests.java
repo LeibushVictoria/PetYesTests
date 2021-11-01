@@ -25,7 +25,7 @@ public class AddPetTests extends TestBase {
     }
 
     @Test
-    @AllureId("#5704")
+    @AllureId("5704")
     @DisplayName("Создание питомца")
     void AddPetTest() {
         LoginTests loginTests = new LoginTests();

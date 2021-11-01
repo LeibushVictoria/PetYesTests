@@ -31,7 +31,7 @@ public class LoginTests extends TestBase {
     }
 
     @Test
-    @AllureId("#5696")
+    @AllureId("5696")
     @DisplayName("Успешная авторизация продавца")
     void LoginAsBreederTest() {
         step("Открыть страницу авторизации", () ->
@@ -48,7 +48,7 @@ public class LoginTests extends TestBase {
     }
 
     @Test
-    @AllureId("#5697")
+    @AllureId("5697")
     @DisplayName("Успешная авторизация покупателя")
     void LoginAsCustomerTest() {
         step("Открыть страницу авторизации", () ->
@@ -65,7 +65,7 @@ public class LoginTests extends TestBase {
     }
 
     @Test
-    @AllureId("#5699")
+    @AllureId("5699")
     @DisplayName("Авторизация с неправильным паролем")
     void LoginWithWrongPasswordTest() {
         step("Открыть страницу авторизации", () ->
