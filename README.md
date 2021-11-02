@@ -1,44 +1,61 @@
-# Project in Allure TestOps with manual & automated tests
-<a target="_blank" href="https://allure.autotests.cloud/project/%s">allure.autotests.cloud/project/%s</a> (ask admin@qa.guru for access)
+# :feet: Проект с автотестами для сайта pet-yes.com 
 
-# Jenkins job
-<a target="_blank" href="https://jenkins.autotests.cloud/job/%s">jenkins.autotests.cloud/job/%s</a>
+<img src="images/PetYes.png" width="800" height="600"> 
 
+## :gear: Стек технологий:
+| GitHub | IDEA | Java | Junit5 | Gradle | Selenide | Selenoid | Allure Report | Allure TO | Jenkins | Jira |
+|:--------:|:-------------:|:---------:|:-------:|:----:|:------:|:----:|:----:|:------:|:------:|:--------:|
+| <img src="images/Intelij_IDEA.svg" width="40" height="40"> | <img src="images/JAVA.svg" width="40" height="40"> | <img src="images/Selenide.svg" width="40" height="40"> | <img src="images/Selenoid.svg" width="40" height="40"> | <img src="images/Allure_Report.svg" width="40" height="40"> | <img src="images/Gradle.svg" width="40" height="40"> | <img src="images/Junit5.svg" width="40" height="40"> | <img src="images/GitHub.svg" width="40" height="40"> | <img src="images/Jenkins.svg" width="40" height="40"> | <img src="images/Allure_TO.svg" width="40" height="40"> | <img src="images/Jira.svg" width="40" height="40"> |
+___
 
-# USAGE examples
+## :pushpin: В качестве CI системы использован Jenkins 
+[Pet-Yes tests](https://jenkins.autotests.cloud/job/08-levikss-PetYes/)
 
-### For run remote tests need fill remote.properties or to pass value:
+<img src="images/Jenkins.png" width="800" height="600"> 
 
-* browser (default chrome)
-* browserVersion (default 89.0)
-* browserSize (default 1920x1080)
-* browserMobileView (mobile device name, for example iPhone X)
-* remoteDriverUrl (url address from selenoid or grid)
-* videoStorage (url address where you should get video)
-* threads (number of threads)
+## :arrow_forward: Запуск тестов
 
+Для запуска тестов необходимо выполнить следующую команду:
 
-Run tests with filled remote.properties:
 ```bash
-gradle clean test
+clean
+test
+-Dbrowser=${BROWSER}
+-DbrowserVersion=${BROWSER_VERSION}
+-DbrowserSize=${BROWSER_SIZE}
+-DbrowserMobileView="${BROWSER_MOBILE}"
+-DremoteDriverUrl=https://user1:1234@${REMOTE_DRIVER_URL}/wd/hub/
+-DvideoStorage=https://${REMOTE_DRIVER_URL}/video/
+-Dthreads=${THREADS}
 ```
+- в параметре Dbrowser - указываем браузер, в котором будут выполняться тесты
+- в параметре DbrowserVersion - указываем версию браузера
+- в параметре DbrowserSize - указываем размер окна браузера
+- в параметре DbrowserMobileView - указываем мобильное устройство, на котором будут выполняться тесты
+- в параметре DremoteDriverUrl - указываем логин, пароль и адрес удаленного сервера, где будут проходить тесты 
+- в параметре DvideoStorage указываем место для сохранения видео
+- в параметре Dthreads задаем количетство потоков
 
-Run tests with not filled remote.properties:
-```bash
-gradle clean -DremoteDriverUrl=https://%s:%s@selenoid.autotests.cloud/wd/hub/ -DvideoStorage=https://selenoid.autotests.cloud/video/ -Dthreads=1 test
-```
+## :bar_chart: Генерация отчета происходит в Allure Report
 
-Serve report:
+Для генерации отчета необходимо выполнить следующую команду:
+
 ```bash
 allure serve build/allure-results
 ```
+<img src="images/Allure_report1.png" width="800" height="600">
 
+<img src="images/Allure_report2.png" width="800" height="600">
+___
 
-###### For further development there are some example tests in src/test/java/cloud.autotests/tests/demowebshop
-* remove @Disabled("...") annotation to run tests
-```bash
-gradle clean demowebshop
-```
+## :bar_chart: Результаты прохождения тестов записываются в Allure TestOps
 
-:heart: <a target="_blank" href="https://qa.guru">qa.guru</a><br/>
-:blue_heart: <a target="_blank" href="https://t.me/qa_automation">t.me/qa_automation</a>
+<img src="images/Allure_TO.png" width="800" height="600">
+
+## :heavy_check_mark: Уведомления о прохождение тестов отправляются в Telegram
+
+<img src="images/Telegramm_notification.png" width="800" height="600"> 
+
+## :movie_camera: Видеотчет теста "Создание питомца"
+
+<img src="images/CreatePetVideo.gif" width="800" height="600"> 
