@@ -1,6 +1,6 @@
 # :feet: Проект с автотестами для сайта pet-yes.com 
 
-<img src="images/PetYes.png" width="900" height="600"> 
+![alt "PetYes"](./images/PetYes.png "PetYes")
 
 ## :gear: Стек технологий:
 | GitHub | IDEA | Java | Junit5 | Gradle | Selenide | Selenoid | Allure Report | Allure TO | Jenkins | Jira |
@@ -11,7 +11,7 @@ ___
 ## :pushpin: В качестве CI системы использован Jenkins
 ### [Проект PetYes](https://jenkins.autotests.cloud/job/08-levikss-PetYes/)
 
-<img src="images/Jenkins.png" width="900" height="600"> 
+![alt "Jenkins"](./images/Jenkins.png "Jenkins")
 
 ## :arrow_forward: Запуск тестов
 
@@ -47,7 +47,8 @@ gradle clean test
 ```bash
 allure serve build/allure-results
 ```
-<img src="images/Allure_report1.png" width="900" height="600">
+
+![alt "Allure Report"](./images/Allure_report1.png "Allure Report")
 
 К каждому тесту прикладываются:
 - Скриншоты
@@ -55,16 +56,16 @@ allure serve build/allure-results
 - Логи браузера
 - Видео
 
-<img src="images/Allure_report2.png" width="900" height="600">
+![alt "Allure Report"](./images/Allure_report2.png "Allure Report")
 
 ## :bar_chart: Результаты прохождения тестов записываются в Allure TestOps
 
-<img src="images/Allure_TO.png" width="900" height="600">
+![alt "Allure TestOps"](./images/Allure_TO.png "Allure TestOps")
 
 ## :heavy_check_mark: Уведомления о прохождении тестов отправляются в Telegram
 
-<img src="images/Telegramm_notification.png" width="650" height="600"> 
+![alt "Telegramm_notification"](./images/Telegramm_notification.png "Telegramm_notification") 
 
 ## :movie_camera: Видео с прохождением теста "Создание питомца"
 
-<img src="images/CreatePetVideo.gif" width="900" height="600"> 
+![alt "CreatePetVideo"](./images/CreatePetVideo.gif "CreatePetVideo") 
