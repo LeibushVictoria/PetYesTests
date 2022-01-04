@@ -62,6 +62,10 @@ allure serve build/allure-results
 
 ![alt "Allure TestOps"](./images/Allure_TO.png "Allure TestOps")
 
+## :pushpin: Проект интегрирован с [Jira](https://jira.autotests.cloud/browse/AUTO-488)
+
+![alt "Jira"](./images/Jira.png "Jira)
+
 ## :heavy_check_mark: Уведомления о прохождении тестов отправляются в Telegram
 
 ![alt "Telegramm_notification"](./images/Telegramm_notification.png "Telegramm_notification") 
