@@ -1,5 +1,7 @@
 package com.petyes.tests;
 
+import com.codeborne.selenide.Configuration;
+import com.petyes.config.App;
 import com.petyes.config.Project;
 import com.petyes.helpers.AllureAttachments;
 import com.petyes.helpers.DriverSettings;
@@ -12,13 +14,13 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-
 @ExtendWith({AllureJunit5.class})
 public class TestBase {
     @BeforeAll
     static void setUp() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
         DriverSettings.configure();
+        Configuration.baseUrl = App.config.webUrl();
     }
 
     @AfterEach
