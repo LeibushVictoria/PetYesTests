@@ -1,8 +1,8 @@
 package com.petyes.tests;
 
+import com.petyes.api.Login;
 import com.petyes.config.App;
 import com.petyes.pages.AddPetPage;
-import com.petyes.pages.LoginPage;
 import com.petyes.pages.components.CalendarComponent;
 import io.qameta.allure.AllureId;
 import io.qameta.allure.Feature;
@@ -16,15 +16,11 @@ public class AddPetTests extends TestBase {
     @AllureId("5704")
     @DisplayName("Создание питомца")
     void addPetTest() {
-        LoginPage loginPage = new LoginPage();
+        Login login = new Login();
         AddPetPage addPetPage = new AddPetPage();
         CalendarComponent calendarComponent = new CalendarComponent();
 
-        loginPage
-                .openLoginPage()
-                .fillLoginForm(App.config.breederPhoneNumber(), App.config.userPassword())
-                .clickSubmitButton()
-                .checkLogin("Находите хозяев для Ваших щенков и котят");
+        login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
         addPetPage
                 .openAddPetPage()
                 .choosePetType("Кошки")
