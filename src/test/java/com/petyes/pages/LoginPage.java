@@ -5,29 +5,14 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
-import static io.restassured.RestAssured.given;
 
 public class LoginPage {
-
-    @Step("Открыть страницу авторизации")
-    public LoginPage openLoginPage() {
-        open("/login");
-        return this;
-    }
 
     @Step("Заполнить форму авторизации")
     public LoginPage fillLoginForm(String phone, String password) {
         $(By.name("phone")).setValue(phone);
         $(By.name("password")).setValue(password);
-        return this;
-    }
-
-    @Step("Нажать на кнопку Войти")
-    public LoginPage clickSubmitButton() {
-        $(byText("Войти")).click();
         return this;
     }
 

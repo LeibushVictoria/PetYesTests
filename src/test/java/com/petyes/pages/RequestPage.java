@@ -11,12 +11,6 @@ import static com.codeborne.selenide.Selenide.$$;
 
 public class RequestPage {
 
-    @Step("Открыть страницу создания запроса")
-    public RequestPage openCreateRequestPage() {
-        open("/buy-add");
-        return this;
-    }
-
     @Step("Выбрать вид животного")
     public RequestPage choosePetType(String type) {
         $$(".as-select__container").findBy(text("Выберите вид животного")).click();
@@ -38,36 +32,6 @@ public class RequestPage {
         return this;
     }
 
-    @Step("Нажать кнопку Продолжить")
-    public RequestPage clickContinueButton() {
-        $$(".as-button__slot").findBy(text("Продолжить")).click();
-        return this;
-    }
-
-    @Step("Нажать кнопку Опубликовать")
-    public RequestPage clickPublishButton() {
-        $$(".as-button__slot").findBy(text("Опубликовать")).click();
-        return this;
-    }
-
-    @Step("Открыть созданный запрос")
-    public RequestPage openCreatedRequest() {
-        $$(".as-button__slot").findBy(text("Перейти к запросу")).click();
-        return this;
-    }
-
-    @Step("Проверить создание запроса")
-    public void checkRequestCreated(String breed) {
-        $(".h3").shouldHave(text(breed));
-    }
-
-    @Step("Открыть страницу запроса")
-    public RequestPage openRequestPage() {
-        open("/user/46#requests");
-        $(".buy-user-preview__container", 0).click();
-        return this;
-    }
-
     @Step("Выбрать тип запроса")
     public RequestPage chooseRequestType(String type) {
         $$(".as-radio__text").findBy(text(type)).click();
@@ -76,7 +40,6 @@ public class RequestPage {
 
     @Step("Удалить запрос")
     public RequestPage deleteRequest() {
-        $$(".as-button__slot").findBy(text("Удалить")).click();
         $(".as-modal__content").$$(".as-button__slot").findBy(text("Удалить")).click();
         return this;
     }

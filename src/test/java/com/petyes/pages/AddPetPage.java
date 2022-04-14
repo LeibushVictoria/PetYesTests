@@ -9,12 +9,6 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class AddPetPage {
 
-    @Step("Открыть страницу авторизации")
-    public AddPetPage openAddPetPage() {
-        open("/pet/new");
-        return this;
-    }
-
     @Step("Выбрать вид животного")
     public AddPetPage choosePetType(String type) {
         $$(".as-select__container").findBy(text("Выберите вид животного")).click();
@@ -32,12 +26,6 @@ public class AddPetPage {
     @Step("Указать имя животного")
     public void typePetName(String name) {
         $(By.name("nickname")).setValue(name);
-    }
-
-    @Step("Нажать кнопку Создать")
-    public AddPetPage clickSubmitButton() {
-        $$(".as-button__slot").findBy(text("Создать")).click();
-        return this;
     }
 
     @Step("Проверить создание питомца")

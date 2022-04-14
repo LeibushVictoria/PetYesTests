@@ -1,6 +1,7 @@
 package com.petyes.tests;
 
 import com.petyes.config.App;
+import com.petyes.pages.BasePage;
 import com.petyes.pages.LoginPage;
 import io.qameta.allure.AllureId;
 import io.qameta.allure.Feature;
@@ -13,11 +14,15 @@ public class LoginTests extends TestBase {
     @AllureId("5696")
     @DisplayName("Успешная авторизация продавца")
     void loginAsBreederTest() {
+        BasePage basePage = new BasePage();
         LoginPage loginPage = new LoginPage();
+        basePage
+                .openPage("/login");
         loginPage
-                .openLoginPage()
-                .fillLoginForm(App.config.breederPhoneNumber(), App.config.userPassword())
-                .clickSubmitButton()
+                .fillLoginForm(App.config.breederPhoneNumber(), App.config.userPassword());
+        basePage
+                .clickOnButton("Войти");
+        loginPage
                 .checkLogin("Находите хозяев для Ваших щенков и котят");
     }
 
@@ -25,11 +30,15 @@ public class LoginTests extends TestBase {
     @AllureId("5697")
     @DisplayName("Успешная авторизация покупателя")
     void loginAsCustomerTest() {
+        BasePage basePage = new BasePage();
         LoginPage loginPage = new LoginPage();
+        basePage
+                .openPage("/login");
         loginPage
-                .openLoginPage()
-                .fillLoginForm(App.config.customerPhoneNumber(), App.config.userPassword())
-                .clickSubmitButton()
+                .fillLoginForm(App.config.customerPhoneNumber(), App.config.userPassword());
+        basePage
+                .clickOnButton("Войти");
+        loginPage
                 .checkLogin("Ваш любимец в паре кликов от Вас");
     }
 
@@ -37,11 +46,15 @@ public class LoginTests extends TestBase {
     @AllureId("5699")
     @DisplayName("Авторизация с неправильным паролем")
     void loginWithWrongPasswordTest() {
+        BasePage basePage = new BasePage();
         LoginPage loginPage = new LoginPage();
+        basePage
+                .openPage("/login");
         loginPage
-                .openLoginPage()
-                .fillLoginForm(App.config.customerPhoneNumber(), "WrongPassword")
-                .clickSubmitButton()
+                .fillLoginForm(App.config.customerPhoneNumber(), "WrongPassword");
+        basePage
+                .clickOnButton("Войти");
+        loginPage
                 .checkErrorMessage();
     }
 }

@@ -11,7 +11,7 @@ import static io.restassured.RestAssured.given;
 public class Login {
 
     @Step("Авторизация по API")
-    public void loginByAPI(String phone, String password) {
+    public String loginByAPI(String phone, String password) {
         UserData user = UserData.builder()
                 .phone(phone)
                 .password(password)
@@ -36,5 +36,6 @@ public class Login {
         open("/_nuxt/img/ic_heart.78eb8bf.svg");
         getWebDriver().manage().addCookie(
                 new Cookie("auth._token.local", token));
+        return token;
     }
 }

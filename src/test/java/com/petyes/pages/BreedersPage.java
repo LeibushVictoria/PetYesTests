@@ -7,45 +7,21 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class BreedersPage {
 
-    @Step("Открыть страницу Заводчики")
-    public BreedersPage openBreedersPage() {
-        open("/breeders");
+    @Step("Открыть страницу заводчика")
+    public BreedersPage openBreederPage(String breeder) {
+        $$(".breeder-preview__link").findBy(text(breeder)).click();
         return this;
     }
 
-    @Step("Нажать кнопку Найти питомца")
-    public BreedersPage clickCreateRequestButton() {
-        $$(".as-button__slot").findBy(text("Найти питомца")).click();
-        return this;
-    }
-
-    @Step("Проверить открытие создания запроса")
-    public BreedersPage checkCreateRequestPageOpened() {
-        $(".h2").shouldHave(text("Создание запроса на подбор животного"));
-        return this;
-    }
-
-    @Step("Открыть страницу первого заводчика")
-    public BreedersPage openFirstBreederPage() {
-        $(".breeder-preview__content", 0).click();
-        return this;
-    }
-
-    @Step("Проверить открытие страницы первого заводчика")
-    public BreedersPage checkFirstBreederPageOpened() {
-        $(".user-profile-cover__footer").shouldHave(text("Начать чат"));
-        return this;
-    }
-
-    @Step("Нажать на Добавить отзыв у первого заводчика")
-    public BreedersPage clickCreateRewiewButton() {
-        $$(".as-button__slot").findBy(text("Добавить отзыв")).click();
+    @Step("Открыть отзывы заводчика")
+    public BreedersPage openRewiewPopup(String breeder) {
+        $$(".breeder-preview__content").findBy(text(breeder)).$(".breeder-preview__review-count").click();
         return this;
     }
 
     @Step("Нажать на оценку")
-    public BreedersPage clickRatingButton() {
-        $(".as-rating__star", 3).click();
+    public BreedersPage clickRatingButton(int star) {
+        $(".as-rating__star", star).click();
         return this;
     }
 
@@ -55,15 +31,9 @@ public class BreedersPage {
         return this;
     }
 
-    @Step("Нажать на Отправить")
-    public BreedersPage clickOnSubmit() {
-        $$(".as-button__slot").findBy(text("Отправить")).click();
-        return this;
-    }
-
     @Step("Проверить отправку отзыва")
     public BreedersPage checkRewiewCreated() {
-        $(".alert-modal__title").shouldHave(text("Спасибо"));
+        $(".as-modal__content").shouldHave(text("Хорошо"));
         return this;
     }
 }
