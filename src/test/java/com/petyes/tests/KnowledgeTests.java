@@ -83,14 +83,10 @@ public class KnowledgeTests extends TestBase {
                 .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
         basePage
                 .openPage("/knowledge/breeds")
-                .chooseRadio("Кошки");
-        knowledgePage
-                .openFilter("Длина шерсти");
-        basePage
-                .chooseCheckbox("Короткая");
-        knowledgePage
-                .openFilter("Тип шерсти");
-        basePage
+                .chooseRadio("Кошки")
+                .openFilter("Длина шерсти")
+                .chooseCheckbox("Короткая")
+                .openFilter("Тип шерсти")
                 .chooseCheckbox("Волнистая");
         knowledgePage
                 .checkCounter("Показать 7");

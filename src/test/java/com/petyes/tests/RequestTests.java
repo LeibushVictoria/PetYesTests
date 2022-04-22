@@ -5,6 +5,7 @@ import com.petyes.api.Request;
 import com.petyes.config.App;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.RequestPage;
+import com.petyes.pages.components.CityComponent;
 import io.qameta.allure.AllureId;
 import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
@@ -20,14 +21,17 @@ public class RequestTests extends TestBase {
         BasePage basePage = new BasePage();
         Login login = new Login();
         RequestPage requestPage = new RequestPage();
+        CityComponent cityComponent = new CityComponent();
 
         login
                 .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
         basePage
                 .openPage("/buy-add");
         requestPage
-                .choosePetType("Собаки")
-                .choosePetBreed("Австралийский келпи")
+                .choosePetType("Собаки");
+        basePage
+                .selectValueFromDropdown("Выберите породу животного", "Австралийский келпи");
+        cityComponent
                 .chooseCity("Санкт-Петербург");
         basePage
                 .clickOnButton("Продолжить")
@@ -43,6 +47,7 @@ public class RequestTests extends TestBase {
         BasePage basePage = new BasePage();
         Login login = new Login();
         RequestPage requestPage = new RequestPage();
+        CityComponent cityComponent = new CityComponent();
 
         login
                 .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
@@ -50,7 +55,8 @@ public class RequestTests extends TestBase {
                 .openPage("/buy-add");
         requestPage
                 .chooseRequestType("Возьму бесплатно в хорошие руки")
-                .choosePetType("Собаки")
+                .choosePetType("Собаки");
+        cityComponent
                 .chooseCity("Санкт-Петербург");
         basePage
                 .clickOnButton("Продолжить")
@@ -68,7 +74,9 @@ public class RequestTests extends TestBase {
         Request request = new Request();
         RequestPage requestPage = new RequestPage();
 
-        int id = request.createRequestByAPI();
+        int id = request.createRequestByAPI(13, 0, 20000, false,
+                "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 6,
+                false, true, "2022-04-14T08:56:15.706Z", 597);
         basePage
                 .openPage("/buy/" + id)
                 .clickOnButton("Удалить");

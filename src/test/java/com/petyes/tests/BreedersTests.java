@@ -17,7 +17,6 @@ public class BreedersTests extends TestBase {
     void createRequestTest() {
         BasePage basePage = new BasePage();
         Login login = new Login();
-
         login
                 .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
         basePage
@@ -32,7 +31,6 @@ public class BreedersTests extends TestBase {
         BasePage basePage = new BasePage();
         Login login = new Login();
         BreedersPage breedersPage = new BreedersPage();
-
         login
                 .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
         basePage
@@ -49,7 +47,6 @@ public class BreedersTests extends TestBase {
         BasePage basePage = new BasePage();
         Login login = new Login();
         BreedersPage breedersPage = new BreedersPage();
-
         login
                 .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
         basePage

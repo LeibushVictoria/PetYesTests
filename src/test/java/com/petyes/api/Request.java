@@ -2,8 +2,8 @@ package com.petyes.api;
 
 import com.petyes.config.App;
 import io.qameta.allure.Step;
-import models.AgeRange;
-import models.Cities;
+import models.AgeRangeData;
+import models.CityData;
 import models.RequestData;
 
 import java.util.Collections;
@@ -13,30 +13,32 @@ import static io.restassured.RestAssured.given;
 public class Request {
 
     @Step("Создание запроса по API")
-    public int createRequestByAPI() {
+    public int createRequestByAPI(int specialization_id, int price_min, int price_max, boolean important_price,
+                                  String address, String coordinate_lat, String coordinate_lng, int colors, int date_from, int date_to,
+                                  boolean buy_for_free, boolean is_not_for_breeding, String get_date, int breed_id) {
         Login login = new Login();
         String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
-        Cities cities = Cities.builder()
-                .address("Санкт-Петербург")
-                .coordinate_lat("59.939084")
-                .coordinate_lng("30.315879")
+        CityData cityData = CityData.builder()
+                .address(address)
+                .coordinate_lat(coordinate_lat)
+                .coordinate_lng(coordinate_lng)
                 .build();
-        AgeRange ageRange = AgeRange.builder()
-                .date_from(0)
-                .date_to(6)
+        AgeRangeData ageRangeData = AgeRangeData.builder()
+                .date_from(date_from)
+                .date_to(date_to)
                 .build();
         RequestData requestData = RequestData.builder()
-                .specialization_id(13)
-                .price_min(0)
-                .price_max(20000)
-                .important_price(false)
-                .cities(cities)
-                .colors(Collections.singleton(1007))
-                .age_range(ageRange)
-                .buy_for_free(false)
-                .is_not_for_breeding(true)
-                .get_date("2022-04-14T08:56:15.706Z")
-                .breed_id(597)
+                .specialization_id(specialization_id)
+                .price_min(price_min)
+                .price_max(price_max)
+                .important_price(important_price)
+                .cityData(cityData)
+                .colors(Collections.singleton(colors))
+                .age_range(ageRangeData)
+                .buy_for_free(buy_for_free)
+                .is_not_for_breeding(is_not_for_breeding)
+                .get_date(get_date)
+                .breed_id(breed_id)
                 .build();
         int id = given()
                 .header("Authorization", "Bearer " + token)

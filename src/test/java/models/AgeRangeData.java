@@ -7,8 +7,7 @@ import lombok.Data;
 @Data
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Cities {
-    private String address;
-    private String coordinate_lat;
-    private String coordinate_lng;
+public class AgeRangeData {
+    private int date_from;
+    private int date_to;
 }

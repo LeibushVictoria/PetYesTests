@@ -38,12 +38,6 @@ public class KnowledgePage {
         return this;
     }
 
-    @Step("Раскрыть фильтр")
-    public KnowledgePage openFilter(String filter) {
-        $$(".as-collapse__heading").findBy(text(filter)).click();
-        return this;
-    }
-
     @Step("Проверить счетчик")
     public KnowledgePage checkCounter(String text) {
         $(".text-loading").shouldHave(text(text));

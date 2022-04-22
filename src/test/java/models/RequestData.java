@@ -14,10 +14,10 @@ public class RequestData {
     private int price_min;
     private int price_max;
     private boolean important_price;
-    private Cities cities;
+    private CityData cityData;
     private Set<Integer> colors;
     private String sex;
-    private AgeRange age_range;
+    private AgeRangeData age_range;
     private boolean buy_for_free;
     private boolean is_not_for_breeding;
     private boolean views;
