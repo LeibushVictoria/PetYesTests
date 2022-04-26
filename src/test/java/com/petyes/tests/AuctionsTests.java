@@ -5,6 +5,7 @@ import com.petyes.api.Login;
 import com.petyes.config.App;
 import com.petyes.pages.AuctionPage;
 import com.petyes.pages.BasePage;
+import com.petyes.pages.components.CalendarComponent;
 import com.petyes.pages.components.CityComponent;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,8 +20,12 @@ public class AuctionsTests extends TestBase{
         Auction auction = new Auction();
         CityComponent cityComponent = new CityComponent();
         AuctionPage auctionPage = new AuctionPage();
+        CalendarComponent calendarComponent = new CalendarComponent();
 
-        int auction_id = auction.createAuctionByAPI("22.04.2022 00:01 GMT+03:00", "23.04.2022 00:02 GMT+03:00", 10000, 1,
+        String tomorrow = calendarComponent.getTomorrowDate();
+        String dayAfterTomorrow = calendarComponent.getDayAfterTomorrowDate();
+
+        int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1,
                 20000, false, false);
         login
                 .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
@@ -33,9 +38,9 @@ public class AuctionsTests extends TestBase{
                 .openFilter("Блиц-цена")
                 .chooseRadio("Есть")
                 .openFilter("Дата начала")
-                .enterValue(0, "22.04.2022 00:01")
+                .enterValue(0, tomorrow)
                 .openFilter("Дата окончания")
-                .enterValue(1, "23.04.2022 00:02")
+                .enterValue(1, dayAfterTomorrow)
                 .openFilter("Животные")
                 .chooseRadio("Кошки")
                 .openFilter("Порода")
@@ -60,7 +65,12 @@ public class AuctionsTests extends TestBase{
         BasePage basePage = new BasePage();
         Login login = new Login();
         Auction auction = new Auction();
-        int auction_id = auction.createAuctionByAPI("20.04.2022 00:01 GMT+03:00", "21.04.2022 00:02 GMT+03:00", 10000, 1,
+        CalendarComponent calendarComponent = new CalendarComponent();
+
+        String tomorrow = calendarComponent.getTomorrowDate();
+        String dayAfterTomorrow = calendarComponent.getDayAfterTomorrowDate();
+
+        int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1,
                 20000, false, false);
         login
                 .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
@@ -77,7 +87,12 @@ public class AuctionsTests extends TestBase{
         BasePage basePage = new BasePage();
         Login login = new Login();
         Auction auction = new Auction();
-        int auction_id = auction.createAuctionByAPI("20.04.2022 00:01 GMT+03:00", "21.04.2022 00:02 GMT+03:00", 10000, 1,
+        CalendarComponent calendarComponent = new CalendarComponent();
+
+        String tomorrow = calendarComponent.getTomorrowDate();
+        String dayAfterTomorrow = calendarComponent.getDayAfterTomorrowDate();
+
+        int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1,
                 20000, false, false);
         login
                 .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());

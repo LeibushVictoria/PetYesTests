@@ -5,6 +5,7 @@ import com.petyes.api.Request;
 import com.petyes.config.App;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.RequestPage;
+import com.petyes.pages.components.CalendarComponent;
 import com.petyes.pages.components.CityComponent;
 import io.qameta.allure.AllureId;
 import io.qameta.allure.Feature;
@@ -73,10 +74,13 @@ public class RequestTests extends TestBase {
         BasePage basePage = new BasePage();
         Request request = new Request();
         RequestPage requestPage = new RequestPage();
+        CalendarComponent calendarComponent = new CalendarComponent();
+
+        String today = calendarComponent.getTodayDate();
 
         int id = request.createRequestByAPI(13, 0, 20000, false,
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 6,
-                false, true, "2022-04-14T08:56:15.706Z", 597);
+                false, true, today, 597);
         basePage
                 .openPage("/buy/" + id)
                 .clickOnButton("Удалить");
