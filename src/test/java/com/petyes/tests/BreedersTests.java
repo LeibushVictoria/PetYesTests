@@ -4,6 +4,7 @@ import com.petyes.config.App;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.BreedersPage;
 import com.petyes.api.Login;
+import com.petyes.pages.components.CityComponent;
 import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -62,5 +63,25 @@ public class BreedersTests extends TestBase {
                 .clickOnButton("Отправить");
         breedersPage
                 .checkRewiewCreated();
+    }
+
+    @Test
+    @DisplayName("Работа фильтров")
+    void filterBreedersTest() {
+        BasePage basePage = new BasePage();
+        Login login = new Login();
+        CityComponent cityComponent = new CityComponent();
+
+        login
+                .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        basePage
+                .openPage("/breeders");
+        cityComponent
+                .chooseCity("Санкт-Петербург");
+        basePage
+                .chooseRadio("Кошки")
+                .selectValueFromDropdown("Выберите породу", "Абиссинская")
+                .clickOnButton("Показать")
+                .checkResult("Продавец Автотест");
     }
 }

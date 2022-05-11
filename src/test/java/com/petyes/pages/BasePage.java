@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
 
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 public class BasePage {
@@ -33,6 +34,12 @@ public class BasePage {
     }
 
     @Step("Проверить заголовок")
+    public BasePage checkHeaderH4(String header) {
+        $(".h4").shouldHave(text(header));
+        return this;
+    }
+
+    @Step("Проверить заголовок")
     public BasePage checkHeaderH5(String header) {
         $(".h5").shouldHave(text(header));
         return this;
@@ -56,7 +63,7 @@ public class BasePage {
         return this;
     }
 
-    @Step("Проверить отображение блока")
+    @Step("Проверить отображение текста в блоке")
     public BasePage checkBlockDisplay(String text) {
         $$(".as-card__body").findBy(text(text)).click();
         return this;
@@ -79,7 +86,31 @@ public class BasePage {
     @Step("Выбрать значение в выпадающем списке")
     public BasePage selectValueFromDropdown(String placeholder, String value) {
         $$(".as-select__container").findBy(text(placeholder)).click();
-        $$(".as-select__option-item").findBy(text(value)).click();
+        $$(".as-select__option-item").findBy(text(value)).shouldBe(visible).click();
+        return this;
+    }
+
+    @Step("Проверить результат поиска")
+    public BasePage checkResult(String value) {
+        $(".search-page__results").shouldHave(text(value));
+        return this;
+    }
+
+    @Step("Очистить поле textarea")
+    public BasePage clearTextarea() {
+        $(".as-textarea__field").clear();
+        return this;
+    }
+
+    @Step("Ввести текст в textarea")
+    public BasePage enterValueInTextarea(String text) {
+        $(".as-textarea__field").setValue(text);
+        return this;
+    }
+
+    @Step("Проверить отображение зеленой всплывашки")
+    public BasePage checkGreenMessage() {
+        $(".iziToast-texts").shouldBe(visible);
         return this;
     }
 }

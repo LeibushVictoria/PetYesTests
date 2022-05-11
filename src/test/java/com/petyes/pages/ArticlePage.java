@@ -8,12 +8,6 @@ import static com.codeborne.selenide.Selenide.$$;
 
 public class ArticlePage {
 
-    @Step("Ввести аннотацию")
-    public ArticlePage enterValue(String text) {
-        $(".as-textarea__field").setValue(text);
-        return this;
-    }
-
     @Step("Ввести текст статьи")
     public ArticlePage enterText(String text) {
         $(".is-editor-empty").setValue(text);
@@ -30,6 +24,12 @@ public class ArticlePage {
     public ArticlePage selectFirstValueFromDropdown() {
         $(".as-select__container").click();
         $(".as-select__option-item", 0).click();
+        return this;
+    }
+
+    @Step("Проверить результат")
+    public ArticlePage checkResult(String article) {
+        $(".knowledge-articles").shouldHave(text(article));
         return this;
     }
 }

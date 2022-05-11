@@ -26,10 +26,42 @@ public class BlogTests extends TestBase {
         articlePage
                 .selectFirstValueFromDropdown();
         basePage
-                .chooseRadio("Кошки");
+                .chooseRadio("Кошки")
+                .enterValueInTextarea("Тестовая аннотация статьи");
         articlePage
-                .enterValue("Тестовая аннотация статьи")
                 .enterText("Тестовый текст статьи")
                 .uploadPicture("Загрузить обложку", "test.jpg");
+    }
+
+    @Test
+    @DisplayName("Работа фильтров")
+    void filterArticlesTest() {
+        BasePage basePage = new BasePage();
+        Login login = new Login();
+        ArticlePage articlePage = new ArticlePage();
+
+        login
+                .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        basePage
+                .openPage("/knowledge/articles")
+                .chooseRadio("Кошки")
+                .openFilter("Категория")
+                .chooseCheckbox("тест1");
+        basePage
+                .clickOnButton("Показать");
+        articlePage
+                .checkResult("Лылуто");
+    }
+
+    @Test
+    @DisplayName("Просмотр статьи")
+    void viewArticleTest() {
+        BasePage basePage = new BasePage();
+        Login login = new Login();
+        ArticlePage articlePage = new ArticlePage();
+
+        login
+                .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+
     }
 }
