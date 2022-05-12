@@ -3,7 +3,6 @@ package com.petyes.tests;
 import com.petyes.api.Auction;
 import com.petyes.api.Login;
 import com.petyes.config.App;
-import com.petyes.pages.AuctionPage;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
 import com.petyes.pages.components.CityComponent;
@@ -19,7 +18,6 @@ public class AuctionsTests extends TestBase{
         Login login = new Login();
         Auction auction = new Auction();
         CityComponent cityComponent = new CityComponent();
-        AuctionPage auctionPage = new AuctionPage();
         CalendarComponent calendarComponent = new CalendarComponent();
 
         String tomorrow = calendarComponent.getTomorrowDate();
@@ -54,9 +52,8 @@ public class AuctionsTests extends TestBase{
                 .chooseCheckbox("До 6 месяцев")
                 .openFilter("Особенности")
                 .chooseCheckbox("Кастрация/стерилизация")
-                .clickOnButton("Показать");
-        auctionPage
-                .checkResult(auction_id);
+                .clickOnButton("Показать")
+                .checkLink(auction_id);
     }
 
     @Test

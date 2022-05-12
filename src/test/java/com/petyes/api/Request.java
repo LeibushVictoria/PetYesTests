@@ -13,11 +13,9 @@ import static io.restassured.RestAssured.given;
 public class Request {
 
     @Step("Создание запроса по API")
-    public int createRequestByAPI(int specialization_id, int price_min, int price_max, boolean important_price,
+    public int createRequestByAPI(String token, int specialization_id, int price_min, int price_max, boolean important_price,
                                   String address, String coordinate_lat, String coordinate_lng, int colors, int date_from, int date_to,
                                   boolean buy_for_free, boolean is_not_for_breeding, String get_date, int breed_id) {
-        Login login = new Login();
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
         CityData cityData = CityData.builder()
                 .address(address)
                 .coordinate_lat(coordinate_lat)
@@ -32,7 +30,7 @@ public class Request {
                 .price_min(price_min)
                 .price_max(price_max)
                 .important_price(important_price)
-                .cityData(cityData)
+                .cities(cityData)
                 .colors(Collections.singleton(colors))
                 .age_range(ageRangeData)
                 .buy_for_free(buy_for_free)

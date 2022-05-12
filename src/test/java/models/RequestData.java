@@ -14,7 +14,7 @@ public class RequestData {
     private int price_min;
     private int price_max;
     private boolean important_price;
-    private CityData cityData;
+    private CityData cities;
     private Set<Integer> colors;
     private String sex;
     private AgeRangeData age_range;

@@ -107,10 +107,16 @@ public class BasePage {
         $(".as-textarea__field").setValue(text);
         return this;
     }
-
     @Step("Проверить отображение зеленой всплывашки")
     public BasePage checkGreenMessage() {
-        $(".iziToast-texts").shouldBe(visible);
+        $(".iziToast-color-green").shouldBe(visible);
         return this;
     }
+
+    @Step("Проверить наличие ссылки по id")
+    public BasePage checkLink(int id) {
+        $(".a[href*=\""+id+"\"]").exists();
+        return this;
+    }
+
 }
