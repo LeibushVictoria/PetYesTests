@@ -4,19 +4,12 @@ import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
 
 public class ArticlePage {
 
     @Step("Ввести текст статьи")
     public ArticlePage enterText(String text) {
         $(".is-editor-empty").setValue(text);
-        return this;
-    }
-
-    @Step("Загрузить обложку")
-    public ArticlePage uploadPicture(String text, String fileName) {
-        $$(".as-button__slot").findBy(text(text)).uploadFromClasspath(fileName);
         return this;
     }
 

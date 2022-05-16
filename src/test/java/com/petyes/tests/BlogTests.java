@@ -29,8 +29,9 @@ public class BlogTests extends TestBase {
                 .chooseRadio("Кошки")
                 .enterValueInTextarea("Тестовая аннотация статьи");
         articlePage
-                .enterText("Тестовый текст статьи")
-                .uploadPicture("Загрузить обложку", "test.jpg");
+                .enterText("Тестовый текст статьи");
+        //basePage
+                //.uploadFile("Загрузить обложку", "test.jpg");
     }
 
     @Test

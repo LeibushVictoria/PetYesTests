@@ -9,6 +9,9 @@ import com.petyes.pages.components.CityComponent;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class AuctionsTests extends TestBase{
 
     @Test
@@ -20,8 +23,13 @@ public class AuctionsTests extends TestBase{
         CityComponent cityComponent = new CityComponent();
         CalendarComponent calendarComponent = new CalendarComponent();
 
-        String tomorrow = calendarComponent.getTomorrowDate();
-        String dayAfterTomorrow = calendarComponent.getDayAfterTomorrowDate();
+        Date dateTomorrow = calendarComponent.getFutureDate(1);
+        SimpleDateFormat formater1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String tomorrow = formater1.format(dateTomorrow);
+
+        Date dateDayAfterTomorrow = calendarComponent.getFutureDate(2);
+        SimpleDateFormat formater2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String dayAfterTomorrow = formater2.format(dateDayAfterTomorrow);
 
         int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1,
                 20000, false, false);
@@ -64,8 +72,13 @@ public class AuctionsTests extends TestBase{
         Auction auction = new Auction();
         CalendarComponent calendarComponent = new CalendarComponent();
 
-        String tomorrow = calendarComponent.getTomorrowDate();
-        String dayAfterTomorrow = calendarComponent.getDayAfterTomorrowDate();
+        Date dateTomorrow = calendarComponent.getFutureDate(1);
+        SimpleDateFormat formater1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String tomorrow = formater1.format(dateTomorrow);
+
+        Date dateDayAfterTomorrow = calendarComponent.getFutureDate(2);
+        SimpleDateFormat formater2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String dayAfterTomorrow = formater2.format(dateDayAfterTomorrow);
 
         int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1,
                 20000, false, false);
@@ -86,8 +99,13 @@ public class AuctionsTests extends TestBase{
         Auction auction = new Auction();
         CalendarComponent calendarComponent = new CalendarComponent();
 
-        String tomorrow = calendarComponent.getTomorrowDate();
-        String dayAfterTomorrow = calendarComponent.getDayAfterTomorrowDate();
+        Date dateTomorrow = calendarComponent.getFutureDate(1);
+        SimpleDateFormat formater1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String tomorrow = formater1.format(dateTomorrow);
+
+        Date dateDayAfterTomorrow = calendarComponent.getFutureDate(2);
+        SimpleDateFormat formater2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String dayAfterTomorrow = formater2.format(dateDayAfterTomorrow);
 
         int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1,
                 20000, false, false);

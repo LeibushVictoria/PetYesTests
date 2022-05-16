@@ -13,7 +13,7 @@ public class Auction {
         Login login = new Login();
         Pet pet = new Pet();
         String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
-        int pet_id = pet.createPetByAPI(false, 13, "autoTestAuctionCat", "10.03.2022", 0, 1,617);
+        int pet_id = pet.createPetByAPI(false, 13, "autoTestAuctionCat", "10.03.2022", 0, 1,597);
         int id = given()
                 .contentType("multipart/form-data")
                 .header("Authorization", "Bearer " + token)

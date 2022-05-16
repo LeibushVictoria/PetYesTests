@@ -12,6 +12,9 @@ import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Feature("Запрос")
 public class RequestTests extends TestBase {
 
@@ -110,7 +113,10 @@ public class RequestTests extends TestBase {
         Login login = new Login();
 
         String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
-        String today = calendarComponent.getTodayDate();
+
+        Date dateToday = calendarComponent.getTodayDate();
+        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String today = formater.format(dateToday);
 
         int id = request.createRequestByAPI(token, 13, 0, 20000, false,
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 6,
@@ -133,7 +139,10 @@ public class RequestTests extends TestBase {
         Login login = new Login();
 
         String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
-        String today = calendarComponent.getTodayDate();
+
+        Date dateToday = calendarComponent.getTodayDate();
+        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String today = formater.format(dateToday);
 
         int id = request.createRequestByAPI(token, 13, 0, 20000, false,
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 6,
