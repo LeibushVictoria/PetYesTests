@@ -67,13 +67,25 @@ public class BasePage {
 
     @Step("Проверить отображение текста в блоке")
     public BasePage checkBlockDisplay(String text) {
-        $$(".as-card__body").findBy(text(text)).click();
+        $$(".as-card__body").findBy(text(text)).shouldBe(visible);
         return this;
     }
 
     @Step("Ввести значение в поле")
-    public BasePage enterValue(int index, String value) {
-        $(".as-input__field", index).setValue(value);
+    public BasePage enterValueInInput(String inputName, String value) {
+        $$(".as-form-item").findBy(text(inputName)).$(".as-input__field").setValue(value);
+        return this;
+    }
+
+    @Step("Ввести значение в поле в фильтрах")
+    public BasePage enterValueInInputInFilter(int id, String value) {
+        $(".as-input__field", id).setValue(value);
+        return this;
+    }
+
+    @Step("Ввести значение в числовое поле")
+    public BasePage enterNumberInInput(String inputName, String value) {
+        $("input[data-vv-name=\"" + inputName + "\"]").setValue(value);
         return this;
     }
 
@@ -85,9 +97,23 @@ public class BasePage {
         return this;
     }
 
-    @Step("Выбрать значение в выпадающем списке")
-    public BasePage selectValueFromDropdown(String placeholder, String value) {
+    @Step("Выбрать значение в выпадающем списке в фильтрах")
+    public BasePage selectValueFromDropdownInFilter(String placeholder, String value) {
         $$(".as-select__container").findBy(text(placeholder)).click();
+        $$(".as-select__option-item").findBy(text(value)).shouldBe(visible).click();
+        return this;
+    }
+
+    @Step("Выбрать значение в выпадающем списке")
+    public BasePage selectValueFromDropdown(String dropdownName, String value) {
+        $$(".as-form-item").findBy(text(dropdownName)).$(".as-select__container").click();
+        $$(".as-select__option-item").findBy(text(value)).shouldBe(visible).click();
+        return this;
+    }
+
+    @Step("Ввести свое значение в выпадающем списке")
+    public BasePage enterValueInDropdown(String dropdownName, String value) {
+        $$(".as-form-item").findBy(text(dropdownName)).$("input").setValue(value);
         $$(".as-select__option-item").findBy(text(value)).shouldBe(visible).click();
         return this;
     }
@@ -105,8 +131,8 @@ public class BasePage {
     }
 
     @Step("Ввести текст в textarea")
-    public BasePage enterValueInTextarea(String text) {
-        $(".as-textarea__field").setValue(text);
+    public BasePage enterValueInTextarea(String textareaName, String value) {
+        $$(".as-form-item").findBy(text(textareaName)).$(".as-textarea__field").setValue(value);
         return this;
     }
     @Step("Проверить отображение зеленой всплывашки")

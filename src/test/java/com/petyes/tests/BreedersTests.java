@@ -80,7 +80,7 @@ public class BreedersTests extends TestBase {
                 .chooseCity("Санкт-Петербург");
         basePage
                 .chooseRadio("Кошки")
-                .selectValueFromDropdown("Выберите породу", "Абиссинская")
+                .selectValueFromDropdownInFilter("Выберите породу", "Абиссинская")
                 .clickOnButton("Показать")
                 .checkResult("Продавец Автотест");
     }

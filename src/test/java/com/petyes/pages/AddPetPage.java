@@ -13,15 +13,21 @@ import static com.codeborne.selenide.Selenide.$;
 public class AddPetPage {
 
     @Step("Выбрать породу животного")
-    public AddPetPage choosePetBreed(String placeholder, String value) {
+    public AddPetPage choosePetBreed(String placeholder, int id) {
         $$(".as-select__container").findBy(text(placeholder)).click();
-        $$(".as-select__option-item").findBy(text(value)).shouldBe(visible, Duration.ofSeconds(10)).click();
+        $(".as-select__option-item", id).click();
         return this;
     }
 
     @Step("Ввести значение в поле")
     public AddPetPage typeValueInInput(String fieldName, String value) {
         $(By.name(fieldName)).setValue(value);
+        return this;
+    }
+
+    @Step("Выбрать дополнительный параметр")
+    public AddPetPage selectValueFromDropdown(String optionName, String radio) {
+        $$(".as-form-item").findBy(text(optionName)).$$(".as-radio__text").findBy(text(radio)).click();
         return this;
     }
 
@@ -52,8 +58,15 @@ public class AddPetPage {
         return this;
     }
 
+    @Step("Выбрать город")
+    public AddPetPage chooseCity(String city) {
+        $("input[data-vv-name=\"city\"]").setValue(city);
+        $$(".as-select__option-item").findBy(text(city)).shouldBe(visible, Duration.ofSeconds(10)).click();
+        return this;
+    }
+
     @Step("Проверить создание питомца")
     public void checkPetCreated(String name) {
-        $(".pet-profile__info-card").shouldHave(text(name));
+        $(".as-card__body").shouldHave(text(name));
     }
 }

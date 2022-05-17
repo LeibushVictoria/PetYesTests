@@ -22,14 +22,13 @@ public class AuctionsTests extends TestBase{
         Auction auction = new Auction();
         CityComponent cityComponent = new CityComponent();
         CalendarComponent calendarComponent = new CalendarComponent();
+        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
         Date dateTomorrow = calendarComponent.getFutureDate(1);
-        SimpleDateFormat formater1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String tomorrow = formater1.format(dateTomorrow);
+        String tomorrow = formater.format(dateTomorrow);
 
         Date dateDayAfterTomorrow = calendarComponent.getFutureDate(2);
-        SimpleDateFormat formater2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String dayAfterTomorrow = formater2.format(dateDayAfterTomorrow);
+        String dayAfterTomorrow = formater.format(dateDayAfterTomorrow);
 
         int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1,
                 20000, false, false);
@@ -44,13 +43,13 @@ public class AuctionsTests extends TestBase{
                 .openFilter("Блиц-цена")
                 .chooseRadio("Есть")
                 .openFilter("Дата начала")
-                .enterValue(0, tomorrow)
+                .enterValueInInputInFilter(0, tomorrow)
                 .openFilter("Дата окончания")
-                .enterValue(1, dayAfterTomorrow)
+                .enterValueInInputInFilter(1, dayAfterTomorrow)
                 .openFilter("Животные")
                 .chooseRadio("Кошки")
                 .openFilter("Порода")
-                .selectValueFromDropdown("Выберите породу", "Бамбино")
+                .selectValueFromDropdownInFilter("Выберите породу", "Бамбино")
                 .openFilter("Ценовой диапазон, ₽")
                 .enterValueByKeys(2, "9999")
                 .enterValueByKeys(3, "10001")
@@ -71,14 +70,13 @@ public class AuctionsTests extends TestBase{
         Login login = new Login();
         Auction auction = new Auction();
         CalendarComponent calendarComponent = new CalendarComponent();
+        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
         Date dateTomorrow = calendarComponent.getFutureDate(1);
-        SimpleDateFormat formater1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String tomorrow = formater1.format(dateTomorrow);
+        String tomorrow = formater.format(dateTomorrow);
 
         Date dateDayAfterTomorrow = calendarComponent.getFutureDate(2);
-        SimpleDateFormat formater2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String dayAfterTomorrow = formater2.format(dateDayAfterTomorrow);
+        String dayAfterTomorrow = formater.format(dateDayAfterTomorrow);
 
         int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1,
                 20000, false, false);
@@ -98,14 +96,13 @@ public class AuctionsTests extends TestBase{
         Login login = new Login();
         Auction auction = new Auction();
         CalendarComponent calendarComponent = new CalendarComponent();
+        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
         Date dateTomorrow = calendarComponent.getFutureDate(1);
-        SimpleDateFormat formater1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String tomorrow = formater1.format(dateTomorrow);
+        String tomorrow = formater.format(dateTomorrow);
 
         Date dateDayAfterTomorrow = calendarComponent.getFutureDate(2);
-        SimpleDateFormat formater2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String dayAfterTomorrow = formater2.format(dateDayAfterTomorrow);
+        String dayAfterTomorrow = formater.format(dateDayAfterTomorrow);
 
         int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1,
                 20000, false, false);

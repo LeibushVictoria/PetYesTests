@@ -42,7 +42,7 @@ public class ProfileTests extends TestBase{
         basePage
                 .openPage("/settings/info")
                 .clearTextarea()
-                .enterValueInTextarea(aboutMe)
+                .enterValueInTextarea("О себе", aboutMe)
                 .clickOnButton("Сохранить изменения")
                 .checkGreenMessage()
                 .openPage("/user/" + user_id)

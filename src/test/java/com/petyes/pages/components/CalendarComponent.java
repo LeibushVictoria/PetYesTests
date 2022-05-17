@@ -41,7 +41,14 @@ public class CalendarComponent {
     }
 
     @Step("Ввести дату")
-    public void enterDate(String name, String date) {
-        $("input[data-vv-name=" + name + "]").setValue(date);
+    public CalendarComponent enterDate(String name, String date) {
+        $("input[data-vv-name=\"" + name + "\"]").setValue(date);
+        return this;
+    }
+
+    @Step("Ввести дату начала питания")
+    public CalendarComponent enterFoodDate(String name, String date) {
+        $("input[name=\"" + name + "\"]").setValue(date);
+        return this;
     }
 }

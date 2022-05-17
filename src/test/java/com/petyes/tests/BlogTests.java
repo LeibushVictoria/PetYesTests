@@ -22,16 +22,16 @@ public class BlogTests extends TestBase {
                 .openPage("/knowledge/articles")
                 .checkHeaderH2("Статьи")
                 .clickOnButton("Опубликовать статью")
-                .enterValue(0,"Тестовое название статьи");
+                .enterValueInInput("Название статьи","Автотестовое название статьи");
         articlePage
                 .selectFirstValueFromDropdown();
         basePage
                 .chooseRadio("Кошки")
-                .enterValueInTextarea("Тестовая аннотация статьи");
+                .enterValueInTextarea("Аннотация статьи", "Автотестовая аннотация статьи");
         articlePage
-                .enterText("Тестовый текст статьи");
+                .enterText("Автотестовый текст статьи");
         //basePage
-                //.uploadFile("Загрузить обложку", "test.jpg");
+                //.uploadFile("Загрузить обложку", "pet_avatar.jpg");
     }
 
     @Test

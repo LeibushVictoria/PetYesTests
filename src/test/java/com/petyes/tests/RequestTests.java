@@ -40,7 +40,7 @@ public class RequestTests extends TestBase {
                 .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
         basePage
                 .openPage("/buy-add")
-                .selectValueFromDropdown("Выберите вид животного", "Собаки")
+                .selectValueFromDropdown("Вид животного", "Собаки")
                 .selectValueFromDropdown("Выберите породу животного", breed);
         requestPage
                 .chooseColor(color);
@@ -60,7 +60,7 @@ public class RequestTests extends TestBase {
                 .chooseOption("Электронный чип", "Нет");
         basePage
                 .clickOnButton("Продолжить")
-                .enterValueInTextarea(comment)
+                .enterValueInTextarea("Добавьте пару слов о том что ищете", comment)
                 .clickOnButton("Опубликовать")
                 .clickOnButton("Перейти к запросу")
                 .checkHeaderH3(breed);
@@ -91,7 +91,7 @@ public class RequestTests extends TestBase {
         basePage
                 .openPage("/buy-add")
                 .chooseRadio("Возьму бесплатно в хорошие руки")
-                .selectValueFromDropdown("Выберите вид животного", "Собаки");
+                .selectValueFromDropdown("Вид животного", "Собаки");
         cityComponent
                 .chooseCity("Санкт-Петербург");
         basePage
@@ -151,7 +151,7 @@ public class RequestTests extends TestBase {
                 .openPage("/buy/" + id)
                 .clickOnButton("Завершить")
                 .chooseRadio("Другое")
-                .enterValueInTextarea("Автотестовая причина завершения")
+                .enterValueInTextarea("Укажите свою причину", "Автотестовая причина завершения")
                 .clickOnButton("Продолжить")
                 .checkGreenMessage();
     }

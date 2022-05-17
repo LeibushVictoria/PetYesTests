@@ -1,6 +1,5 @@
 package com.petyes.tests;
 
-import com.github.javafaker.Faker;
 import com.petyes.api.Login;
 import com.petyes.config.App;
 import com.petyes.pages.AddPetPage;
@@ -25,33 +24,29 @@ public class AddPetTests extends TestBase {
         Login login = new Login();
         AddPetPage addPetPage = new AddPetPage();
         CalendarComponent calendarComponent = new CalendarComponent();
-        Faker faker = new Faker();
-
-        String aboutPet = faker.chuckNorris().fact();
+        SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
 
         Date pastDate = calendarComponent.getPastDate(7);
-        SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
         String date = formater.format(pastDate);
 
         login
                 .loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
         basePage
                 .openPage("/pet/new")
-                .selectValueFromDropdown("Выберите вид животного", "Кошки");
+                .selectValueFromDropdown("Вид животного", "Кошки");
         addPetPage
-                .choosePetBreed("Выберите породу животного", "Абиссинская")
+                .choosePetBreed("Выберите породу животного", 2)
                 .typeValueInInput("nickname", "autoTest");
         basePage
-                .enterValueInTextarea(aboutPet);
+                .enterValueInTextarea("Описание питомца", "Автотестовое описание питомца");
         calendarComponent
-                .chooseDateInCalendar("10");
+                .enterDate("birth", date);
         basePage
-                .selectValueFromDropdown("Выберите окрас", "Белый")
-                .selectValueFromDropdown("Выберите цвет глаз", "Голубые")
+                .selectValueFromDropdown("Окрас", "Белый")
+                .selectValueFromDropdown("Цвет глаз", "Голубые")
                 .chooseCheckbox("Кастрат");
-                //.clickOnButton("Продолжить заполнение");
         addPetPage
-                .uploadAvatarFile(0, "test.jpg")
+                .uploadAvatarFile(0, "pet_avatar.jpg")
                 .clickOnSideBarTab("Регистрационные данные")
                 .typeValueInInput("passport_num", "123")
                 .typeValueInInput("passport_from", "абв");
@@ -69,19 +64,69 @@ public class AddPetTests extends TestBase {
         addPetPage
                 .typeValueInInput("chip_place", "где");
         basePage
-                .selectValueFromDropdown("Выберите орган сертификации", "CFA");
+                .selectValueFromDropdown("Орган сертификации", "CFA");
         addPetPage
                 .typeValueInInput("association[0].identifier", "789")
-                .typeValueInInput("association[0].link", "https://www.test.ru")
-                .uploadFile(2, "pet_certificate.jpg");;
-        //basePage
-                //.clickOnButton("Продолжить заполнение")
-        addPetPage
+                .typeValueInInput("association[0].link", "https://www.association.ru")
+                .uploadFile(2, "pet_certificate.jpg")
                 .clickOnSideBarTab("Фотографии")
-                .uploadPhoto(3, "test.jpg");
+                .uploadPhoto(3, "pet_photo.jpg")
+                .clickOnSideBarTab("Выставки и награды");
         basePage
-                .clickOnButton("Создать");
+                .enterValueInDropdown("Название выставки", "Автотестовая выставка");
+        calendarComponent
+                .enterDate("exposition[0].date_start", date)
+                .enterDate("exposition[0].date_end", date);
         addPetPage
-                .checkPetCreated("autoTest");
+                .typeValueInInput("exposition[0].link", "https://www.exposition.ru");
+        basePage
+                .enterValueInTextarea("Описание выставки", "Автотестовое описание выставки")
+                .clickOnButton("Добавить достижение")
+                .enterValueInDropdown("Вид награды", "Автотестовая награда")
+                .enterValueInInput("Номинация", "Автотестовая номинация");
+        addPetPage
+                .uploadFile(4, "pet_exposition.jpg")
+                .clickOnSideBarTab("Рацион питания");
+        basePage
+                .enterValueInDropdown("Наименование корма", "Автотестовый корм");
+        calendarComponent
+                .enterFoodDate("food[0].date_from", date)
+                .enterDate("food[0].date_to", date);
+        basePage
+                .enterValueInTextarea("Описание рациона", "Автотестовое описание рациона");
+        addPetPage
+                .clickOnSideBarTab("Вакцинация");
+        basePage
+                .enterValueInDropdown("Название вакцины", "Автотестовая вакцина");
+        calendarComponent
+                .enterDate("vaccines[0].date_from", date);
+        basePage
+                .selectValueFromDropdown("Повторная вакцинация", "Не повторять")
+                .enterValueInTextarea("Описание вакцины", "Автотестовое описание вакцины");
+        addPetPage
+                .clickOnSideBarTab("Лечение");
+        basePage
+                .enterValueInInput("Диагноз", "Автотестовый диагноз");
+        calendarComponent
+                .enterDate("cure[0].date_from", date)
+                .enterDate("cure[0].date_from_diagnosis", date);
+        basePage
+                .enterValueInTextarea("Назначенное лечение", "Автотестовое лечение");
+        addPetPage
+                .uploadFile(5, "pet_cure.jpg")
+                .clickOnSideBarTab("Медицинская карта");
+        basePage
+                .selectValueFromDropdown("Группа крови", "Группа A")
+                .enterValueInDropdown("Генетические заболевания", "Автотестовое заболевание");
+        calendarComponent
+                .enterDate("medical_card.pet_measurements[0].date", date);
+        basePage
+                .enterNumberInInput("medical_card.pet_measurements[0].weight", "3")
+                .enterNumberInInput("medical_card.pet_measurements[0].height", "20");
+        addPetPage
+                .clickOnSideBarTab("Вязка");
+        basePage
+                .clickOnButton("Создать")
+                .checkBlockDisplay("autoTest");
     }
 }
