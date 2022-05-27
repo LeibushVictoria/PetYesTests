@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 
 public class ArticlePage {
 
@@ -14,9 +15,15 @@ public class ArticlePage {
     }
 
     @Step("Выбрать категорию")
-    public ArticlePage selectFirstValueFromDropdown() {
+    public ArticlePage selectCategory(String value) {
         $(".as-select__container").click();
-        $(".as-select__option-item", 0).click();
+        $$(".as-select__option-item").findBy(text(value)).click();
+        return this;
+    }
+
+    @Step("Проверить создание статьи")
+    public ArticlePage checkCreateArticles(String value) {
+        $(".as-modal__content").shouldHave(text(value));
         return this;
     }
 

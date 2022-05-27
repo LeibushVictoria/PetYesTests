@@ -10,10 +10,24 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class RequestPage {
 
+    @Step("Выбрать вид животного")
+    public RequestPage selectPetType(String placeholder, String value) {
+        $$(".as-select__container").findBy(text(placeholder)).click();
+        $$(".as-select__dropdown-menu .as-select__option-item").findBy(text(value)).click();
+        return this;
+    }
+
     @Step("Выбрать окрас")
-    public void chooseColor(String color) {
+    public RequestPage chooseColor(String color) {
         $("input[data-vv-name=\"colors\"]").setValue(color);
         $$(".as-select__option-item").findBy(text(color)).shouldBe(visible, Duration.ofSeconds(10)).click();
+        return this;
+    }
+
+    @Step("Ввести комментарий")
+    public RequestPage enterComment(String value) {
+        $(".as-textarea__field").setValue(value);
+        return this;
     }
 
     @Step("Выбрать дополнительный параметр")
@@ -50,6 +64,12 @@ public class RequestPage {
     @Step("Удалить запрос")
     public RequestPage deleteRequest() {
         $(".as-modal__content").$$(".as-button__slot").findBy(text("Удалить")).click();
+        return this;
+    }
+
+    @Step("Ввести причину завершения")
+    public RequestPage enterReason(String value) {
+        $(".as-textarea__field").setValue(value);
         return this;
     }
 

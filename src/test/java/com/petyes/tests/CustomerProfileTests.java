@@ -12,23 +12,26 @@ import org.junit.jupiter.api.Test;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ProfileTests extends TestBase{
+public class CustomerProfileTests extends TestBase {
 
     @Test
-    @DisplayName("Просмотр своего профиля")
-    void viewProfileTest() {
+    @DisplayName("Просмотр покупателем своего профиля")
+    void viewCustomerProfileTest() {
         BasePage basePage = new BasePage();
         Login login = new Login();
 
         String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
         int user_id = login.getUserId(token);
+
+        login
+                .setCookie(token);
         basePage
                 .openPage("/user/" + user_id)
-                .checkHeaderH4("Покупатель Автотест");
+                .checkHeader(4,"Покупатель Автотест");
     }
 
     @Test
-    @DisplayName("Редактирование своего профиля (о себе)")
+    @DisplayName("Редактирование покупателем своего профиля (о себе)")
     void editProfileTest() {
         Faker faker = new Faker();
         BasePage basePage = new BasePage();
@@ -39,10 +42,12 @@ public class ProfileTests extends TestBase{
         String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
         int user_id = login.getUserId(token);
 
+        login
+                .setCookie(token);
         basePage
                 .openPage("/settings/info")
                 .clearTextarea()
-                .enterValueInTextarea("О себе", aboutMe)
+                .enterValueInTextarea("description", aboutMe)
                 .clickOnButton("Сохранить изменения")
                 .checkGreenMessage()
                 .openPage("/user/" + user_id)
@@ -50,7 +55,7 @@ public class ProfileTests extends TestBase{
     }
 
     @Test
-    @DisplayName("Просмотр запросов")
+    @DisplayName("Просмотр покупателем запросов в своем профиле")
     void viewRequestTest() {
         BasePage basePage = new BasePage();
         Request request = new Request();
@@ -64,9 +69,12 @@ public class ProfileTests extends TestBase{
         SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String today = formater.format(dateToday);
 
-        int id = request.createRequestByAPI(token, 13, 0, 20000, false,
-                "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 6,
+        int id = request.createRequestByAPI(token,13, 0, 20000, false,
+                "Санкт-Петербург", "59.939084", "30.315879", 1007, 0,0, 6,
                 false, true, today, 597);
+
+        login
+                .setCookie(token);
         basePage
                 .openPage("/user/" + user_id + "#requests")
                 .checkLink(id);

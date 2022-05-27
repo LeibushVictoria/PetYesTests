@@ -1,6 +1,5 @@
 package com.petyes.api;
 
-import com.petyes.config.App;
 import io.qameta.allure.Step;
 
 import static io.restassured.RestAssured.given;
@@ -8,12 +7,10 @@ import static io.restassured.RestAssured.given;
 public class Auction {
 
     @Step("Создание аукциона по API")
-    public int createAuctionByAPI(String started_at, String finished_at, int start_cost, int availability_type,
+    public int createAuctionByAPI(String token, String started_at, String finished_at, int start_cost, int availability_type,
                                   int blitz_price, boolean auto_renew, boolean is_fixed) {
-        Login login = new Login();
         Pet pet = new Pet();
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
-        int pet_id = pet.createPetByAPI(false, 13, "autoTestAuctionCat", "10.03.2022", 0, 1,597);
+        int pet_id = pet.createPetByAPI(token, false, 13, "autoTestAuctionCat", "10.03.2022", 0, 1,597);
         int id = given()
                 .contentType("multipart/form-data")
                 .header("Authorization", "Bearer " + token)

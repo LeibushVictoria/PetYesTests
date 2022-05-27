@@ -22,18 +22,23 @@ public class AuctionsTests extends TestBase{
         Auction auction = new Auction();
         CityComponent cityComponent = new CityComponent();
         CalendarComponent calendarComponent = new CalendarComponent();
+
         SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-        Date dateTomorrow = calendarComponent.getFutureDate(1);
+        Date dateTomorrow = calendarComponent.getOtherDate(1);
         String tomorrow = formater.format(dateTomorrow);
 
-        Date dateDayAfterTomorrow = calendarComponent.getFutureDate(2);
+        Date dateDayAfterTomorrow = calendarComponent.getOtherDate(2);
         String dayAfterTomorrow = formater.format(dateDayAfterTomorrow);
 
-        int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1,
+        String breederToken = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        int auction_id = auction.createAuctionByAPI(breederToken, tomorrow, dayAfterTomorrow, 10000, 1,
                 20000, false, false);
+
+        String customerToken = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+
         login
-                .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+                .setCookie(customerToken);
         basePage
                 .openPage("/auctions");
         cityComponent
@@ -49,7 +54,7 @@ public class AuctionsTests extends TestBase{
                 .openFilter("Животные")
                 .chooseRadio("Кошки")
                 .openFilter("Порода")
-                .selectValueFromDropdownInFilter("Выберите породу", "Бамбино")
+                .selectValueInDropdownInFilter("Выберите породу", "Бамбино")
                 .openFilter("Ценовой диапазон, ₽")
                 .enterValueByKeys(2, "9999")
                 .enterValueByKeys(3, "10001")
@@ -72,23 +77,28 @@ public class AuctionsTests extends TestBase{
         CalendarComponent calendarComponent = new CalendarComponent();
         SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-        Date dateTomorrow = calendarComponent.getFutureDate(1);
+        Date dateTomorrow = calendarComponent.getOtherDate(1);
         String tomorrow = formater.format(dateTomorrow);
 
-        Date dateDayAfterTomorrow = calendarComponent.getFutureDate(2);
+        Date dateDayAfterTomorrow = calendarComponent.getOtherDate(2);
         String dayAfterTomorrow = formater.format(dateDayAfterTomorrow);
 
-        int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1,
+        String breederToken = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        int auction_id = auction.createAuctionByAPI(breederToken, tomorrow, dayAfterTomorrow, 10000, 1,
                 20000, false, false);
+
+        String customerToken = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+
         login
-                .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+                .setCookie(customerToken);
         basePage
                 .openPage("/auction/" + auction_id)
-                .checkHeaderH3("Абиссинская")
+                .checkBlockDisplay("Характеристики")
                 .checkBlockDisplay("Подать заявку на участие")
                 .checkBlockDisplay("Продавец Автотест");
     }
 
+    //bug
     @Test
     @DisplayName("Подать заявку на участие в аукционе")
     void auctionApplicationTest() {
@@ -98,16 +108,20 @@ public class AuctionsTests extends TestBase{
         CalendarComponent calendarComponent = new CalendarComponent();
         SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-        Date dateTomorrow = calendarComponent.getFutureDate(1);
+        Date dateTomorrow = calendarComponent.getOtherDate(1);
         String tomorrow = formater.format(dateTomorrow);
 
-        Date dateDayAfterTomorrow = calendarComponent.getFutureDate(2);
+        Date dateDayAfterTomorrow = calendarComponent.getOtherDate(2);
         String dayAfterTomorrow = formater.format(dateDayAfterTomorrow);
 
-        int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1,
+        String breederToken = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        int auction_id = auction.createAuctionByAPI(breederToken, tomorrow, dayAfterTomorrow, 10000, 1,
                 20000, false, false);
+
+        String customerToken = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+
         login
-                .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+                .setCookie(customerToken);
         basePage
                 .openPage("/auction/" + auction_id)
                 .clickOnButton("Подать заявку на участие")

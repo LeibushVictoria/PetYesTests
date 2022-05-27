@@ -10,28 +10,33 @@ import org.junit.jupiter.api.Test;
 public class BlogTests extends TestBase {
 
     @Test
-    @DisplayName("Опубликовать статью")
+    @DisplayName("Создать статью")
     void createArticleTest() {
         BasePage basePage = new BasePage();
         Login login = new Login();
         ArticlePage articlePage = new ArticlePage();
 
+        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+
         login
-                .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+                .setCookie(token);
         basePage
-                .openPage("/knowledge/articles")
-                .checkHeaderH2("Статьи")
-                .clickOnButton("Опубликовать статью")
-                .enterValueInInput("Название статьи","Автотестовое название статьи");
+                .openPage("/knowledge/article/new")
+                .uploadFile(0, "pet_avatar.jpg")
+                .enterValueInInput("name","Автотестовое название статьи");
         articlePage
-                .selectFirstValueFromDropdown();
+                .selectCategory("autotest");
         basePage
                 .chooseRadio("Кошки")
-                .enterValueInTextarea("Аннотация статьи", "Автотестовая аннотация статьи");
+                .enterValueInTextarea("annotation", "Автотестовая аннотация статьи");
         articlePage
                 .enterText("Автотестовый текст статьи");
-        //basePage
-                //.uploadFile("Загрузить обложку", "pet_avatar.jpg");
+        basePage
+                .clickOnButton("Опубликовать")
+                .clickOnButton("Смотреть все статьи");
+        articlePage
+                .checkCreateArticles("Статья успешно создана")
+                .checkCreateArticles("Смотреть все статьи");
     }
 
     @Test
@@ -41,28 +46,18 @@ public class BlogTests extends TestBase {
         Login login = new Login();
         ArticlePage articlePage = new ArticlePage();
 
+        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+
         login
-                .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+                .setCookie(token);
         basePage
                 .openPage("/knowledge/articles")
                 .chooseRadio("Кошки")
                 .openFilter("Категория")
-                .chooseCheckbox("тест1");
+                .chooseCheckbox("autotest");
         basePage
                 .clickOnButton("Показать");
         articlePage
-                .checkResult("Лылуто");
-    }
-
-    @Test
-    @DisplayName("Просмотр статьи")
-    void viewArticleTest() {
-        BasePage basePage = new BasePage();
-        Login login = new Login();
-        ArticlePage articlePage = new ArticlePage();
-
-        login
-                .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
-
+                .checkResult("Автотестовое название статьи");
     }
 }

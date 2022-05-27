@@ -1,9 +1,10 @@
-package models;
+package com.petyes.models;
 
 import io.qameta.allure.internal.shadowed.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 @Data
@@ -14,10 +15,10 @@ public class RequestData {
     private int price_min;
     private int price_max;
     private boolean important_price;
-    private CityData cities;
+    private ArrayList<CityData> cities;
     private Set<Integer> colors;
-    private String sex;
-    private AgeRangeData age_range;
+    private int sex;
+    private ArrayList<AgeRangeData> age_range;
     private boolean buy_for_free;
     private boolean is_not_for_breeding;
     private boolean views;

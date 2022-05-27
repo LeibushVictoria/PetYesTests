@@ -27,6 +27,7 @@ public class RequestTests extends TestBase {
         RequestPage requestPage = new RequestPage();
         CityComponent cityComponent = new CityComponent();
 
+        String petType = "Собаки";
         String breed = "Австралийский келпи";
         String color = "Черный";
         String sex = "Самец";
@@ -36,14 +37,18 @@ public class RequestTests extends TestBase {
         String city = "Санкт-Петербург";
         String comment = "Автотестовый комментарий";
 
+        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+
         login
-                .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+                .setCookie(token);
         basePage
-                .openPage("/buy-add")
-                .selectValueFromDropdown("Вид животного", "Собаки")
-                .selectValueFromDropdown("Выберите породу животного", breed);
+                .openPage("/buy-add");
         requestPage
-                .chooseColor(color);
+                .selectPetType("Выберите вид животного", petType);
+        basePage
+                .enterValueInDropdown("breed", breed);
+        requestPage
+                .chooseColor(color); //заменить
         basePage
                 .chooseRadio(sex)
                 .chooseCheckbox(age)
@@ -59,11 +64,13 @@ public class RequestTests extends TestBase {
                 .chooseOption("Кастрация/стерилизация", "Нет")
                 .chooseOption("Электронный чип", "Нет");
         basePage
-                .clickOnButton("Продолжить")
-                .enterValueInTextarea("Добавьте пару слов о том что ищете", comment)
+                .clickOnButton("Продолжить");
+        requestPage
+                .enterComment(comment);
+        basePage
                 .clickOnButton("Опубликовать")
                 .clickOnButton("Перейти к запросу")
-                .checkHeaderH3(breed);
+                .checkHeader(3, breed);
         requestPage
                 .checkPrice(priceFrom + " - " + priceTo + " ₽")
                 .checkTag("Не для разведения")
@@ -84,14 +91,18 @@ public class RequestTests extends TestBase {
     void createFreeRequestTest() {
         BasePage basePage = new BasePage();
         Login login = new Login();
+        RequestPage requestPage = new RequestPage();
         CityComponent cityComponent = new CityComponent();
 
+        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+
         login
-                .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+                .setCookie(token);
         basePage
                 .openPage("/buy-add")
-                .chooseRadio("Возьму бесплатно в хорошие руки")
-                .selectValueFromDropdown("Вид животного", "Собаки");
+                .chooseRadio("Возьму бесплатно в хорошие руки");
+        requestPage
+                .selectPetType("Выберите вид животного", "Собаки");
         cityComponent
                 .chooseCity("Санкт-Петербург");
         basePage
@@ -99,7 +110,44 @@ public class RequestTests extends TestBase {
                 .clickOnButton("Продолжить")
                 .clickOnButton("Опубликовать")
                 .clickOnButton("Перейти к запросу")
-                .checkHeaderH3("Собаки");
+                .checkHeader(3,"Собаки");
+    }
+
+    @Test
+    @DisplayName("Редактирование запроса на питомца (цена)")
+    void editRequestTest() {
+        BasePage basePage = new BasePage();
+        Request request = new Request();
+        CalendarComponent calendarComponent = new CalendarComponent();
+        Login login = new Login();
+        RequestPage requestPage = new RequestPage();
+
+        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+
+        Date dateToday = calendarComponent.getTodayDate();
+        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String today = formater.format(dateToday);
+
+        int id = request.createRequestByAPI(token, 13, 0, 20000, false,
+                "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 0, 6,
+                false, true, today, 597);
+
+        String priceFrom = "10 000";
+        String priceTo = "30 000";
+
+        login
+                .setCookie(token);
+        basePage
+                .openPage("/buy/" + id)
+                .clickOnButton("Редактировать")
+                .enterValueByKeys(0, priceFrom)
+                .enterValueByKeys(1, priceTo)
+                .clickOnButton("Продолжить")
+                .clickOnButton("Продолжить")
+                .clickOnButton("Сохранить")
+                .checkGreenMessage();
+        requestPage
+                .checkPrice(priceFrom + " - " + priceTo + " ₽");
     }
 
     @Test
@@ -119,8 +167,11 @@ public class RequestTests extends TestBase {
         String today = formater.format(dateToday);
 
         int id = request.createRequestByAPI(token, 13, 0, 20000, false,
-                "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 6,
+                "Санкт-Петербург", "59.939084", "30.315879", 1007, 0,0, 6,
                 false, true, today, 597);
+
+        login
+                .setCookie(token);
         basePage
                 .openPage("/buy/" + id)
                 .clickOnButton("Удалить");
@@ -137,6 +188,7 @@ public class RequestTests extends TestBase {
         Request request = new Request();
         CalendarComponent calendarComponent = new CalendarComponent();
         Login login = new Login();
+        RequestPage requestPage = new RequestPage();
 
         String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
 
@@ -145,13 +197,18 @@ public class RequestTests extends TestBase {
         String today = formater.format(dateToday);
 
         int id = request.createRequestByAPI(token, 13, 0, 20000, false,
-                "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 6,
+                "Санкт-Петербург", "59.939084", "30.315879", 1007, 0,0, 6,
                 false, true, today, 597);
+
+        login
+                .setCookie(token);
         basePage
                 .openPage("/buy/" + id)
                 .clickOnButton("Завершить")
-                .chooseRadio("Другое")
-                .enterValueInTextarea("Укажите свою причину", "Автотестовая причина завершения")
+                .chooseRadio("Другое");
+        requestPage
+                .enterReason("Автотестовая причина завершения");
+        basePage
                 .clickOnButton("Продолжить")
                 .checkGreenMessage();
     }

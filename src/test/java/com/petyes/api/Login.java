@@ -1,7 +1,7 @@
 package com.petyes.api;
 
 import io.qameta.allure.Step;
-import models.LoginData;
+import com.petyes.models.LoginData;
 import org.openqa.selenium.Cookie;
 
 import java.util.Map;
@@ -27,18 +27,13 @@ public class Login {
                 .then()
                 .statusCode(200)
                 .extract().as(LoginData.class).getToken();
-
-        given()
-                .header("Authorization", "Bearer " + token)
-                .when()
-                .get("https://leibush.pet-no.com/api/user")
-                .then()
-                .statusCode(200);
-
-        open("/_nuxt/img/ic_heart.78eb8bf.svg");
-        getWebDriver().manage().addCookie(
-                new Cookie("auth._token.local", token));
         return token;
+    }
+
+    @Step("Установить куку в браузере")
+    public void setCookie(String token) {
+        open("/_nuxt/img/ic_heart.78eb8bf.svg");
+        getWebDriver().manage().addCookie(new Cookie("auth._token.local", token));
     }
 
     @Step("Получить id авторизованного юзера")

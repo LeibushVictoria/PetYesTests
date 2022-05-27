@@ -18,12 +18,15 @@ public class BreedersTests extends TestBase {
     void createRequestTest() {
         BasePage basePage = new BasePage();
         Login login = new Login();
+
+        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+
         login
-                .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+                .setCookie(token);
         basePage
                 .openPage("/breeders")
                 .clickOnButton("Найти питомца")
-                .checkHeaderH2("Создание запроса на подбор животного");
+                .checkHeader(2, "Создание запроса на подбор животного");
     }
 
     @Test
@@ -32,14 +35,17 @@ public class BreedersTests extends TestBase {
         BasePage basePage = new BasePage();
         Login login = new Login();
         BreedersPage breedersPage = new BreedersPage();
+
+        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+
         login
-                .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+                .setCookie(token);
         basePage
                 .openPage("/breeders");
         breedersPage
                 .openBreederPage("Продавец Автотест");
         basePage
-                .checkHeaderH5("Привет, я Продавец Автотест");
+                .checkHeader(5,"Привет, я Продавец Автотест");
     }
 
     @Test
@@ -48,8 +54,11 @@ public class BreedersTests extends TestBase {
         BasePage basePage = new BasePage();
         Login login = new Login();
         BreedersPage breedersPage = new BreedersPage();
+
+        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+
         login
-                .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+                .setCookie(token);
         basePage
                 .openPage("/breeders");
         breedersPage
@@ -72,15 +81,17 @@ public class BreedersTests extends TestBase {
         Login login = new Login();
         CityComponent cityComponent = new CityComponent();
 
+        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+
         login
-                .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+                .setCookie(token);
         basePage
                 .openPage("/breeders");
         cityComponent
                 .chooseCity("Санкт-Петербург");
         basePage
                 .chooseRadio("Кошки")
-                .selectValueFromDropdownInFilter("Выберите породу", "Абиссинская")
+                .selectValueInDropdownInFilter("Выберите породу", "Абиссинская")
                 .clickOnButton("Показать")
                 .checkResult("Продавец Автотест");
     }

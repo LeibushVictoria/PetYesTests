@@ -18,8 +18,10 @@ public class KnowledgeTests extends TestBase {
         Login login = new Login();
         KnowledgePage knowledgePage = new KnowledgePage();
 
+        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+
         login
-                .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+                .setCookie(token);
         basePage
                 .openPage("/knowledge")
                 .clickOnButton("Подобрать породу");
@@ -47,11 +49,12 @@ public class KnowledgeTests extends TestBase {
                 .chooseBubble("Ласковый питомец");
         basePage
                 .clickOnButton("Завершить")
-                .checkHeaderH2("Вам подходят следующие породы");
+                .checkHeader(2,"Вам подходят следующие породы");
         knowledgePage
                 .checkBreedsDisplay("Бенгальская");
     }
 
+    //bug
     @Test
     @DisplayName("Сравнить породы")
     void compareBreedsTest() {
@@ -59,8 +62,10 @@ public class KnowledgeTests extends TestBase {
         Login login = new Login();
         KnowledgePage knowledgePage = new KnowledgePage();
 
+        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+
         login
-                .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+                .setCookie(token);
         basePage
                 .openPage("/knowledge/breeds");
         knowledgePage
@@ -79,8 +84,10 @@ public class KnowledgeTests extends TestBase {
         Login login = new Login();
         KnowledgePage knowledgePage = new KnowledgePage();
 
+        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+
         login
-                .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+                .setCookie(token);
         basePage
                 .openPage("/knowledge/breeds")
                 .chooseRadio("Кошки")
@@ -105,14 +112,16 @@ public class KnowledgeTests extends TestBase {
         Login login = new Login();
         KnowledgePage knowledgePage = new KnowledgePage();
 
+        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+
         login
-                .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+                .setCookie(token);
         basePage
                 .openPage("/knowledge/breeds");
         knowledgePage
                 .clickOnRequestButton("Абиссинская");
         basePage
-                .checkHeaderH2("Создание запроса на подбор животного");
+                .checkHeader(2,"Создание запроса на подбор животного");
     }
 
     @Test
@@ -122,15 +131,17 @@ public class KnowledgeTests extends TestBase {
         Login login = new Login();
         KnowledgePage knowledgePage = new KnowledgePage();
 
+        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+
         login
-                .loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+                .setCookie(token);
         basePage
                 .openPage("/knowledge/breeds");
         knowledgePage
                 .openBreed("Абиссинская");
         basePage
-                .checkHeaderH2("Абиссинская")
+                .checkHeader(2,"Абиссинская")
                 .clickOnButton("Полная информация")
-                .checkHeaderH3("Подробные данные");
+                .checkHeader(3,"Подробные данные");
     }
 }
