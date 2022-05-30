@@ -4,8 +4,7 @@ import io.qameta.allure.Step;
 
 import java.time.Duration;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class RequestPage {
@@ -70,6 +69,12 @@ public class RequestPage {
     @Step("Ввести причину завершения")
     public RequestPage enterReason(String value) {
         $(".as-textarea__field").setValue(value);
+        return this;
+    }
+
+    @Step("Проверить отображение объявления")
+    public RequestPage checkSaleOffer(int index, int id) {
+        $(".as-card__body", index).$("a[href=\"/sale/"+id+"\"]").should(exist);
         return this;
     }
 

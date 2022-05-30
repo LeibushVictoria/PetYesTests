@@ -6,8 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.Keys;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class BasePage {
@@ -137,7 +136,7 @@ public class BasePage {
 
     @Step("Проверить наличие ссылки по id")
     public BasePage checkLink(int id) {
-        $(".a[href*=\""+id+"\"]").exists();
+        $("a[href*=\""+id+"\"]").should(exist);
         return this;
     }
 }

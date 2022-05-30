@@ -10,7 +10,7 @@ public class Auction {
     public int createAuctionByAPI(String token, String started_at, String finished_at, int start_cost, int availability_type,
                                   int blitz_price, boolean auto_renew, boolean is_fixed) {
         Pet pet = new Pet();
-        int pet_id = pet.createPetByAPI(token, false, 13, "autoTestAuctionCat", "10.03.2022", 0, 1,597);
+        int pet_id = pet.createPetByAPI(token, false, 13, "autoTestAuctionCat", "10.03.2022", 0, 1007, 1,597);
         int id = given()
                 .contentType("multipart/form-data")
                 .header("Authorization", "Bearer " + token)

@@ -70,7 +70,7 @@ public class BreederProfileTests extends TestBase {
         SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
         String birth = formater.format(dateBirth);
 
-        int pet_id = pet.createPetByAPI(token, false, 13, "autoTestCat", birth, 0, 1,597);
+        int pet_id = pet.createPetByAPI(token, false, 13, "autoTestCat", birth, 0, 1007, 1,597);
         int sell_id = pet.sellPetByAPI(token, false, false, true, 10000, pet_id);
 
         login

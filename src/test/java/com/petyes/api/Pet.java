@@ -8,7 +8,7 @@ import static io.restassured.RestAssured.given;
 public class Pet {
 
     @Step("Создание питомца по API")
-    public int createPetByAPI(String token, boolean avatar_id, int specialization_id, String nickname, String birth, int sex, int is_neutered, int breed) {
+    public int createPetByAPI(String token, boolean avatar_id, int specialization_id, String nickname, String birth, int sex, int color, int is_neutered, int breed) {
         int id = given()
                 .contentType("multipart/form-data")
                 .header("Authorization", "Bearer " + token)
@@ -17,6 +17,7 @@ public class Pet {
                 .multiPart("nickname", nickname)
                 .multiPart("birth", birth)
                 .multiPart("sex", sex)
+                .multiPart("color", color)
                 .multiPart("is_neutered", is_neutered)
                 .multiPart("breed", breed)
                 .when()

@@ -6,7 +6,6 @@ import com.petyes.models.CityData;
 import com.petyes.models.RequestData;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import static io.restassured.RestAssured.given;
 
@@ -14,7 +13,7 @@ public class Request {
 
     @Step("Создание запроса по API")
     public int createRequestByAPI(String token, int specialization_id, int price_min, int price_max, boolean important_price,
-                                  String address, String coordinate_lat, String coordinate_lng, int colors, int sex, int date_from, int date_to,
+                                  String address, String coordinate_lat, String coordinate_lng, int color, int sex, int date_from, int date_to,
                                   boolean buy_for_free, boolean is_not_for_breeding, String get_date, int breed_id) {
         CityData cityData = CityData.builder()
                 .address(address)
@@ -29,13 +28,15 @@ public class Request {
                 .build();
         ArrayList<AgeRangeData> ageRange = new ArrayList<>();
         ageRange.add(ageRangeData);
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(color);
         RequestData requestData = RequestData.builder()
                 .specialization_id(specialization_id)
                 .price_min(price_min)
                 .price_max(price_max)
                 .important_price(important_price)
                 .cities(cities)
-                .colors(Collections.singleton(colors))
+                .colors(colors)
                 .sex(sex)
                 .age_range(ageRange)
                 .buy_for_free(buy_for_free)

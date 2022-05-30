@@ -16,7 +16,7 @@ public class RequestData {
     private int price_max;
     private boolean important_price;
     private ArrayList<CityData> cities;
-    private Set<Integer> colors;
+    private ArrayList<Integer> colors;
     private int sex;
     private ArrayList<AgeRangeData> age_range;
     private boolean buy_for_free;
