@@ -1,13 +1,12 @@
 package com.petyes.pages;
 
-import com.petyes.models.LoginData;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Cookie;
 import org.openqa.selenium.Keys;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.WebDriverRunner.url;
 
 public class BasePage {
 
@@ -15,6 +14,13 @@ public class BasePage {
     public BasePage openPage(String url) {
         open(url);
         return this;
+    }
+
+    @Step("Получить id из урла")
+    public int getIdFromUrl() {
+        String url = url();
+        int id = Integer.parseInt(url.substring(url.lastIndexOf("/") + 1));
+        return id;
     }
 
     @Step("Нажать на Кнопку")
@@ -43,7 +49,7 @@ public class BasePage {
 
     @Step("Ввести значение в поле")
     public BasePage enterValueInInput(String fieldName, String value) {
-        $(By.name(fieldName)).setValue(value);
+        $("input[data-vv-name=\"" + fieldName +"\"]").setValue(value);
         return this;
     }
 
@@ -92,7 +98,7 @@ public class BasePage {
 
     @Step("Ввести текст в textarea")
     public BasePage enterValueInTextarea(String textareaName, String value) {
-        $("textarea[class~=\"as-textarea__field\"][name=\"" + textareaName +"\"]").setValue(value);
+        $("textarea[data-vv-name=\"" + textareaName +"\"]").setValue(value);
         return this;
     }
 

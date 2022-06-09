@@ -32,6 +32,7 @@ public class AuctionsTests extends TestBase{
         String dayAfterTomorrow = formater.format(dateDayAfterTomorrow);
 
         String breederToken = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+
         int auction_id = auction.createAuctionByAPI(breederToken, tomorrow, dayAfterTomorrow, 10000, 1,
                 20000, false, false);
 
@@ -66,6 +67,8 @@ public class AuctionsTests extends TestBase{
                 .chooseCheckbox("Кастрация/стерилизация")
                 .clickOnButton("Показать")
                 .checkLink(auction_id);
+
+        auction.deleteAuctionByAPI(breederToken, auction_id);
     }
 
     @Test
@@ -84,6 +87,7 @@ public class AuctionsTests extends TestBase{
         String dayAfterTomorrow = formater.format(dateDayAfterTomorrow);
 
         String breederToken = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+
         int auction_id = auction.createAuctionByAPI(breederToken, tomorrow, dayAfterTomorrow, 10000, 1,
                 20000, false, false);
 
@@ -96,6 +100,8 @@ public class AuctionsTests extends TestBase{
                 .checkBlockDisplay("Характеристики")
                 .checkBlockDisplay("Подать заявку на участие")
                 .checkBlockDisplay("Продавец Автотест");
+
+        auction.deleteAuctionByAPI(breederToken, auction_id);
     }
 
     //bug
@@ -115,6 +121,7 @@ public class AuctionsTests extends TestBase{
         String dayAfterTomorrow = formater.format(dateDayAfterTomorrow);
 
         String breederToken = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+
         int auction_id = auction.createAuctionByAPI(breederToken, tomorrow, dayAfterTomorrow, 10000, 1,
                 20000, false, false);
 
@@ -127,5 +134,7 @@ public class AuctionsTests extends TestBase{
                 .clickOnButton("Подать заявку на участие")
                 .clickOnButton("Да, подать")
                 .checkBlockDisplay("Отменить заявку на участие");
+
+        auction.deleteAuctionByAPI(breederToken, auction_id);
     }
 }

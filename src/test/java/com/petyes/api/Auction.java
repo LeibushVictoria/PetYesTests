@@ -1,5 +1,6 @@
 package com.petyes.api;
 
+import com.petyes.models.PetData;
 import io.qameta.allure.Step;
 
 import static io.restassured.RestAssured.given;
@@ -31,5 +32,20 @@ public class Auction {
                 .extract()
                 .body().jsonPath().getJsonObject("id");
         return id;
+    }
+
+    @Step("Удаление аукциона по API")
+    public void deleteAuctionByAPI(String token, int id) {
+        PetData petData = PetData.builder()
+                .auction_id(id)
+                .build();
+        given()
+                .contentType("application/json;charset=UTF-8")
+                .header("Authorization", "Bearer " + token)
+                .body(petData)
+                .when()
+                .delete("https://leibush.pet-no.com/api/auction/delete")
+                .then()
+                .statusCode(200);
     }
 }

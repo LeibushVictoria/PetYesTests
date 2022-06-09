@@ -1,6 +1,7 @@
 package com.petyes.tests;
 
 import com.petyes.api.Login;
+import com.petyes.api.Pet;
 import com.petyes.config.App;
 import com.petyes.pages.AddPetPage;
 import com.petyes.pages.BasePage;
@@ -25,6 +26,7 @@ public class AddPetTests extends TestBase {
         Login login = new Login();
         AddPetPage addPetPage = new AddPetPage();
         CalendarComponent calendarComponent = new CalendarComponent();
+        Pet pet = new Pet();
         SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
         Locale locale = new Locale("ru");
         SimpleDateFormat birthFormater = new SimpleDateFormat("d" + "-е " + "MMMM yyyy", locale);
@@ -102,6 +104,7 @@ public class AddPetTests extends TestBase {
                 .uploadAvatarFile(0, avatarFile)
                 .clickOnSideBarTab("Регистрационные данные");
         basePage
+                .clickOnButton("Продолжить заполнение")
                 .enterValueInInput("passport_num", passportNum)
                 .enterValueInInput("passport_from", passportFrom);
         calendarComponent
@@ -144,7 +147,7 @@ public class AddPetTests extends TestBase {
         basePage
                 .enterValueInDropdown("food[0].feed", foodName);
         calendarComponent
-                .enterFoodDate("food[0].date_from", date)
+                .enterDate("food[0].date_from", date)
                 .enterDate("food[0].date_to", date);
         basePage
                 .enterValueInTextarea("food[0].description", foodDescription);
@@ -158,13 +161,15 @@ public class AddPetTests extends TestBase {
                 .selectValueInDropdown("vaccines[0].recurrence_rule", vaccinesRepeat)
                 .enterValueInTextarea("vaccines[0].description", vaccinesDescription);
         addPetPage
-                .clickOnSideBarTab("Лечение")
-                .enterDiagnosis(diagnosis); //заменить
+                .clickOnSideBarTab("Лечение");
+        basePage
+                .enterValueInInput("cure[0].diagnosis", diagnosis);
         calendarComponent
                 .enterDate("cure[0].date_from", date)
                 .enterDate("cure[0].date_from_diagnosis", date);
+        basePage
+                .enterValueInTextarea("cure[0].prescription", cure);
         addPetPage
-                .enterCure(cure) //заменить
                 .uploadFile(5, cureFile)
                 .clickOnSideBarTab("Медицинская карта")
                 .enterBloodGroup("Группа крови", bloodType); //заменить
@@ -229,5 +234,8 @@ public class AddPetTests extends TestBase {
                 .checkPetMedicalCard(dateOut)
                 .checkPetMedicalCard(weight + " кг")
                 .checkPetMedicalCard(height + " см");
+
+        int pet_id = basePage.getIdFromUrl();
+        pet.deletePetByAPI(token, pet_id);
     }
 }

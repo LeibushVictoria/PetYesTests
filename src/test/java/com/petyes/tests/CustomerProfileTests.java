@@ -69,7 +69,7 @@ public class CustomerProfileTests extends TestBase {
         SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String today = formater.format(dateToday);
 
-        int id = request.createRequestByAPI(token,13, 0, 20000, false,
+        int request_id = request.createRequestByAPI(token,13, 0, 20000, false,
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0,0, 6,
                 false, true, today, 597);
 
@@ -77,6 +77,8 @@ public class CustomerProfileTests extends TestBase {
                 .setCookie(token);
         basePage
                 .openPage("/user/" + user_id + "#requests")
-                .checkLink(id);
+                .checkLink(request_id);
+
+        request.deleteRequestByAPI(token, request_id);
     }
 }

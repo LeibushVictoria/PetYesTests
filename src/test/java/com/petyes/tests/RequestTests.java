@@ -27,6 +27,7 @@ public class RequestTests extends TestBase {
         Login login = new Login();
         RequestPage requestPage = new RequestPage();
         CityComponent cityComponent = new CityComponent();
+        Request request = new Request();
 
         String petType = "Собаки";
         String breed = "Австралийский келпи";
@@ -85,6 +86,10 @@ public class RequestTests extends TestBase {
                 .checkResults(7, "Электронный чип", "Нет")
                 .checkResults(8, "Удобно забрать", city)
                 .checkComment(comment);
+
+        int request_id = basePage.getIdFromUrl();
+        request.deleteRequestByAPI(token, request_id);
+
     }
 
     @Test
@@ -94,6 +99,7 @@ public class RequestTests extends TestBase {
         Login login = new Login();
         RequestPage requestPage = new RequestPage();
         CityComponent cityComponent = new CityComponent();
+        Request request = new Request();
 
         String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
 
@@ -112,6 +118,9 @@ public class RequestTests extends TestBase {
                 .clickOnButton("Опубликовать")
                 .clickOnButton("Перейти к запросу")
                 .checkHeader(3,"Собаки");
+
+        int request_id = basePage.getIdFromUrl();
+        request.deleteRequestByAPI(token, request_id);
     }
 
     @Test
@@ -129,7 +138,7 @@ public class RequestTests extends TestBase {
         SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String today = formater.format(dateToday);
 
-        int id = request.createRequestByAPI(token, 13, 0, 20000, false,
+        int request_id = request.createRequestByAPI(token, 13, 0, 20000, false,
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 0, 6,
                 false, true, today, 597);
 
@@ -139,7 +148,7 @@ public class RequestTests extends TestBase {
         login
                 .setCookie(token);
         basePage
-                .openPage("/buy/" + id)
+                .openPage("/buy/" + request_id)
                 .clickOnButton("Редактировать")
                 .enterValueByKeys(0, priceFrom)
                 .enterValueByKeys(1, priceTo)
@@ -149,6 +158,8 @@ public class RequestTests extends TestBase {
                 .checkGreenMessage();
         requestPage
                 .checkPrice(priceFrom + " - " + priceTo + " ₽");
+
+        request.deleteRequestByAPI(token, request_id);
     }
 
     //bug
@@ -188,6 +199,10 @@ public class RequestTests extends TestBase {
                 .clickOnButton("Смотреть предложения");
         requestPage
                 .checkSaleOffer(0, sell_id);
+
+        pet.cancelSellPetByAPI(breederToken, sell_id);
+        pet.deletePetByAPI(breederToken, pet_id);
+        request.deleteRequestByAPI(customerToken, request_id);
     }
 
     @Test
@@ -226,6 +241,10 @@ public class RequestTests extends TestBase {
                 .clickOnButton("Смотреть предложения");
         requestPage
                 .checkSaleOffer(1, sell_id);
+
+        pet.cancelSellPetByAPI(breederToken, sell_id);
+        pet.deletePetByAPI(breederToken, pet_id);
+        request.deleteRequestByAPI(customerToken, request_id);
     }
 
     @Test
@@ -274,14 +293,14 @@ public class RequestTests extends TestBase {
         SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String today = formater.format(dateToday);
 
-        int id = request.createRequestByAPI(token, 13, 0, 20000, false,
+        int request_id = request.createRequestByAPI(token, 13, 0, 20000, false,
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0,0, 6,
                 false, true, today, 597);
 
         login
                 .setCookie(token);
         basePage
-                .openPage("/buy/" + id)
+                .openPage("/buy/" + request_id)
                 .clickOnButton("Завершить")
                 .chooseRadio("Другое");
         requestPage
@@ -289,5 +308,7 @@ public class RequestTests extends TestBase {
         basePage
                 .clickOnButton("Продолжить")
                 .checkGreenMessage();
+
+        request.deleteRequestByAPI(token, request_id);
     }
 }

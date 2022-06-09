@@ -29,6 +29,21 @@ public class Pet {
         return id;
     }
 
+    @Step("Удаление питомца по API")
+    public void deletePetByAPI(String token, int id) {
+        PetData petData = PetData.builder()
+                .pet_id(id)
+                .build();
+        given()
+                .contentType("application/json;charset=UTF-8")
+                .header("Authorization", "Bearer " + token)
+                .body(petData)
+                .when()
+                .post("https://leibush.pet-no.com/api/pet/remove")
+                .then()
+                .statusCode(200);
+    }
+
     @Step("Продать питомца по API")
     public int sellPetByAPI(String token, boolean deliverable, boolean sell_for_free, boolean is_not_for_breeding, int not_for_breeding_price, int pet_id) {
         PetData petData = PetData.builder()
@@ -49,5 +64,20 @@ public class Pet {
                 .extract()
                 .body().jsonPath().getJsonObject("id");
         return id;
+    }
+
+    @Step("Снять питомца с продажи по API")
+    public void cancelSellPetByAPI(String token, int pet_id) {
+        PetData petData = PetData.builder()
+                .pet_id(pet_id)
+                .build();
+        given()
+                .contentType("application/json;charset=UTF-8")
+                .header("Authorization", "Bearer " + token)
+                .body(petData)
+                .when()
+                .post("https://leibush.pet-no.com/api/pet/sell_request/remove")
+                .then()
+                .statusCode(200);
     }
 }

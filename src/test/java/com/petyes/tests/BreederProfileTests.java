@@ -78,6 +78,9 @@ public class BreederProfileTests extends TestBase {
         basePage
                 .openPage("/user/" + user_id + "#sales")
                 .checkLink(sell_id);
+
+        pet.cancelSellPetByAPI(token, sell_id);
+        pet.deletePetByAPI(token, pet_id);
     }
 
     @Test
@@ -106,5 +109,7 @@ public class BreederProfileTests extends TestBase {
         basePage
                 .openPage("/user/" + user_id + "#auctions")
                 .checkLink(auction_id);
+
+        auction.deleteAuctionByAPI(token, auction_id);
     }
 }

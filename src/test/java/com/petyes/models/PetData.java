@@ -13,4 +13,5 @@ public class PetData {
     private boolean is_not_for_breeding;
     private int not_for_breeding_price;
     private int pet_id;
+    private int auction_id;
 }

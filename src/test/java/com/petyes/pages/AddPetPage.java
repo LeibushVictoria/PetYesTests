@@ -38,32 +38,20 @@ public class AddPetPage {
     @Step("Загрузить файл")
     public AddPetPage uploadFile(int id, String fileName) {
         $("input[type=\"file\"", id).uploadFromClasspath(fileName);
-        $(".file-picker__files").exists();
+        $(".file-picker__files").should(exist);
         return this;
     }
 
     @Step("Загрузить фото питомца")
     public AddPetPage uploadPhoto(int id, String fileName) {
         $("input[type=\"file\"", id).uploadFromClasspath(fileName);
-        $(".images-upload__image").exists();
+        $(".images-upload__image").should(exist);
         return this;
     }
 
     @Step("Ввести описание выставки")
     public AddPetPage enterExpositionDescription(String textareaName, String value) {
-        $$(".as-form-item").findBy(text(textareaName)).$(".as-textarea__field").setValue(value);
-        return this;
-    }
-
-    @Step("Ввести диагноз")
-    public AddPetPage enterDiagnosis(String value) {
-        $("input[data-vv-name=\"cure[0].diagnosis\"").setValue(value);
-        return this;
-    }
-
-    @Step("Ввести назначенное лечение")
-    public AddPetPage enterCure(String value) {
-        $("textarea[class~=\"as-textarea__field\"][data-vv-name=\"cure[0].prescription\"]").setValue(value);
+        $("textarea[aria-placeholder=\"" + textareaName + "\"").setValue(value);
         return this;
     }
 

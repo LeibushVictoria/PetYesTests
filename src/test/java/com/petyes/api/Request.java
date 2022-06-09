@@ -56,4 +56,19 @@ public class Request {
                 .body().jsonPath().getJsonObject("id");
         return id;
     }
+
+    @Step("Удаление запроса по API")
+    public void deleteRequestByAPI(String token, int id) {
+        RequestData requestData = RequestData.builder()
+                .id(id)
+                .build();
+        given()
+                .header("Authorization", "Bearer " + token)
+                .contentType("application/json;charset=UTF-8")
+                .body(requestData)
+                .when()
+                .post("https://leibush.pet-no.com/api/pet/buy_request/remove")
+                .then()
+                .statusCode(200);
+    }
 }

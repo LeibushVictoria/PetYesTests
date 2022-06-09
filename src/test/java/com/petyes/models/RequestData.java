@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 @Data
 @Builder
@@ -29,4 +28,5 @@ public class RequestData {
     private String description;
     private String get_date;
     private int breed_id;
+    private int id;
 }
