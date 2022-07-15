@@ -16,6 +16,7 @@ public class LoginTests extends TestBase {
     void loginAsBreederTest() {
         BasePage basePage = new BasePage();
         LoginPage loginPage = new LoginPage();
+
         basePage
                 .openPage("/login");
         loginPage
@@ -32,6 +33,7 @@ public class LoginTests extends TestBase {
     void loginAsCustomerTest() {
         BasePage basePage = new BasePage();
         LoginPage loginPage = new LoginPage();
+
         basePage
                 .openPage("/login");
         loginPage
@@ -48,6 +50,7 @@ public class LoginTests extends TestBase {
     void loginWithWrongPasswordTest() {
         BasePage basePage = new BasePage();
         LoginPage loginPage = new LoginPage();
+
         basePage
                 .openPage("/login");
         loginPage

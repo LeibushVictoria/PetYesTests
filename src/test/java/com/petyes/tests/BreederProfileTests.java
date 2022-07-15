@@ -10,7 +10,6 @@ import com.petyes.pages.components.CalendarComponent;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class BreederProfileTests extends TestBase {
@@ -63,24 +62,21 @@ public class BreederProfileTests extends TestBase {
         CalendarComponent calendarComponent = new CalendarComponent();
         Login login = new Login();
 
+        Date birth = calendarComponent.getOtherDate(-20);
+        int pet_id = pet.createPetByAPI(false, 13, "autoTestCat", birth, 0, 1007, 1,597);
+        int sale_id = pet.salePetByAPI(false, false, true, 10000, pet_id);
+
         String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
         int user_id = login.getUserId(token);
-
-        Date dateBirth = calendarComponent.getOtherDate(-20);
-        SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
-        String birth = formater.format(dateBirth);
-
-        int pet_id = pet.createPetByAPI(token, false, 13, "autoTestCat", birth, 0, 1007, 1,597);
-        int sell_id = pet.salePetByAPI(token, false, false, true, 10000, pet_id);
 
         login
                 .setCookie(token);
         basePage
                 .openPage("/user/" + user_id + "#sales")
-                .checkLinkById(sell_id);
+                .checkLinkById(sale_id);
 
-        pet.cancelPetSaleByAPI(token, sell_id);
-        pet.deletePetByAPI(token, pet_id);
+        pet.cancelPetSaleByAPI(sale_id);
+        pet.deletePetByAPI(pet_id);
     }
 
     @Test
@@ -89,27 +85,15 @@ public class BreederProfileTests extends TestBase {
         BasePage basePage = new BasePage();
         CalendarComponent calendarComponent = new CalendarComponent();
         Login login = new Login();
-        Pet pet = new Pet();
         Auction auction = new Auction();
 
-        SimpleDateFormat formaterBirth = new SimpleDateFormat("dd.MM.yyyy");
-        SimpleDateFormat formaterAuction = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date tomorrow = calendarComponent.getOtherDate(1);
+        Date dayAfterTomorrow = calendarComponent.getOtherDate(2);
 
-        Date dateBirth = calendarComponent.getOtherDate(-20);
-        String birth = formaterBirth.format(dateBirth);
-
-        Date dateTomorrow = calendarComponent.getOtherDate(1);
-        String tomorrow = formaterAuction.format(dateTomorrow);
-
-        Date dateDayAfterTomorrow = calendarComponent.getOtherDate(2);
-        String dayAfterTomorrow = formaterAuction.format(dateDayAfterTomorrow);
+        int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1, 20000, false, false);
 
         String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
         int user_id = login.getUserId(token);
-
-        int pet_id = pet.createPetByAPI(token, false, 13, "autoTestAuctionCat", birth, 0, 1007, 1,597);
-        int auction_id = auction.createAuctionByAPI(token, tomorrow, dayAfterTomorrow, 10000, 1,
-                20000, false, false, pet_id);
 
         login
                 .setCookie(token);
@@ -117,6 +101,6 @@ public class BreederProfileTests extends TestBase {
                 .openPage("/user/" + user_id + "#auctions")
                 .checkLinkById(auction_id);
 
-        auction.deleteAuctionByAPI(token, auction_id);
+        auction.deleteAuctionByAPI(auction_id);
     }
 }

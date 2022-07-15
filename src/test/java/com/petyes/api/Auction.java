@@ -1,15 +1,32 @@
 package com.petyes.api;
 
+import com.petyes.config.App;
 import com.petyes.models.PetData;
+import com.petyes.pages.components.CalendarComponent;
 import io.qameta.allure.Step;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static io.restassured.RestAssured.given;
 
 public class Auction {
 
     @Step("Создание аукциона по API")
-    public int createAuctionByAPI(String token, String started_at, String finished_at, int start_cost, int availability_type,
-                                  int blitz_price, boolean auto_renew, boolean is_fixed, int pet_id) {
+    public int createAuctionByAPI(Date start, Date finish, int start_cost, int availability_type, int blitz_price, boolean auto_renew, boolean is_fixed) {
+        Login login = new Login();
+        Pet pet = new Pet();
+        CalendarComponent calendarComponent = new CalendarComponent();
+        SimpleDateFormat formaterAuction = new SimpleDateFormat("dd.MM.yyyy HH:mm z");
+
+        Date birth = calendarComponent.getOtherDate(-20);
+
+        String started_at = formaterAuction.format(start);
+        String finished_at = formaterAuction.format(finish);
+
+        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        int pet_id = pet.createPetByAPI(false, 13, "autoTestAuctionCat", birth, 0, 1007, 1,597);
+
         int id = given()
                 .contentType("multipart/form-data")
                 .header("Authorization", "Bearer " + token)
@@ -33,7 +50,10 @@ public class Auction {
     }
 
     @Step("Удаление аукциона по API")
-    public void deleteAuctionByAPI(String token, int id) {
+    public void deleteAuctionByAPI(int id) {
+        Login login = new Login();
+        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+
         PetData petData = PetData.builder()
                 .auction(id)
                 .build();

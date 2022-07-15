@@ -13,7 +13,6 @@ import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Feature("Запрос")
@@ -88,7 +87,7 @@ public class RequestTests extends TestBase {
                 .checkComment(comment);
 
         int request_id = basePage.getIdFromUrl();
-        request.deleteRequestByAPI(token, request_id);
+        request.deleteRequestByAPI(request_id);
 
     }
 
@@ -120,7 +119,7 @@ public class RequestTests extends TestBase {
                 .checkHeader(3,"Собаки");
 
         int request_id = basePage.getIdFromUrl();
-        request.deleteRequestByAPI(token, request_id);
+        request.deleteRequestByAPI(request_id);
     }
 
     @Test
@@ -132,18 +131,15 @@ public class RequestTests extends TestBase {
         Login login = new Login();
         RequestPage requestPage = new RequestPage();
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
-
-        Date dateToday = calendarComponent.getTodayDate();
-        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String today = formater.format(dateToday);
-
-        int request_id = request.createRequestByAPI(token, 13, 0, 20000, false,
+        Date today = calendarComponent.getTodayDate();
+        int request_id = request.createRequestByAPI(13, 0, 20000, false,
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 0, 6,
                 false, true, today, 597);
 
         String priceFrom = "10 000";
         String priceTo = "30 000";
+
+        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -159,7 +155,7 @@ public class RequestTests extends TestBase {
         requestPage
                 .checkPrice(priceFrom + " - " + priceTo + " ₽");
 
-        request.deleteRequestByAPI(token, request_id);
+        request.deleteRequestByAPI(request_id);
     }
 
     //bug
@@ -173,36 +169,28 @@ public class RequestTests extends TestBase {
         Login login = new Login();
         RequestPage requestPage = new RequestPage();
 
-        String breederToken = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        Date birth = calendarComponent.getOtherDate(-20);
+        int pet_id = pet.createPetByAPI(false, 13, "autoTestCat", birth, 0, 1007, 0,597);
+        int sell_id = pet.salePetByAPI(false, false, true, 10000, pet_id);
 
-        Date dateBirth = calendarComponent.getOtherDate(-20);
-        SimpleDateFormat formaterPet = new SimpleDateFormat("dd.MM.yyyy");
-        String birth = formaterPet.format(dateBirth);
-
-        int pet_id = pet.createPetByAPI(breederToken, false, 13, "autoTestCat", birth, 0, 1007, 0,597);
-        int sell_id = pet.salePetByAPI(breederToken, false, false, true, 10000, pet_id);
-
-        String customerToken = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
-
-        Date dateToday = calendarComponent.getTodayDate();
-        SimpleDateFormat formaterRequest = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String today = formaterRequest.format(dateToday);
-
-        int request_id = request.createRequestByAPI(customerToken, 13, 0, 20000, false,
+        Date today = calendarComponent.getTodayDate();
+        int request_id = request.createRequestByAPI(13, 0, 20000, false,
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 0, 6,
                 false, true, today, 597);
 
+        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+
         login
-                .setCookie(customerToken);
+                .setCookie(token);
         basePage
                 .openPage("/buy/" + request_id)
                 .clickOnButton("Смотреть предложения");
         requestPage
                 .checkSaleOffer(0, sell_id);
 
-        pet.cancelPetSaleByAPI(breederToken, sell_id);
-        pet.deletePetByAPI(breederToken, pet_id);
-        request.deleteRequestByAPI(customerToken, request_id);
+        pet.cancelPetSaleByAPI(sell_id);
+        pet.deletePetByAPI(pet_id);
+        request.deleteRequestByAPI(request_id);
     }
 
     @Test
@@ -215,36 +203,28 @@ public class RequestTests extends TestBase {
         Login login = new Login();
         RequestPage requestPage = new RequestPage();
 
-        String breederToken = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        Date birth = calendarComponent.getOtherDate(-20);
+        int pet_id = pet.createPetByAPI(false, 13, "autoTestCat", birth, 1, 1007, 0,597);
+        int sell_id = pet.salePetByAPI(false, false, true, 10000, pet_id);
 
-        Date dateBirth = calendarComponent.getOtherDate(-20);
-        SimpleDateFormat formaterPet = new SimpleDateFormat("dd.MM.yyyy");
-        String birth = formaterPet.format(dateBirth);
-
-        int pet_id = pet.createPetByAPI(breederToken, false, 13, "autoTestCat", birth, 1, 1007, 0,597);
-        int sell_id = pet.salePetByAPI(breederToken, false, false, true, 10000, pet_id);
-
-        String customerToken = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
-
-        Date dateToday = calendarComponent.getTodayDate();
-        SimpleDateFormat formaterRequest = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String today = formaterRequest.format(dateToday);
-
-        int request_id = request.createRequestByAPI(customerToken, 13, 0, 20000, false,
+        Date today = calendarComponent.getTodayDate();
+        int request_id = request.createRequestByAPI(13, 0, 20000, false,
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 0, 6,
                 false, true, today, 597);
 
+        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+
         login
-                .setCookie(customerToken);
+                .setCookie(token);
         basePage
                 .openPage("/buy/" + request_id)
                 .clickOnButton("Смотреть предложения");
         requestPage
                 .checkSaleOffer(1, sell_id);
 
-        pet.cancelPetSaleByAPI(breederToken, sell_id);
-        pet.deletePetByAPI(breederToken, pet_id);
-        request.deleteRequestByAPI(customerToken, request_id);
+        pet.cancelPetSaleByAPI(sell_id);
+        pet.deletePetByAPI(pet_id);
+        request.deleteRequestByAPI(request_id);
     }
 
     @Test
@@ -257,15 +237,12 @@ public class RequestTests extends TestBase {
         CalendarComponent calendarComponent = new CalendarComponent();
         Login login = new Login();
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
-
-        Date dateToday = calendarComponent.getTodayDate();
-        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String today = formater.format(dateToday);
-
-        int id = request.createRequestByAPI(token, 13, 0, 20000, false,
+        Date today = calendarComponent.getTodayDate();
+        int id = request.createRequestByAPI(13, 0, 20000, false,
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0,0, 6,
                 false, true, today, 597);
+
+        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -287,15 +264,12 @@ public class RequestTests extends TestBase {
         Login login = new Login();
         RequestPage requestPage = new RequestPage();
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
-
-        Date dateToday = calendarComponent.getTodayDate();
-        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String today = formater.format(dateToday);
-
-        int request_id = request.createRequestByAPI(token, 13, 0, 20000, false,
+        Date today = calendarComponent.getTodayDate();
+        int request_id = request.createRequestByAPI(13, 0, 20000, false,
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0,0, 6,
                 false, true, today, 597);
+
+        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -309,6 +283,6 @@ public class RequestTests extends TestBase {
                 .clickOnButton("Продолжить")
                 .checkGreenMessage();
 
-        request.deleteRequestByAPI(token, request_id);
+        request.deleteRequestByAPI(request_id);
     }
 }

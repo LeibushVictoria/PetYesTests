@@ -23,13 +23,10 @@ public class SalePetTests extends TestBase{
         Login login = new Login();
         CalendarComponent calendarComponent = new CalendarComponent();
 
-        Date dateBirth = calendarComponent.getOtherDate(-20);
-        SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
-        String birth = formater.format(dateBirth);
+        Date birth = calendarComponent.getOtherDate(-20);
+        int pet_id = pet.createPetByAPI(false, 13, "autoTestSaleCat", birth, 0, 1007, 1,597);
 
         String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
-
-        int pet_id = pet.createPetByAPI(token, false, 13, "autoTestSaleCat", birth, 0, 1007, 1,597);
 
         login
                 .setCookie(token);
@@ -40,8 +37,8 @@ public class SalePetTests extends TestBase{
                 .checkGreenMessage()
                 .checkBlockDisplay("autoTestSaleCat, Абиссинская");
 
-        pet.cancelPetSaleByAPI(token, pet_id);
-        pet.deletePetByAPI(token, pet_id);
+        pet.cancelPetSaleByAPI(pet_id);
+        pet.deletePetByAPI(pet_id);
     }
 
     @Test
@@ -83,8 +80,8 @@ public class SalePetTests extends TestBase{
                 .checkGreenMessage()
                 .checkBlockDisplay("autoTestFreeSaleCat, Без породы");
 
-        pet.cancelPetSaleByAPI(token, pet_id);
-        pet.deletePetByAPI(token, pet_id);
+        pet.cancelPetSaleByAPI(pet_id);
+        pet.deletePetByAPI(pet_id);
     }
 
     @Test
@@ -95,16 +92,13 @@ public class SalePetTests extends TestBase{
         CalendarComponent calendarComponent = new CalendarComponent();
         Login login = new Login();
 
-        Date dateBirth = calendarComponent.getOtherDate(-20);
-        SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
-        String birth = formater.format(dateBirth);
-
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
-
-        int pet_id = pet.createPetByAPI(token, false, 13, "autoTestSaleCat", birth, 0, 1007, 1,597);
-        int sell_id = pet.salePetByAPI(token, false, false, true, 10000, pet_id);
+        Date birth = calendarComponent.getOtherDate(-20);
+        int pet_id = pet.createPetByAPI(false, 13, "autoTestSaleCat", birth, 0, 1007, 1,597);
+        int sell_id = pet.salePetByAPI(false, false, true, 10000, pet_id);
 
         String price= "99 999";
+
+        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -116,8 +110,8 @@ public class SalePetTests extends TestBase{
                 .checkGreenMessage()
                 .checkBlockDisplay(price + " ₽");
 
-        pet.cancelPetSaleByAPI(token, pet_id);
-        pet.deletePetByAPI(token, pet_id);
+        pet.cancelPetSaleByAPI(pet_id);
+        pet.deletePetByAPI(pet_id);
     }
 
     @Test
@@ -129,14 +123,11 @@ public class SalePetTests extends TestBase{
         Login login = new Login();
         SalePetPage salePetPage = new SalePetPage();
 
-        Date dateBirth = calendarComponent.getOtherDate(-20);
-        SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
-        String birth = formater.format(dateBirth);
+        Date birth = calendarComponent.getOtherDate(-20);
+        int pet_id = pet.createPetByAPI(false, 13, "autoTestSaleCat", birth, 0, 1007, 1,597);
+        int sell_id = pet.salePetByAPI(false, false, true, 10000, pet_id);
 
         String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
-
-        int pet_id = pet.createPetByAPI(token, false, 13, "autoTestSaleCat", birth, 0, 1007, 1,597);
-        int sell_id = pet.salePetByAPI(token, false, false, true, 10000, pet_id);
 
         login
                 .setCookie(token);
@@ -150,6 +141,6 @@ public class SalePetTests extends TestBase{
                 .clickOnButton("Продолжить")
                 .checkGreenMessage();
 
-        pet.deletePetByAPI(token, pet_id);
+        pet.deletePetByAPI(pet_id);
     }
 }

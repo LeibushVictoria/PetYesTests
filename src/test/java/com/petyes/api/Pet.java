@@ -1,14 +1,24 @@
 package com.petyes.api;
 
+import com.petyes.config.App;
 import io.qameta.allure.Step;
 import com.petyes.models.PetData;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static io.restassured.RestAssured.given;
 
 public class Pet {
 
     @Step("Создание питомца по API")
-    public int createPetByAPI(String token, boolean avatar_id, int specialization_id, String nickname, String birth, int sex, int color, int is_neutered, int breed) {
+    public int createPetByAPI(boolean avatar_id, int specialization_id, String nickname, Date dateBirth, int sex, int color, int is_neutered, int breed) {
+        Login login = new Login();
+        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+
+        SimpleDateFormat formaterBirth = new SimpleDateFormat("dd.MM.yyyy");
+        String birth = formaterBirth.format(dateBirth);
+
         int id = given()
                 .contentType("multipart/form-data")
                 .header("Authorization", "Bearer " + token)
@@ -30,7 +40,10 @@ public class Pet {
     }
 
     @Step("Удаление питомца по API")
-    public void deletePetByAPI(String token, int id) {
+    public void deletePetByAPI(int id) {
+        Login login = new Login();
+        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+
         PetData petData = PetData.builder()
                 .pet_id(id)
                 .build();
@@ -45,7 +58,10 @@ public class Pet {
     }
 
     @Step("Продать питомца по API")
-    public int salePetByAPI(String token, boolean deliverable, boolean sell_for_free, boolean is_not_for_breeding, int not_for_breeding_price, int pet_id) {
+    public int salePetByAPI(boolean deliverable, boolean sell_for_free, boolean is_not_for_breeding, int not_for_breeding_price, int pet_id) {
+        Login login = new Login();
+        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+
         PetData petData = PetData.builder()
                 .deliverable(deliverable)
                 .sell_for_free(sell_for_free)
@@ -67,7 +83,10 @@ public class Pet {
     }
 
     @Step("Снять питомца с продажи по API")
-    public void cancelPetSaleByAPI(String token, int pet_id) {
+    public void cancelPetSaleByAPI(int pet_id) {
+        Login login = new Login();
+        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+
         PetData petData = PetData.builder()
                 .pet_id(pet_id)
                 .build();

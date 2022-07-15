@@ -9,7 +9,6 @@ import com.petyes.pages.components.CalendarComponent;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MyPetsTests extends TestBase {
@@ -23,15 +22,11 @@ public class MyPetsTests extends TestBase {
         CalendarComponent calendarComponent = new CalendarComponent();
         MyPetsPage myPetsPage = new MyPetsPage();
 
-        Date dateBirth = calendarComponent.getOtherDate(-20);
-        SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
-        String birth = formater.format(dateBirth);
+        String nickname = "autoTestMyPetsCat";
+        Date birth = calendarComponent.getOtherDate(-20);
+        int pet_id = pet.createPetByAPI(false, 13, nickname, birth, 0, 1007, 1,597);
 
         String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
-
-        String nickname = "autoTestMyPetsCat";
-
-        int pet_id = pet.createPetByAPI(token, false, 13, nickname, birth, 0, 1007, 1,597);
 
         login
                 .setCookie(token);
@@ -42,7 +37,7 @@ public class MyPetsTests extends TestBase {
         basePage
                 .checkBlockDisplay(nickname);
 
-        pet.deletePetByAPI(token, pet_id);
+        pet.deletePetByAPI(pet_id);
     }
 
     @Test
@@ -54,15 +49,11 @@ public class MyPetsTests extends TestBase {
         CalendarComponent calendarComponent = new CalendarComponent();
         MyPetsPage myPetsPage = new MyPetsPage();
 
-        Date dateBirth = calendarComponent.getOtherDate(-20);
-        SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
-        String birth = formater.format(dateBirth);
+        String nickname = "autoTestMyPetsCat";
+        Date birth = calendarComponent.getOtherDate(-20);
+        int pet_id = pet.createPetByAPI(false, 13, nickname, birth, 0, 1007, 1,597);
 
         String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
-
-        String nickname = "autoTestMyPetsCat";
-
-        int pet_id = pet.createPetByAPI(token, false, 13, nickname, birth, 0, 1007, 1,597);
 
         login
                 .setCookie(token);
@@ -72,7 +63,7 @@ public class MyPetsTests extends TestBase {
                 .clickOnGenTree(pet_id)
                 .checkGenTree(nickname);
 
-        pet.deletePetByAPI(token, pet_id);
+        pet.deletePetByAPI(pet_id);
     }
 
     @Test
@@ -84,13 +75,10 @@ public class MyPetsTests extends TestBase {
         CalendarComponent calendarComponent = new CalendarComponent();
         MyPetsPage myPetsPage = new MyPetsPage();
 
-        Date dateBirth = calendarComponent.getOtherDate(-20);
-        SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
-        String birth = formater.format(dateBirth);
+        Date birth = calendarComponent.getOtherDate(-20);
+        int pet_id = pet.createPetByAPI(false, 13, "autoTestMyPetsCat", birth, 0, 1007, 1,597);
 
         String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
-
-        int pet_id = pet.createPetByAPI(token, false, 13, "autoTestMyPetsCat", birth, 0, 1007, 1,597);
 
         login
                 .setCookie(token);
@@ -101,7 +89,7 @@ public class MyPetsTests extends TestBase {
         basePage
                 .checkHeader(2, "Редактирование карточки питомца");
 
-        pet.deletePetByAPI(token, pet_id);
+        pet.deletePetByAPI(pet_id);
     }
 
     @Test
@@ -113,13 +101,10 @@ public class MyPetsTests extends TestBase {
         CalendarComponent calendarComponent = new CalendarComponent();
         MyPetsPage myPetsPage = new MyPetsPage();
 
-        Date dateBirth = calendarComponent.getOtherDate(-20);
-        SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
-        String birth = formater.format(dateBirth);
+        Date birth = calendarComponent.getOtherDate(-20);
+        int pet_id = pet.createPetByAPI(false, 13, "autoTestMyPetsCat", birth, 0, 1007, 1,597);
 
         String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
-
-        int pet_id = pet.createPetByAPI(token, false, 13, "autoTestMyPetsCat", birth, 0, 1007, 1,597);
 
         login
                 .setCookie(token);
@@ -129,7 +114,7 @@ public class MyPetsTests extends TestBase {
                 .clickOnFreeSale(pet_id)
                 .checkSale("Отдам бесплатно в хорошие руки");
 
-        pet.deletePetByAPI(token, pet_id);
+        pet.deletePetByAPI(pet_id);
     }
 
     @Test
@@ -141,13 +126,10 @@ public class MyPetsTests extends TestBase {
         CalendarComponent calendarComponent = new CalendarComponent();
         MyPetsPage myPetsPage = new MyPetsPage();
 
-        Date dateBirth = calendarComponent.getOtherDate(-20);
-        SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
-        String birth = formater.format(dateBirth);
+        Date birth = calendarComponent.getOtherDate(-20);
+        int pet_id = pet.createPetByAPI(false, 13, "autoTestMyPetsCat", birth, 0, 1007, 1,597);
 
         String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
-
-        int pet_id = pet.createPetByAPI(token, false, 13, "autoTestMyPetsCat", birth, 0, 1007, 1,597);
 
         login
                 .setCookie(token);
@@ -157,6 +139,6 @@ public class MyPetsTests extends TestBase {
                 .clickOnSale(pet_id)
                 .checkSale("Продажа сейчас");
 
-        pet.deletePetByAPI(token, pet_id);
+        pet.deletePetByAPI(pet_id);
     }
 }

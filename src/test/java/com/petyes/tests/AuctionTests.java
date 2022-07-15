@@ -23,11 +23,10 @@ public class AuctionTests {
         CalendarComponent calendarComponent = new CalendarComponent();
         Auction auction = new Auction();
 
-        SimpleDateFormat formaterBirth = new SimpleDateFormat("dd.MM.yyyy");
-        SimpleDateFormat formaterAuction = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        Date birth = calendarComponent.getOtherDate(-20);
+        int pet_id = pet.createPetByAPI(false, 13, "autoTestAuctionCat", birth, 0, 1007, 1,597);
 
-        Date dateBirth = calendarComponent.getOtherDate(-20);
-        String birth = formaterBirth.format(dateBirth);
+        SimpleDateFormat formaterAuction = new SimpleDateFormat("dd.MM.yyyy HH:mm z");
 
         Date dateTomorrow = calendarComponent.getOtherDate(1);
         String tomorrow = formaterAuction.format(dateTomorrow);
@@ -36,8 +35,6 @@ public class AuctionTests {
         String dayAfterTomorrow = formaterAuction.format(dateDayAfterTomorrow);
 
         String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
-
-        int pet_id = pet.createPetByAPI(token, false, 13, "autoTestAuctionCat", birth, 0, 1007, 1,597);
 
         login
                 .setCookie(token);
@@ -57,7 +54,7 @@ public class AuctionTests {
                 .checkBlockDisplay("10 000 ₽");
 
         int auction_id = basePage.getIdFromUrl();
-        auction.deleteAuctionByAPI(token, auction_id);
+        auction.deleteAuctionByAPI(auction_id);
     }
 
     //bug
@@ -67,28 +64,16 @@ public class AuctionTests {
         BasePage basePage = new BasePage();
         Login login = new Login();
         CalendarComponent calendarComponent = new CalendarComponent();
-        Pet pet = new Pet();
         Auction auction = new Auction();
 
-        SimpleDateFormat formaterBirth = new SimpleDateFormat("dd.MM.yyyy");
-        SimpleDateFormat formaterAuction = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date tomorrow = calendarComponent.getOtherDate(1);
+        Date dayAfterTomorrow = calendarComponent.getOtherDate(2);
 
-        Date dateBirth = calendarComponent.getOtherDate(-20);
-        String birth = formaterBirth.format(dateBirth);
-
-        Date dateTomorrow = calendarComponent.getOtherDate(1);
-        String tomorrow = formaterAuction.format(dateTomorrow);
-
-        Date dateDayAfterTomorrow = calendarComponent.getOtherDate(2);
-        String dayAfterTomorrow = formaterAuction.format(dateDayAfterTomorrow);
-
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
-
-        int pet_id = pet.createPetByAPI(token, false, 13, "autoTestAuctionCat", birth, 0, 1007, 1,597);
-        int auction_id = auction.createAuctionByAPI(token, tomorrow, dayAfterTomorrow, 10000, 1,
-                20000, false, false, pet_id);
+        int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1, 20000, false, false);
 
         String price= "99 999";
+
+        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -99,7 +84,7 @@ public class AuctionTests {
                 .clickOnButton("Сохранить изменения")
                 .checkGreenMessage();
 
-        auction.deleteAuctionByAPI(token, auction_id);
+        auction.deleteAuctionByAPI(auction_id);
     }
 
     //bug
@@ -109,28 +94,14 @@ public class AuctionTests {
         BasePage basePage = new BasePage();
         Login login = new Login();
         CalendarComponent calendarComponent = new CalendarComponent();
-        Pet pet = new Pet();
         Auction auction = new Auction();
 
-        SimpleDateFormat formaterBirth = new SimpleDateFormat("dd.MM.yyyy");
-        SimpleDateFormat formaterAuction = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date tomorrow = calendarComponent.getOtherDate(1);
+        Date dayAfterTomorrow = calendarComponent.getOtherDate(2);
 
-        Date dateBirth = calendarComponent.getOtherDate(-20);
-        String birth = formaterBirth.format(dateBirth);
-
-        Date dateTomorrow = calendarComponent.getOtherDate(1);
-        String tomorrow = formaterAuction.format(dateTomorrow);
-
-        Date dateDayAfterTomorrow = calendarComponent.getOtherDate(2);
-        String dayAfterTomorrow = formaterAuction.format(dateDayAfterTomorrow);
+        int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1, 20000, false, false);
 
         String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
-
-        int pet_id = pet.createPetByAPI(token, false, 13, "autoTestAuctionCat", birth, 0, 1007, 1,597);
-        int auction_id = auction.createAuctionByAPI(token, tomorrow, dayAfterTomorrow, 10000, 1,
-                20000, false, false, pet_id);
-
-        String price= "99 999";
 
         login
                 .setCookie(token);
@@ -141,5 +112,4 @@ public class AuctionTests {
                 .clickOnButton("Да, удалить")
                 .checkGreenMessage();
     }
-
 }

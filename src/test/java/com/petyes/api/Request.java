@@ -1,20 +1,29 @@
 package com.petyes.api;
 
+import com.petyes.config.App;
 import io.qameta.allure.Step;
 import com.petyes.models.AgeRangeData;
 import com.petyes.models.CityData;
 import com.petyes.models.RequestData;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static io.restassured.RestAssured.given;
 
 public class Request {
 
     @Step("Создание запроса по API")
-    public int createRequestByAPI(String token, int specialization_id, int price_min, int price_max, boolean important_price,
+    public int createRequestByAPI(int specialization_id, int price_min, int price_max, boolean important_price,
                                   String address, String coordinate_lat, String coordinate_lng, int color, int sex, int date_from, int date_to,
-                                  boolean buy_for_free, boolean is_not_for_breeding, String get_date, int breed_id) {
+                                  boolean buy_for_free, boolean is_not_for_breeding, Date date, int breed_id) {
+        Login login = new Login();
+        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+
+        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String get_date = formater.format(date);
+
         CityData cityData = CityData.builder()
                 .address(address)
                 .coordinate_lat(coordinate_lat)
@@ -58,7 +67,10 @@ public class Request {
     }
 
     @Step("Удаление запроса по API")
-    public void deleteRequestByAPI(String token, int id) {
+    public void deleteRequestByAPI(int id) {
+        Login login = new Login();
+        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+
         RequestData requestData = RequestData.builder()
                 .id(id)
                 .build();

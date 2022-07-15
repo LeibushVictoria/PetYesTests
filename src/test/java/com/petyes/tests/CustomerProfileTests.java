@@ -9,7 +9,6 @@ import com.petyes.pages.components.CalendarComponent;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CustomerProfileTests extends TestBase {
@@ -62,16 +61,13 @@ public class CustomerProfileTests extends TestBase {
         CalendarComponent calendarComponent = new CalendarComponent();
         Login login = new Login();
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
-        int user_id = login.getUserId(token);
-
-        Date dateToday = calendarComponent.getTodayDate();
-        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String today = formater.format(dateToday);
-
-        int request_id = request.createRequestByAPI(token,13, 0, 20000, false,
+        Date today = calendarComponent.getTodayDate();
+        int request_id = request.createRequestByAPI(13, 0, 20000, false,
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0,0, 6,
                 false, true, today, 597);
+
+        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        int user_id = login.getUserId(token);
 
         login
                 .setCookie(token);
@@ -79,6 +75,6 @@ public class CustomerProfileTests extends TestBase {
                 .openPage("/user/" + user_id + "#requests")
                 .checkLinkById(request_id);
 
-        request.deleteRequestByAPI(token, request_id);
+        request.deleteRequestByAPI(request_id);
     }
 }

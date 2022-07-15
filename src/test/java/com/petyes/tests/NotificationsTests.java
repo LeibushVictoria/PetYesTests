@@ -10,7 +10,6 @@ import com.petyes.pages.components.CalendarComponent;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class NotificationsTests extends TestBase {
@@ -24,34 +23,26 @@ public class NotificationsTests extends TestBase {
         CalendarComponent calendarComponent = new CalendarComponent();
         Login login = new Login();
 
-        String customerToken = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
-
-        Date dateToday = calendarComponent.getTodayDate();
-        SimpleDateFormat formaterRequest = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String today = formaterRequest.format(dateToday);
-
-        int request_id = request.createRequestByAPI(customerToken, 13, 0, 20000, false,
+        Date today = calendarComponent.getTodayDate();
+        int request_id = request.createRequestByAPI(13, 0, 20000, false,
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 0, 6,
                 false, true, today, 597);
 
-        String breederToken = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        Date birth = calendarComponent.getOtherDate(-20);
+        int pet_id = pet.createPetByAPI(false, 13, "autoTestCat", birth, 0, 1007, 0,597);
+        int sell_id = pet.salePetByAPI(false, false, true, 10000, pet_id);
 
-        Date dateBirth = calendarComponent.getOtherDate(-20);
-        SimpleDateFormat formaterPet = new SimpleDateFormat("dd.MM.yyyy");
-        String birth = formaterPet.format(dateBirth);
-
-        int pet_id = pet.createPetByAPI(breederToken, false, 13, "autoTestCat", birth, 0, 1007, 0,597);
-        int sell_id = pet.salePetByAPI(breederToken, false, false, true, 10000, pet_id);
+        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
 
         login
-                .setCookie(customerToken);
+                .setCookie(token);
         basePage
                 .openPage("/user/notifications")
                 .checkLinkById(sell_id);
 
-        request.deleteRequestByAPI(customerToken, request_id);
-        pet.cancelPetSaleByAPI(breederToken, sell_id);
-        pet.deletePetByAPI(breederToken, pet_id);
+        request.deleteRequestByAPI(request_id);
+        pet.cancelPetSaleByAPI(sell_id);
+        pet.deletePetByAPI(pet_id);
     }
 
     //bug
@@ -65,36 +56,29 @@ public class NotificationsTests extends TestBase {
         Login login = new Login();
         Response response = new Response();
 
-        String customerToken = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
-
-        Date dateToday = calendarComponent.getTodayDate();
-        SimpleDateFormat formaterRequest = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String today = formaterRequest.format(dateToday);
-
-        int request_id = request.createRequestByAPI(customerToken, 13, 0, 20000, false,
+        Date today = calendarComponent.getTodayDate();
+        int request_id = request.createRequestByAPI(13, 0, 20000, false,
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 0, 6,
                 false, true, today, 597);
 
-        String breederToken = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        Date birth = calendarComponent.getOtherDate(-20);
+        int pet_id = pet.createPetByAPI(false, 13, "autoTestCat", birth, 0, 1007, 0,597);
+        int sell_id = pet.salePetByAPI(false, false, true, 10000, pet_id);
 
-        Date dateBirth = calendarComponent.getOtherDate(-20);
-        SimpleDateFormat formaterPet = new SimpleDateFormat("dd.MM.yyyy");
-        String birth = formaterPet.format(dateBirth);
+        response.responseByAPI(request_id, pet_id);
 
-        int pet_id = pet.createPetByAPI(breederToken, false, 13, "autoTestCat", birth, 0, 1007, 0,597);
-        int sell_id = pet.salePetByAPI(breederToken, false, false, true, 10000, pet_id);
-        response.responseByAPI(breederToken, request_id, pet_id);
+        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
 
         login
-                .setCookie(customerToken);
+                .setCookie(token);
         basePage
                 .openPage("/user/notifications")
                 .openLink("/user/49?buy_request=" + request_id)
                 .checkLinkById(sell_id);
 
-        request.deleteRequestByAPI(customerToken, request_id);
-        pet.cancelPetSaleByAPI(breederToken, sell_id);
-        pet.deletePetByAPI(breederToken, pet_id);
+        request.deleteRequestByAPI(request_id);
+        pet.cancelPetSaleByAPI(sell_id);
+        pet.deletePetByAPI(pet_id);
     }
 
     @Test
@@ -106,34 +90,26 @@ public class NotificationsTests extends TestBase {
         CalendarComponent calendarComponent = new CalendarComponent();
         Login login = new Login();
 
-        String breederToken = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        Date birth = calendarComponent.getOtherDate(-20);
+        int pet_id = pet.createPetByAPI(false, 13, "autoTestCat", birth, 0, 1007, 0,598);
+        int sell_id = pet.salePetByAPI(false, false, true, 10000, pet_id);
 
-        Date dateBirth = calendarComponent.getOtherDate(-20);
-        SimpleDateFormat formaterPet = new SimpleDateFormat("dd.MM.yyyy");
-        String birth = formaterPet.format(dateBirth);
-
-        int pet_id = pet.createPetByAPI(breederToken, false, 13, "autoTestCat", birth, 0, 1007, 0,598);
-        int sell_id = pet.salePetByAPI(breederToken, false, false, true, 10000, pet_id);
-
-        String customerToken = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
-
-        Date dateToday = calendarComponent.getTodayDate();
-        SimpleDateFormat formaterRequest = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String today = formaterRequest.format(dateToday);
-
-        int request_id = request.createRequestByAPI(customerToken, 13, 0, 20000, false,
+        Date today = calendarComponent.getTodayDate();
+        int request_id = request.createRequestByAPI(13, 0, 20000, false,
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 0, 6,
                 false, true, today, 598);
 
+        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+
         login
-                .setCookie(breederToken);
+                .setCookie(token);
         basePage
                 .openPage("/user/notifications")
                 .checkLinkById(request_id);
 
-        pet.cancelPetSaleByAPI(breederToken, sell_id);
-        pet.deletePetByAPI(breederToken, pet_id);
-        request.deleteRequestByAPI(customerToken, request_id);
+        pet.cancelPetSaleByAPI(sell_id);
+        pet.deletePetByAPI(pet_id);
+        request.deleteRequestByAPI(request_id);
     }
 
     @Test
@@ -141,28 +117,22 @@ public class NotificationsTests extends TestBase {
     void newRequestSpecNotificationTest() {
         BasePage basePage = new BasePage();
         Request request = new Request();
-        Pet pet = new Pet();
         CalendarComponent calendarComponent = new CalendarComponent();
         Login login = new Login();
 
-        String customerToken = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
-
-        Date dateToday = calendarComponent.getTodayDate();
-        SimpleDateFormat formaterRequest = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String today = formaterRequest.format(dateToday);
-
-        int request_id = request.createRequestByAPI(customerToken, 13, 0, 20000, false,
+        Date today = calendarComponent.getTodayDate();
+        int request_id = request.createRequestByAPI(13, 0, 20000, false,
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 0, 6,
                 false, true, today, 597);
 
-        String breederToken = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
 
         login
-                .setCookie(breederToken);
+                .setCookie(token);
         basePage
                 .openPage("/user/notifications")
                 .checkLinkById(request_id);
 
-        request.deleteRequestByAPI(customerToken, request_id);
+        request.deleteRequestByAPI(request_id);
     }
 }

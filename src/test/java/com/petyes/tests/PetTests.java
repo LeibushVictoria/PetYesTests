@@ -236,7 +236,7 @@ public class PetTests extends TestBase {
                 .checkPetMedicalCard(height + " см");
 
         int pet_id = basePage.getIdFromUrl();
-        pet.deletePetByAPI(token, pet_id);
+        pet.deletePetByAPI(pet_id);
     }
 
     @Test
@@ -283,7 +283,7 @@ public class PetTests extends TestBase {
                 .checkPetInfo(birthOut);
 
         int pet_id = basePage.getIdFromUrl();
-        pet.deletePetByAPI(token, pet_id);
+        pet.deletePetByAPI(pet_id);
     }
 
     @Test
@@ -294,13 +294,10 @@ public class PetTests extends TestBase {
         CalendarComponent calendarComponent = new CalendarComponent();
         Login login = new Login();
 
-        Date dateBirth = calendarComponent.getOtherDate(-20);
-        SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
-        String birth = formater.format(dateBirth);
+        Date birth = calendarComponent.getOtherDate(-20);
+        int pet_id = pet.createPetByAPI(false, 13, "autoTestSaleCat", birth, 0, 1007, 1,597);
 
         String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
-
-        int pet_id = pet.createPetByAPI(token, false, 13, "autoTestSaleCat", birth, 0, 1007, 1,597);
 
         login
                 .setCookie(token);
@@ -314,7 +311,7 @@ public class PetTests extends TestBase {
                 .openPage("/pet/" + pet_id)
                 .checkBlockDisplay("autoTestEditCat");
 
-        pet.deletePetByAPI(token, pet_id);
+        pet.deletePetByAPI(pet_id);
     }
 
     @Test
@@ -326,13 +323,10 @@ public class PetTests extends TestBase {
         Login login = new Login();
         PetPage petPage = new PetPage();
 
-        Date dateBirth = calendarComponent.getOtherDate(-20);
-        SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
-        String birth = formater.format(dateBirth);
+        Date birth = calendarComponent.getOtherDate(-20);
+        int pet_id = pet.createPetByAPI(false, 13, "autoTestSaleCat", birth, 0, 1007, 1,597);
 
         String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
-
-        int pet_id = pet.createPetByAPI(token, false, 13, "autoTestSaleCat", birth, 0, 1007, 1,597);
 
         login
                 .setCookie(token);
