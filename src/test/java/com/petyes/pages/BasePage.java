@@ -1,8 +1,9 @@
 package com.petyes.pages;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -23,9 +24,15 @@ public class BasePage {
         return id;
     }
 
-    @Step("Нажать на Кнопку")
+    @Step("Нажать на кнопку")
     public BasePage clickOnButton(String text) {
         $$(".as-button__slot").findBy(text(text)).click();
+        return this;
+    }
+
+    @Step("Нажать на кнопку Submit")
+    public BasePage clickOnSubmitButton() {
+        $("button[type=\"submit\"]").shouldBe(visible).click();
         return this;
     }
 
@@ -50,6 +57,12 @@ public class BasePage {
     @Step("Ввести значение в поле")
     public BasePage enterValueInInput(String fieldName, String value) {
         $("input[data-vv-name=\"" + fieldName +"\"]").setValue(value);
+        return this;
+    }
+
+    @Step("Очистить значение в поле")
+    public BasePage clearValueInInput(String fieldName) {
+        $("input[data-vv-name=\"" + fieldName +"\"]").clear();
         return this;
     }
 
@@ -114,17 +127,15 @@ public class BasePage {
         return this;
     }
 
-    @Step("Загрузить файл с выбором области")
-    public BasePage uploadFile(int id, String fileName) {
-        $("input[type=\"file\"", id).uploadFromClasspath(fileName);
-        $$(".as-button__slot").findBy(text("Сохранить и продолжить")).click();
-        $(".images-upload__image").exists();
-        return this;
-    }
-
     @Step("Проверить отображение текста в блоке")
     public BasePage checkBlockDisplay(String text) {
         $$(".as-card__body").findBy(text(text)).shouldBe(visible);
+        return this;
+    }
+
+    @Step("Проверить отображение текста в модальном окне")
+    public BasePage checkModalBlockDisplay(String text) {
+        $(".alert-modal__title").shouldBe(visible, Duration.ofSeconds(10)).shouldHave(text(text));
         return this;
     }
 
@@ -141,8 +152,14 @@ public class BasePage {
     }
 
     @Step("Проверить наличие ссылки по id")
-    public BasePage checkLink(int id) {
+    public BasePage checkLinkById(int id) {
         $("a[href*=\""+id+"\"]").should(exist);
+        return this;
+    }
+
+    @Step("Проверить наличие ссылки")
+    public BasePage openLink(String link) {
+        $("a[href=\"" + link + "\"]").click();
         return this;
     }
 }

@@ -3,7 +3,7 @@ package com.petyes.tests;
 import com.petyes.api.Login;
 import com.petyes.api.Pet;
 import com.petyes.config.App;
-import com.petyes.pages.AddPetPage;
+import com.petyes.pages.PetPage;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
 import io.qameta.allure.AllureId;
@@ -16,15 +16,15 @@ import java.util.Date;
 import java.util.Locale;
 
 @Feature("Питомец")
-public class AddPetTests extends TestBase {
+public class PetTests extends TestBase {
 
     @Test
     @AllureId("5704")
-    @DisplayName("Создание питомца")
-    void addPetTest() {
+    @DisplayName("Создание питомца с породой")
+    void addPetWithBreedTest() {
         BasePage basePage = new BasePage();
         Login login = new Login();
-        AddPetPage addPetPage = new AddPetPage();
+        PetPage petPage = new PetPage();
         CalendarComponent calendarComponent = new CalendarComponent();
         Pet pet = new Pet();
         SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
@@ -86,7 +86,7 @@ public class AddPetTests extends TestBase {
                 .setCookie(token);
         basePage
                 .openPage("/pet/new");
-        addPetPage
+        petPage
                 .selectPetType("Выберите вид животного", petType)
                 .selectBreed(breed);
         basePage
@@ -100,7 +100,7 @@ public class AddPetTests extends TestBase {
                 .enterValueInDropdown("eye_color", eyesColor);
         basePage
                 .chooseCheckbox("Кастрат");
-        addPetPage
+        petPage
                 .uploadAvatarFile(0, avatarFile)
                 .clickOnSideBarTab("Регистрационные данные");
         basePage
@@ -111,7 +111,7 @@ public class AddPetTests extends TestBase {
                 .enterDate("passport_date", date);
         basePage
                 .enterValueInInput("passport_name", passportName);
-        addPetPage
+        petPage
                 .uploadFile(1, passportFile);
         basePage
                 .chooseRadio("Да")
@@ -123,7 +123,7 @@ public class AddPetTests extends TestBase {
                 .enterValueInDropdown("association[0].name", associationName)
                 .enterValueInInput("association[0].identifier", associationId)
                 .enterValueInInput("association[0].link", associationLink);
-        addPetPage
+        petPage
                 .uploadFile(2, certificateFile)
                 .clickOnSideBarTab("Фотографии")
                 .uploadPhoto(3, photoFile)
@@ -135,13 +135,13 @@ public class AddPetTests extends TestBase {
                 .enterDate("exposition[0].date_end", date);
         basePage
                 .enterValueInInput("exposition[0].link", expositionLink);
-        addPetPage
+        petPage
                 .enterExpositionDescription("Описание выставки", expositionDescription); //заменить
         basePage
                 .clickOnButton("Добавить достижение")
                 .enterValueInDropdown("exposition[0].pet_award[0].type", reward)
                 .enterValueInInput("exposition[0].pet_award[0].nomination", nomination);
-        addPetPage
+        petPage
                 .uploadFile(4, expositionFile)
                 .clickOnSideBarTab("Рацион питания");
         basePage
@@ -151,7 +151,7 @@ public class AddPetTests extends TestBase {
                 .enterDate("food[0].date_to", date);
         basePage
                 .enterValueInTextarea("food[0].description", foodDescription);
-        addPetPage
+        petPage
                 .clickOnSideBarTab("Вакцинация");
         basePage
                 .enterValueInDropdown("vaccines[0].vaccine", vaccinesName);
@@ -160,7 +160,7 @@ public class AddPetTests extends TestBase {
         basePage
                 .selectValueInDropdown("vaccines[0].recurrence_rule", vaccinesRepeat)
                 .enterValueInTextarea("vaccines[0].description", vaccinesDescription);
-        addPetPage
+        petPage
                 .clickOnSideBarTab("Лечение");
         basePage
                 .enterValueInInput("cure[0].diagnosis", diagnosis);
@@ -169,7 +169,7 @@ public class AddPetTests extends TestBase {
                 .enterDate("cure[0].date_from_diagnosis", date);
         basePage
                 .enterValueInTextarea("cure[0].prescription", cure);
-        addPetPage
+        petPage
                 .uploadFile(5, cureFile)
                 .clickOnSideBarTab("Медицинская карта")
                 .enterBloodGroup("Группа крови", bloodType); //заменить
@@ -180,12 +180,12 @@ public class AddPetTests extends TestBase {
         basePage
                 .enterNumberInInput("medical_card.pet_measurements[0].weight", weight)
                 .enterNumberInInput("medical_card.pet_measurements[0].height", height);
-        addPetPage
+        petPage
                 .clickOnSideBarTab("Вязка");
         basePage
                 .clickOnButton("Создать")
                 .checkGreenMessage();
-        addPetPage
+        petPage
                 .checkPetInfo(breed)
                 .checkPetInfo(nickname)
                 .checkPetInfo(sex)
@@ -237,5 +237,112 @@ public class AddPetTests extends TestBase {
 
         int pet_id = basePage.getIdFromUrl();
         pet.deletePetByAPI(token, pet_id);
+    }
+
+    @Test
+    @DisplayName("Создание питомца без породы")
+    void addPetWithoutBreedTest() {
+        BasePage basePage = new BasePage();
+        Login login = new Login();
+        PetPage petPage = new PetPage();
+        CalendarComponent calendarComponent = new CalendarComponent();
+        Pet pet = new Pet();
+        SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
+        Locale locale = new Locale("ru");
+        SimpleDateFormat birthFormater = new SimpleDateFormat("d" + "-е " + "MMMM yyyy", locale);
+
+        Date birthDate = calendarComponent.getOtherDate(-20);
+
+        String petType = "Кошки";
+        String breed = "Не указано";
+        String nickname = "Автокотик";
+        String sex = "Самец";
+        String birth = formater.format(birthDate);
+        String birthOut = birthFormater.format(birthDate);
+
+        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+
+        login
+                .setCookie(token);
+        basePage
+                .openPage("/pet/new");
+        petPage
+                .selectPetType("Выберите вид животного", petType);
+        basePage
+                .enterValueInInput("nickname", nickname)
+                .chooseRadio(sex);
+        calendarComponent
+                .enterDate("birth", birth);
+        basePage
+                .clickOnButton("Создать")
+                .checkGreenMessage();
+        petPage
+                .checkPetInfo(breed)
+                .checkPetInfo(nickname)
+                .checkPetInfo(sex)
+                .checkPetInfo(birthOut);
+
+        int pet_id = basePage.getIdFromUrl();
+        pet.deletePetByAPI(token, pet_id);
+    }
+
+    @Test
+    @DisplayName("Редактирование питомца (кличка)")
+    void editPetTest() {
+        BasePage basePage = new BasePage();
+        Pet pet = new Pet();
+        CalendarComponent calendarComponent = new CalendarComponent();
+        Login login = new Login();
+
+        Date dateBirth = calendarComponent.getOtherDate(-20);
+        SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
+        String birth = formater.format(dateBirth);
+
+        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+
+        int pet_id = pet.createPetByAPI(token, false, 13, "autoTestSaleCat", birth, 0, 1007, 1,597);
+
+        login
+                .setCookie(token);
+        basePage
+                .openPage("/pet/" + pet_id)
+                .clickOnButton("Редактировать карточку")
+                .clearValueInInput("nickname")
+                .enterValueInInput("nickname", "autoTestEditCat")
+                .clickOnButton("Сохранить изменения")
+                .checkGreenMessage()
+                .openPage("/pet/" + pet_id)
+                .checkBlockDisplay("autoTestEditCat");
+
+        pet.deletePetByAPI(token, pet_id);
+    }
+
+    @Test
+    @DisplayName("Удалить питомца")
+    void deletePetTest() {
+        BasePage basePage = new BasePage();
+        Pet pet = new Pet();
+        CalendarComponent calendarComponent = new CalendarComponent();
+        Login login = new Login();
+        PetPage petPage = new PetPage();
+
+        Date dateBirth = calendarComponent.getOtherDate(-20);
+        SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
+        String birth = formater.format(dateBirth);
+
+        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+
+        int pet_id = pet.createPetByAPI(token, false, 13, "autoTestSaleCat", birth, 0, 1007, 1,597);
+
+        login
+                .setCookie(token);
+        basePage
+                .openPage("/pet/" + pet_id)
+                .clickOnButton("Редактировать карточку")
+                .clickOnButton("Удалить питомца");
+        petPage
+                .deletePet();
+        basePage
+                .checkGreenMessage();
     }
 }

@@ -54,7 +54,6 @@ public class KnowledgeTests extends TestBase {
                 .checkBreedsDisplay("Бенгальская");
     }
 
-    //bug
     @Test
     @DisplayName("Сравнить породы")
     void compareBreedsTest() {
@@ -75,6 +74,12 @@ public class KnowledgeTests extends TestBase {
                 .openComparison();
         basePage
                 .clickOnButton("Перейти к сравнению");
+        knowledgePage
+                .checkComparison("Абиссинская")
+                .checkComparison("Австралийская дымчатая")
+                .checkComparison("Австралийский мист");
+        basePage
+                .clickOnButton("Очистить список");
     }
 
     @Test

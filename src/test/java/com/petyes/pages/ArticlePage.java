@@ -2,11 +2,20 @@ package com.petyes.pages;
 
 import io.qameta.allure.Step;
 
+import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 public class ArticlePage {
+
+    @Step("Загрузить файл")
+    public ArticlePage uploadFile(String fileName) {
+        $("input[type=\"file\"", 0).uploadFromClasspath(fileName);
+        $$(".as-button__slot").findBy(text("Сохранить и продолжить")).click();
+        $(".images-upload__image").shouldBe(exist);
+        return this;
+    }
 
     @Step("Ввести текст статьи")
     public ArticlePage enterText(String text) {

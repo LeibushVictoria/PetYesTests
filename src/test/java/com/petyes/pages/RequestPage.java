@@ -78,4 +78,9 @@ public class RequestPage {
         return this;
     }
 
+    @Step("Выбрать питомца для отклика")
+    public RequestPage choosePetToResponse(int pet_id) {
+        $("input[type=\"checkbox\"][value =\"" + pet_id + "\"]+span").click();
+        return this;
+    }
 }

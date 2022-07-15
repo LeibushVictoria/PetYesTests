@@ -180,7 +180,7 @@ public class RequestTests extends TestBase {
         String birth = formaterPet.format(dateBirth);
 
         int pet_id = pet.createPetByAPI(breederToken, false, 13, "autoTestCat", birth, 0, 1007, 0,597);
-        int sell_id = pet.sellPetByAPI(breederToken, false, false, true, 10000, pet_id);
+        int sell_id = pet.salePetByAPI(breederToken, false, false, true, 10000, pet_id);
 
         String customerToken = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
 
@@ -200,7 +200,7 @@ public class RequestTests extends TestBase {
         requestPage
                 .checkSaleOffer(0, sell_id);
 
-        pet.cancelSellPetByAPI(breederToken, sell_id);
+        pet.cancelPetSaleByAPI(breederToken, sell_id);
         pet.deletePetByAPI(breederToken, pet_id);
         request.deleteRequestByAPI(customerToken, request_id);
     }
@@ -222,7 +222,7 @@ public class RequestTests extends TestBase {
         String birth = formaterPet.format(dateBirth);
 
         int pet_id = pet.createPetByAPI(breederToken, false, 13, "autoTestCat", birth, 1, 1007, 0,597);
-        int sell_id = pet.sellPetByAPI(breederToken, false, false, true, 10000, pet_id);
+        int sell_id = pet.salePetByAPI(breederToken, false, false, true, 10000, pet_id);
 
         String customerToken = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
 
@@ -242,7 +242,7 @@ public class RequestTests extends TestBase {
         requestPage
                 .checkSaleOffer(1, sell_id);
 
-        pet.cancelSellPetByAPI(breederToken, sell_id);
+        pet.cancelPetSaleByAPI(breederToken, sell_id);
         pet.deletePetByAPI(breederToken, pet_id);
         request.deleteRequestByAPI(customerToken, request_id);
     }

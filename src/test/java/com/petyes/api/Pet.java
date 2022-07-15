@@ -45,7 +45,7 @@ public class Pet {
     }
 
     @Step("Продать питомца по API")
-    public int sellPetByAPI(String token, boolean deliverable, boolean sell_for_free, boolean is_not_for_breeding, int not_for_breeding_price, int pet_id) {
+    public int salePetByAPI(String token, boolean deliverable, boolean sell_for_free, boolean is_not_for_breeding, int not_for_breeding_price, int pet_id) {
         PetData petData = PetData.builder()
                 .deliverable(deliverable)
                 .sell_for_free(sell_for_free)
@@ -67,7 +67,7 @@ public class Pet {
     }
 
     @Step("Снять питомца с продажи по API")
-    public void cancelSellPetByAPI(String token, int pet_id) {
+    public void cancelPetSaleByAPI(String token, int pet_id) {
         PetData petData = PetData.builder()
                 .pet_id(pet_id)
                 .build();

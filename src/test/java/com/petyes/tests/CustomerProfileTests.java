@@ -77,7 +77,7 @@ public class CustomerProfileTests extends TestBase {
                 .setCookie(token);
         basePage
                 .openPage("/user/" + user_id + "#requests")
-                .checkLink(request_id);
+                .checkLinkById(request_id);
 
         request.deleteRequestByAPI(token, request_id);
     }

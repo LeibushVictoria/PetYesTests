@@ -9,9 +9,7 @@ public class Auction {
 
     @Step("Создание аукциона по API")
     public int createAuctionByAPI(String token, String started_at, String finished_at, int start_cost, int availability_type,
-                                  int blitz_price, boolean auto_renew, boolean is_fixed) {
-        Pet pet = new Pet();
-        int pet_id = pet.createPetByAPI(token, false, 13, "autoTestAuctionCat", "10.03.2022", 0, 1007, 1,597);
+                                  int blitz_price, boolean auto_renew, boolean is_fixed, int pet_id) {
         int id = given()
                 .contentType("multipart/form-data")
                 .header("Authorization", "Bearer " + token)
@@ -37,7 +35,7 @@ public class Auction {
     @Step("Удаление аукциона по API")
     public void deleteAuctionByAPI(String token, int id) {
         PetData petData = PetData.builder()
-                .auction_id(id)
+                .auction(id)
                 .build();
         given()
                 .contentType("application/json;charset=UTF-8")
@@ -46,6 +44,7 @@ public class Auction {
                 .when()
                 .delete("https://leibush.pet-no.com/api/auction/delete")
                 .then()
-                .statusCode(200);
+                .log().all()
+                .statusCode(204);
     }
 }

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 
 @Feature("Заводчики")
-public class BreedersTests extends TestBase {
+public class BreederListTests extends TestBase {
 
     @Test
     @DisplayName("Переход в создание запроса из раздела Заводчики")

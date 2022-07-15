@@ -21,8 +21,10 @@ public class BlogTests extends TestBase {
         login
                 .setCookie(token);
         basePage
-                .openPage("/knowledge/article/new")
-                .uploadFile(0, "pet_avatar.jpg")
+                .openPage("/knowledge/article/new");
+        articlePage
+                .uploadFile("pet_avatar.jpg");
+        basePage
                 .enterValueInInput("name","Автотестовое название статьи");
         articlePage
                 .selectCategory("autotest");

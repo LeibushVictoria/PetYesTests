@@ -2,7 +2,7 @@ package com.petyes.pages;
 
 import io.qameta.allure.Step;
 
-import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -59,6 +59,12 @@ public class KnowledgePage {
     @Step("Открыть породу")
     public KnowledgePage openBreed(String breed) {
         $$(".breed-preview__link").findBy(text(breed)).click();
+        return this;
+    }
+
+    @Step("Проверить отображение пород в списке сравнения")
+    public KnowledgePage checkComparison(String breed) {
+        $$(".compare-breed-preview__title").findBy(text(breed)).shouldBe(visible);
         return this;
     }
 }
