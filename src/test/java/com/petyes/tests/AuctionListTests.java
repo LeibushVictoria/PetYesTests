@@ -7,6 +7,7 @@ import com.petyes.domain.ItemsForLogin;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
 import com.petyes.pages.components.CityComponent;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -99,7 +100,7 @@ public class AuctionListTests extends TestBase {
         auction.deleteAuctionByAPI(auction_id);
     }
 
-    //bug
+    @Disabled("Баг, аукционы пока переделываются")
     @Test
     @DisplayName("Подать заявку на участие в аукционе")
     void auctionApplicationTest() {

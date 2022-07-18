@@ -19,8 +19,7 @@ public class BasePage {
 
     @Step("Получить id из урла")
     public int getIdFromUrl() {
-        String url = url();
-        int id = Integer.parseInt(url.substring(url.lastIndexOf("/") + 1));
+        int id = Integer.parseInt(url().substring(url().lastIndexOf("/") + 1));
         return id;
     }
 
@@ -115,6 +114,12 @@ public class BasePage {
         return this;
     }
 
+    @Step("Ввести текст в textarea")
+    public BasePage enterValueInSingleTextarea(String value) {
+        $(".as-textarea__field").setValue(value);
+        return this;
+    }
+
     @Step("Очистить поле textarea")
     public BasePage clearTextarea() {
         $(".as-textarea__field").clear();
@@ -134,15 +139,13 @@ public class BasePage {
     }
 
     @Step("Проверить отображение текста в модальном окне")
-    public BasePage checkModalBlockDisplay(String text) {
+    public void checkModalBlockDisplay(String text) {
         $(".alert-modal__title").shouldBe(visible, Duration.ofSeconds(10)).shouldHave(text(text));
-        return this;
     }
 
     @Step("Проверить результат поиска")
-    public BasePage checkResult(String value) {
+    public void checkResult(String value) {
         $(".search-page__results").shouldHave(text(value));
-        return this;
     }
 
     @Step("Проверить отображение зеленой всплывашки")
@@ -152,9 +155,8 @@ public class BasePage {
     }
 
     @Step("Проверить наличие ссылки по id")
-    public BasePage checkLinkById(int id) {
-        $("a[href*=\""+id+"\"]").should(exist);
-        return this;
+    public void checkLinkById(int id) {
+        $("a[href*=\""+id+"\"]").exists();
     }
 
     @Step("Проверить наличие ссылки")

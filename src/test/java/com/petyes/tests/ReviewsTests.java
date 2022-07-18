@@ -2,19 +2,20 @@ package com.petyes.tests;
 
 import com.petyes.api.Login;
 import com.petyes.config.App;
+import com.petyes.domain.ItemsForLogin;
 import com.petyes.pages.BasePage;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 public class ReviewsTests extends TestBase {
 
-    @Test
-    @DisplayName("Оставить отзыв")
-    void compareBreedsTest() {
+    @EnumSource(ItemsForLogin.class)
+    @ParameterizedTest(name = "Оставить отзыв: {0}")
+    void compareBreedsTest(ItemsForLogin items) {
         BasePage basePage = new BasePage();
         Login login = new Login();
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(items.getPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);

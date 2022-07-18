@@ -58,7 +58,7 @@ public class Request {
                 .contentType("application/json;charset=UTF-8")
                 .body(requestData)
                 .when()
-                .post("https://leibush.pet-no.com/api/pet/buy_request/add")
+                .post("/api/pet/buy_request/add")
                 .then()
                 .statusCode(200)
                 .extract()
@@ -79,7 +79,7 @@ public class Request {
                 .contentType("application/json;charset=UTF-8")
                 .body(requestData)
                 .when()
-                .post("https://leibush.pet-no.com/api/pet/buy_request/remove")
+                .post("/api/pet/buy_request/remove")
                 .then()
                 .statusCode(200);
     }

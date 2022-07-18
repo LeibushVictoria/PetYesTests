@@ -8,14 +8,13 @@ import static com.codeborne.selenide.Selenide.*;
 public class BreedersPage {
 
     @Step("Открыть страницу заводчика")
-    public BreedersPage openBreederPage(String breeder) {
+    public void openBreederPage(String breeder) {
         $$(".breeder-preview__link").findBy(text(breeder)).click();
-        return this;
     }
 
     @Step("Открыть отзывы заводчика")
     public BreedersPage openRewiewPopup(String breeder) {
-        $$(".breeder-preview__content").findBy(text(breeder)).$(".breeder-preview__review-count").click();
+        $$(".breeder-preview__content").findBy(text(breeder)).$(".breeder-preview__review-add").click();
         return this;
     }
 
@@ -26,14 +25,7 @@ public class BreedersPage {
     }
 
     @Step("Ввести комментарий")
-    public BreedersPage setComment(String comment) {
+    public void setComment(String comment) {
         $(".as-textarea__field").setValue(comment);
-        return this;
-    }
-
-    @Step("Проверить отправку отзыва")
-    public BreedersPage checkRewiewCreated() {
-        $(".as-modal__content").shouldHave(text("Хорошо"));
-        return this;
     }
 }

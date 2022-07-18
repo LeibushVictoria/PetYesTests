@@ -9,9 +9,8 @@ import static com.codeborne.selenide.Selenide.$$;
 public class MyPetsPage {
 
     @Step("Нажать на питомца")
-    public MyPetsPage clickOnPet(String nickname) {
+    public void clickOnPet(String nickname) {
         $$(".mypets__nickname").findBy(text(nickname)).click();
-        return this;
     }
 
     @Step("Нажать на иконку родословной")
@@ -21,15 +20,13 @@ public class MyPetsPage {
     }
 
     @Step("Проверить отображение родословной")
-    public MyPetsPage checkGenTree(String nickname) {
+    public void checkGenTree(String nickname) {
         $(".gen-tree-leaf__nickname").shouldHave(text(nickname));
-        return this;
     }
 
     @Step("Нажать на иконку редактирования")
-    public MyPetsPage clickOnEdit(int id) {
+    public void clickOnEdit(int id) {
         $("a[href=\"/pet/settings/info?id="+id+"\"]").click();
-        return this;
     }
 
     @Step("Нажать на иконку отдать даром")
@@ -39,9 +36,8 @@ public class MyPetsPage {
     }
 
     @Step("Проверить отображение страницы продажи")
-    public MyPetsPage checkSale(String text) {
+    public void checkSale(String text) {
         $(".as-radio--active").shouldHave(text(text));
-        return this;
     }
 
     @Step("Нажать на иконку продажи")

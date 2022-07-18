@@ -136,7 +136,7 @@ public class PetTests extends TestBase {
         basePage
                 .enterValueInInput("exposition[0].link", expositionLink);
         petPage
-                .enterExpositionDescription("Описание выставки", expositionDescription); //заменить
+                .enterExpositionDescription("Описание выставки", expositionDescription);
         basePage
                 .clickOnButton("Добавить достижение")
                 .enterValueInDropdown("exposition[0].pet_award[0].type", reward)

@@ -41,7 +41,7 @@ public class Auction {
                 .multiPart("lots[0][blitz_price]", blitz_price)
                 .multiPart("lots[0][lot_content][0][pet]", pet_id)
                 .when()
-                .post("https://leibush.pet-no.com/api/auction/create_and_publish")
+                .post("/api/auction/create_and_publish")
                 .then()
                 .statusCode(200)
                 .extract()
@@ -62,7 +62,7 @@ public class Auction {
                 .header("Authorization", "Bearer " + token)
                 .body(petData)
                 .when()
-                .delete("https://leibush.pet-no.com/api/auction/delete")
+                .delete("/api/auction/delete")
                 .then()
                 .log().all()
                 .statusCode(204);

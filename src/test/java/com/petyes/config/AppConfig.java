@@ -15,6 +15,7 @@ public interface AppConfig extends Config {
     String breederPhoneNumberAPI();
     String customerPhoneNumber();
     String customerPhoneNumberAPI();
+    String managerPhoneNumberAPI();
     String userPassword();
 
 }

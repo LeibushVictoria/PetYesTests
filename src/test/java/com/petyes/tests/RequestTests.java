@@ -3,6 +3,7 @@ package com.petyes.tests;
 import com.petyes.api.Login;
 import com.petyes.api.Pet;
 import com.petyes.api.Request;
+import com.petyes.api.Sale;
 import com.petyes.config.App;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.RequestPage;
@@ -10,6 +11,7 @@ import com.petyes.pages.components.CalendarComponent;
 import com.petyes.pages.components.CityComponent;
 import io.qameta.allure.AllureId;
 import io.qameta.allure.Feature;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -28,15 +30,14 @@ public class RequestTests extends TestBase {
         CityComponent cityComponent = new CityComponent();
         Request request = new Request();
 
-        String petType = "Собаки";
-        String breed = "Австралийский келпи";
-        String color = "Черный";
+        String petType = "Кошки";
+        String breed = "Абиссинская";
+        String color = "Белый";
         String sex = "Самец";
         String age = "До 6 месяцев";
         String priceFrom = "10 000";
         String priceTo = "30 000";
         String city = "Санкт-Петербург";
-        String comment = "Автотестовый комментарий";
 
         String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
 
@@ -47,14 +48,12 @@ public class RequestTests extends TestBase {
         requestPage
                 .selectPetType("Выберите вид животного", petType);
         basePage
-                .enterValueInDropdown("breed", breed);
-        requestPage
-                .chooseColor(color); //заменить
-        basePage
+                .enterValueInDropdown("breed", breed)
                 .chooseRadio(sex)
                 .chooseCheckbox(age)
                 .enterValueByKeys(0, priceFrom)
-                .enterValueByKeys(1, priceTo);
+                .enterValueByKeys(1, priceTo)
+                .selectValueInDropdown("colors", color);
         cityComponent
                 .chooseCity(city);
         basePage
@@ -65,11 +64,7 @@ public class RequestTests extends TestBase {
                 .chooseOption("Кастрация/стерилизация", "Нет")
                 .chooseOption("Электронный чип", "Нет");
         basePage
-                .clickOnButton("Продолжить");
-        requestPage
-                .enterComment(comment);
-        basePage
-                .clickOnButton("Опубликовать")
+                .clickOnButton("Отправить")
                 .clickOnButton("Перейти к запросу")
                 .checkHeader(3, breed);
         requestPage
@@ -83,8 +78,7 @@ public class RequestTests extends TestBase {
                 .checkResults(5, "Вакцинация", "Да")
                 .checkResults(6, "Кастрация", "Нет")
                 .checkResults(7, "Электронный чип", "Нет")
-                .checkResults(8, "Удобно забрать", city)
-                .checkComment(comment);
+                .checkResults(8, "Удобно забрать", city);
 
         int request_id = basePage.getIdFromUrl();
         request.deleteRequestByAPI(request_id);
@@ -100,6 +94,8 @@ public class RequestTests extends TestBase {
         CityComponent cityComponent = new CityComponent();
         Request request = new Request();
 
+        String petType = "Собаки";
+
         String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
 
         login
@@ -108,20 +104,21 @@ public class RequestTests extends TestBase {
                 .openPage("/buy-add")
                 .chooseRadio("Возьму бесплатно в хорошие руки");
         requestPage
-                .selectPetType("Выберите вид животного", "Собаки");
+                .selectPetType("Выберите вид животного", petType);
         cityComponent
                 .chooseCity("Санкт-Петербург");
         basePage
                 .clickOnButton("Продолжить")
-                .clickOnButton("Продолжить")
-                .clickOnButton("Опубликовать")
+                .clickOnButton("Отправить")
                 .clickOnButton("Перейти к запросу")
-                .checkHeader(3,"Собаки");
+                .checkHeader(3, petType)
+                .checkBlockDisplay("Бесплатно");
 
         int request_id = basePage.getIdFromUrl();
         request.deleteRequestByAPI(request_id);
     }
 
+    @Disabled("Баг PET-702")
     @Test
     @DisplayName("Редактирование запроса на питомца (цена)")
     void editRequestTest() {
@@ -158,20 +155,21 @@ public class RequestTests extends TestBase {
         request.deleteRequestByAPI(request_id);
     }
 
-    //bug
+    @Disabled("Баг PET-729")
     @Test
     @DisplayName("Смотреть подходящие предложения")
     void seeSaleOffersTest() {
         BasePage basePage = new BasePage();
         Request request = new Request();
         Pet pet = new Pet();
+        Sale sale = new Sale();
         CalendarComponent calendarComponent = new CalendarComponent();
         Login login = new Login();
         RequestPage requestPage = new RequestPage();
 
         Date birth = calendarComponent.getOtherDate(-20);
         int pet_id = pet.createPetByAPI(false, 13, "autoTestCat", birth, 0, 1007, 0,597);
-        int sell_id = pet.salePetByAPI(false, false, true, 10000, pet_id);
+        int sale_id = sale.salePetByAPI(false, false, true, 10000, pet_id);
 
         Date today = calendarComponent.getTodayDate();
         int request_id = request.createRequestByAPI(13, 0, 20000, false,
@@ -186,9 +184,9 @@ public class RequestTests extends TestBase {
                 .openPage("/buy/" + request_id)
                 .clickOnButton("Смотреть предложения");
         requestPage
-                .checkSaleOffer(0, sell_id);
+                .checkSaleOffer(0, sale_id);
 
-        pet.cancelPetSaleByAPI(sell_id);
+        sale.cancelPetSaleByAPI(pet_id);
         pet.deletePetByAPI(pet_id);
         request.deleteRequestByAPI(request_id);
     }
@@ -199,13 +197,14 @@ public class RequestTests extends TestBase {
         BasePage basePage = new BasePage();
         Request request = new Request();
         Pet pet = new Pet();
+        Sale sale = new Sale();
         CalendarComponent calendarComponent = new CalendarComponent();
         Login login = new Login();
         RequestPage requestPage = new RequestPage();
 
         Date birth = calendarComponent.getOtherDate(-20);
         int pet_id = pet.createPetByAPI(false, 13, "autoTestCat", birth, 1, 1007, 0,597);
-        int sell_id = pet.salePetByAPI(false, false, true, 10000, pet_id);
+        int sale_id = sale.salePetByAPI(false, false, true, 10000, pet_id);
 
         Date today = calendarComponent.getTodayDate();
         int request_id = request.createRequestByAPI(13, 0, 20000, false,
@@ -220,9 +219,9 @@ public class RequestTests extends TestBase {
                 .openPage("/buy/" + request_id)
                 .clickOnButton("Смотреть предложения");
         requestPage
-                .checkSaleOffer(1, sell_id);
+                .checkSaleOffer(1, sale_id);
 
-        pet.cancelPetSaleByAPI(sell_id);
+        sale.cancelPetSaleByAPI(pet_id);
         pet.deletePetByAPI(pet_id);
         request.deleteRequestByAPI(request_id);
     }

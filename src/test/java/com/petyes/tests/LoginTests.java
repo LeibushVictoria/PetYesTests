@@ -18,10 +18,9 @@ public class LoginTests extends TestBase {
         LoginPage loginPage = new LoginPage();
 
         basePage
-                .openPage("/login");
-        loginPage
-                .fillLoginForm(App.config.breederPhoneNumber(), App.config.userPassword());
-        basePage
+                .openPage("/login")
+                .enterValueInInput("phone", App.config.breederPhoneNumber())
+                .enterValueInInput("password", App.config.userPassword())
                 .clickOnButton("Войти");
         loginPage
                 .checkLogin("Находите хозяев для Ваших щенков и котят");
@@ -35,10 +34,9 @@ public class LoginTests extends TestBase {
         LoginPage loginPage = new LoginPage();
 
         basePage
-                .openPage("/login");
-        loginPage
-                .fillLoginForm(App.config.customerPhoneNumber(), App.config.userPassword());
-        basePage
+                .openPage("/login")
+                .enterValueInInput("phone", App.config.customerPhoneNumber())
+                .enterValueInInput("password", App.config.userPassword())
                 .clickOnButton("Войти");
         loginPage
                 .checkLogin("Ваш любимец в паре кликов от Вас");
@@ -52,10 +50,9 @@ public class LoginTests extends TestBase {
         LoginPage loginPage = new LoginPage();
 
         basePage
-                .openPage("/login");
-        loginPage
-                .fillLoginForm(App.config.customerPhoneNumber(), "WrongPassword");
-        basePage
+                .openPage("/login")
+                .enterValueInInput("phone", App.config.customerPhoneNumber())
+                .enterValueInInput("password", "WrongPassword")
                 .clickOnButton("Войти");
         loginPage
                 .checkErrorMessage();

@@ -1,6 +1,7 @@
 package com.petyes.tests;
 
 import com.petyes.config.App;
+import com.petyes.domain.ItemsForLogin;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.BreedersPage;
 import com.petyes.api.Login;
@@ -8,6 +9,8 @@ import com.petyes.pages.components.CityComponent;
 import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 
 @Feature("Заводчики")
@@ -62,26 +65,22 @@ public class BreederListTests extends TestBase {
         basePage
                 .openPage("/breeders");
         breedersPage
-                .openRewiewPopup("Продавец Автотест");
-        basePage
-                .clickOnButton("Написать отзыв");
-        breedersPage
+                .openRewiewPopup("Продавец Автотест")
                 .clickRatingButton(3)
                 .setComment("тест");
         basePage
-                .clickOnButton("Отправить");
-        breedersPage
-                .checkRewiewCreated();
+                .clickOnButton("Отправить")
+                .clickOnButton("Хорошо");
     }
 
-    @Test
-    @DisplayName("Работа фильтров")
-    void filterBreedersTest() {
+    @EnumSource(ItemsForLogin.class)
+    @ParameterizedTest(name = "Работа фильтров: {0}")
+    void filterBreedersTest(ItemsForLogin items) {
         BasePage basePage = new BasePage();
         Login login = new Login();
         CityComponent cityComponent = new CityComponent();
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(items.getPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);

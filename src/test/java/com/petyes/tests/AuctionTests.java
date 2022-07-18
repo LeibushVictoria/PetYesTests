@@ -6,13 +6,14 @@ import com.petyes.api.Pet;
 import com.petyes.config.App;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class AuctionTests {
+public class AuctionTests extends TestBase {
 
     @Test
     @DisplayName("Выставить на аукцион существующего питомца")
@@ -57,7 +58,7 @@ public class AuctionTests {
         auction.deleteAuctionByAPI(auction_id);
     }
 
-    //bug
+    @Disabled("Баг, аукционы пока переделываются")
     @Test
     @DisplayName("Редактировать аукцион (блиц-цена)")
     void editPetAuctionTest() {
@@ -87,7 +88,7 @@ public class AuctionTests {
         auction.deleteAuctionByAPI(auction_id);
     }
 
-    //bug
+    @Disabled("Баг, аукционы пока переделываются")
     @Test
     @DisplayName("Удалить аукцион")
     void cancelPetSaleTest() {

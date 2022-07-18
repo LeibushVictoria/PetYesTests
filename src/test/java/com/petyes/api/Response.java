@@ -26,7 +26,7 @@ public class Response {
                 .contentType("application/json;charset=UTF-8")
                 .body(responseData)
                 .when()
-                .post("https://leibush.pet-no.com/api/response/add")
+                .post("/api/response/add")
                 .then()
                 .statusCode(200);
     }

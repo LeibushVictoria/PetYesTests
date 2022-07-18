@@ -2,10 +2,10 @@ package com.petyes.tests;
 
 import com.petyes.api.Login;
 import com.petyes.api.Pet;
+import com.petyes.api.Sale;
 import com.petyes.config.App;
 import com.petyes.pages.PetPage;
 import com.petyes.pages.BasePage;
-import com.petyes.pages.SalePetPage;
 import com.petyes.pages.components.CalendarComponent;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,6 +19,7 @@ public class SalePetTests extends TestBase{
     @DisplayName("Продать существующего питомца")
     void saleExistingPetTest() {
         Pet pet = new Pet();
+        Sale sale = new Sale();
         BasePage basePage = new BasePage();
         Login login = new Login();
         CalendarComponent calendarComponent = new CalendarComponent();
@@ -37,7 +38,7 @@ public class SalePetTests extends TestBase{
                 .checkGreenMessage()
                 .checkBlockDisplay("autoTestSaleCat, Абиссинская");
 
-        pet.cancelPetSaleByAPI(pet_id);
+        sale.cancelPetSaleByAPI(pet_id);
         pet.deletePetByAPI(pet_id);
     }
 
@@ -45,11 +46,11 @@ public class SalePetTests extends TestBase{
     @DisplayName("Отдать даром питомца без породы")
     void freeSaleExistingPetTest() {
         Pet pet = new Pet();
+        Sale sale = new Sale();
         BasePage basePage = new BasePage();
         Login login = new Login();
         CalendarComponent calendarComponent = new CalendarComponent();
         PetPage petPage = new PetPage();
-        SalePetPage salePetPage = new SalePetPage();
 
         Date dateBirth = calendarComponent.getOtherDate(-20);
         SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
@@ -63,24 +64,24 @@ public class SalePetTests extends TestBase{
         login
                 .setCookie(token);
         basePage
-                .openPage("/sale-pets-list");
+                .openPage("/sale-pets-list")
+                .clickOnButton("Новое животное");
         petPage
                 .selectPetType("Выберите вид животного", petType);
         basePage
                 .enterValueInInput("nickname", nickname);
         calendarComponent
                 .enterDate("birth", birth);
-        salePetPage
-                .clickOnSaleButton("Продать");
-
+        basePage
+                .clickOnSubmitButton()
+                .checkHeader(2, "Подача объявления");
         int pet_id = basePage.getIdFromUrl();
-
         basePage
                 .clickOnButton("Опубликовать")
                 .checkGreenMessage()
-                .checkBlockDisplay("autoTestFreeSaleCat, Без породы");
+                .checkBlockDisplay(nickname + ", Без породы");
 
-        pet.cancelPetSaleByAPI(pet_id);
+        sale.cancelPetSaleByAPI(pet_id);
         pet.deletePetByAPI(pet_id);
     }
 
@@ -89,12 +90,13 @@ public class SalePetTests extends TestBase{
     void editPetSaleTest() {
         BasePage basePage = new BasePage();
         Pet pet = new Pet();
+        Sale sale = new Sale();
         CalendarComponent calendarComponent = new CalendarComponent();
         Login login = new Login();
 
         Date birth = calendarComponent.getOtherDate(-20);
         int pet_id = pet.createPetByAPI(false, 13, "autoTestSaleCat", birth, 0, 1007, 1,597);
-        int sell_id = pet.salePetByAPI(false, false, true, 10000, pet_id);
+        int sale_id = sale.salePetByAPI(false, false, true, 10000, pet_id);
 
         String price= "99 999";
 
@@ -103,14 +105,14 @@ public class SalePetTests extends TestBase{
         login
                 .setCookie(token);
         basePage
-                .openPage("/sale/" + sell_id)
+                .openPage("/sale/" + sale_id)
                 .clickOnButton("Редактировать")
                 .enterValueByKeys(1, price)
                 .clickOnButton("Сохранить")
                 .checkGreenMessage()
                 .checkBlockDisplay(price + " ₽");
 
-        pet.cancelPetSaleByAPI(pet_id);
+        sale.cancelPetSaleByAPI(pet_id);
         pet.deletePetByAPI(pet_id);
     }
 
@@ -119,25 +121,23 @@ public class SalePetTests extends TestBase{
     void cancelPetSaleTest() {
         BasePage basePage = new BasePage();
         Pet pet = new Pet();
+        Sale sale = new Sale();
         CalendarComponent calendarComponent = new CalendarComponent();
         Login login = new Login();
-        SalePetPage salePetPage = new SalePetPage();
 
         Date birth = calendarComponent.getOtherDate(-20);
         int pet_id = pet.createPetByAPI(false, 13, "autoTestSaleCat", birth, 0, 1007, 1,597);
-        int sell_id = pet.salePetByAPI(false, false, true, 10000, pet_id);
+        int sale_id = sale.salePetByAPI(false, false, true, 10000, pet_id);
 
         String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
 
         login
                 .setCookie(token);
         basePage
-                .openPage("/sale/" + sell_id)
+                .openPage("/sale/" + sale_id)
                 .clickOnButton("Снять с продажи")
-                .chooseRadio("Другое");
-        salePetPage
-                .enterReason("Автотестовая причина завершения");
-        basePage
+                .chooseRadio("Другое")
+                .enterValueInSingleTextarea("Автотестовая причина завершения")
                 .clickOnButton("Продолжить")
                 .checkGreenMessage();
 

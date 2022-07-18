@@ -23,6 +23,7 @@ public class ChatTests extends TestBase {
 
         String customerToken = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
         String breederToken = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        int breeder_id = login.getUserId(breederToken);
 
         Date dateToday = calendarComponent.getTodayDate();
         SimpleDateFormat formater = new SimpleDateFormat("HH:mm:ss");
@@ -31,10 +32,10 @@ public class ChatTests extends TestBase {
         login
                 .setCookie(customerToken);
         basePage
-                .openPage("/chat");
+                .openPage("/user/" + breeder_id)
+                .clickOnButton("Начать чат")
+                .enterValueInSingleTextarea(message);
         chatPage
-                .openChat("Продавец Автотест")
-                .writeMessage(message)
                 .sendMessage()
                 .checkMessage(message);
         login

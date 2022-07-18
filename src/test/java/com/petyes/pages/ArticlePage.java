@@ -2,19 +2,18 @@ package com.petyes.pages;
 
 import io.qameta.allure.Step;
 
-import static com.codeborne.selenide.Condition.exist;
-import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 public class ArticlePage {
 
     @Step("Загрузить файл")
-    public ArticlePage uploadFile(String fileName) {
+    public void uploadFile(String fileName) {
         $("input[type=\"file\"", 0).uploadFromClasspath(fileName);
+        $(".cropper-view-box").shouldBe(visible);
         $$(".as-button__slot").findBy(text("Сохранить и продолжить")).click();
-        $(".images-upload__image").shouldBe(exist);
-        return this;
+        $(".image-upload__image").shouldBe(visible);
     }
 
     @Step("Ввести текст статьи")
@@ -24,10 +23,9 @@ public class ArticlePage {
     }
 
     @Step("Выбрать категорию")
-    public ArticlePage selectCategory(String value) {
+    public void selectCategory(String value) {
         $(".as-select__container").click();
         $$(".as-select__option-item").findBy(text(value)).click();
-        return this;
     }
 
     @Step("Проверить создание статьи")
@@ -37,8 +35,7 @@ public class ArticlePage {
     }
 
     @Step("Проверить результат")
-    public ArticlePage checkResult(String article) {
+    public void checkResult(String article) {
         $(".knowledge-articles").shouldHave(text(article));
-        return this;
     }
 }

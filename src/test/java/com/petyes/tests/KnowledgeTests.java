@@ -2,23 +2,26 @@ package com.petyes.tests;
 
 import com.petyes.api.Login;
 import com.petyes.config.App;
+import com.petyes.domain.ItemsForLogin;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.KnowledgePage;
 import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 @Feature("Каталог пород")
 public class KnowledgeTests extends TestBase {
 
-    @Test
-    @DisplayName("Подобрать породу")
-    void chooseABreedTest() {
+    @EnumSource(ItemsForLogin.class)
+    @ParameterizedTest(name = "Подобрать породу: {0}")
+    void chooseABreedTest(ItemsForLogin items) {
         BasePage basePage = new BasePage();
         Login login = new Login();
         KnowledgePage knowledgePage = new KnowledgePage();
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(items.getPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -54,14 +57,14 @@ public class KnowledgeTests extends TestBase {
                 .checkBreedsDisplay("Бенгальская");
     }
 
-    @Test
-    @DisplayName("Сравнить породы")
-    void compareBreedsTest() {
+    @EnumSource(ItemsForLogin.class)
+    @ParameterizedTest(name = "Сравнить породы: {0}")
+    void compareBreedsTest(ItemsForLogin items) {
         BasePage basePage = new BasePage();
         Login login = new Login();
         KnowledgePage knowledgePage = new KnowledgePage();
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(items.getPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -82,14 +85,14 @@ public class KnowledgeTests extends TestBase {
                 .clickOnButton("Очистить список");
     }
 
-    @Test
-    @DisplayName("Работа фильтров")
-    void filterBreedsTest() {
+    @EnumSource(ItemsForLogin.class)
+    @ParameterizedTest(name = "Работа фильтров: {0}")
+    void filterBreedsTest(ItemsForLogin items) {
         BasePage basePage = new BasePage();
         Login login = new Login();
         KnowledgePage knowledgePage = new KnowledgePage();
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(items.getPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -129,14 +132,14 @@ public class KnowledgeTests extends TestBase {
                 .checkHeader(2,"Создание запроса на подбор животного");
     }
 
-    @Test
-    @DisplayName("Просмотр породы")
-    void viewBreedTest() {
+    @EnumSource(ItemsForLogin.class)
+    @ParameterizedTest(name = "Просмотр породы: {0}")
+    void viewBreedTest(ItemsForLogin items) {
         BasePage basePage = new BasePage();
         Login login = new Login();
         KnowledgePage knowledgePage = new KnowledgePage();
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(items.getPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);

@@ -23,7 +23,7 @@ public class Login {
                 .contentType("application/json;charset=UTF-8")
                 .body(user)
                 .when()
-                .post("https://leibush.pet-no.com/api/login")
+                .post("/api/login")
                 .then()
                 .statusCode(200)
                 .extract().as(LoginData.class).getToken();
@@ -41,7 +41,7 @@ public class Login {
         Map<String, Integer> user = given()
                 .header("Authorization", "Bearer " + token)
                 .when()
-                .get("https://leibush.pet-no.com/api/user")
+                .get("/api/user")
                 .then()
                 .statusCode(200)
                 .extract().body().jsonPath().getMap("user");

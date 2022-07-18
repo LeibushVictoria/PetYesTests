@@ -9,8 +9,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class CalendarComponent {
 
     public Date getTodayDate() {
-        Date today = new Date();
-        return today;
+        return new Date();
     }
 
     public Date getOtherDate(int daysOffset) {

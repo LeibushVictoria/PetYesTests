@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 import com.petyes.api.Auction;
 import com.petyes.api.Login;
 import com.petyes.api.Pet;
+import com.petyes.api.Sale;
 import com.petyes.config.App;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
@@ -59,12 +60,13 @@ public class BreederProfileTests extends TestBase {
     void viewSaleTest() {
         BasePage basePage = new BasePage();
         Pet pet = new Pet();
+        Sale sale = new Sale();
         CalendarComponent calendarComponent = new CalendarComponent();
         Login login = new Login();
 
         Date birth = calendarComponent.getOtherDate(-20);
         int pet_id = pet.createPetByAPI(false, 13, "autoTestCat", birth, 0, 1007, 1,597);
-        int sale_id = pet.salePetByAPI(false, false, true, 10000, pet_id);
+        int sale_id = sale.salePetByAPI(false, false, true, 10000, pet_id);
 
         String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
         int user_id = login.getUserId(token);
@@ -75,7 +77,7 @@ public class BreederProfileTests extends TestBase {
                 .openPage("/user/" + user_id + "#sales")
                 .checkLinkById(sale_id);
 
-        pet.cancelPetSaleByAPI(sale_id);
+        sale.cancelPetSaleByAPI(pet_id);
         pet.deletePetByAPI(pet_id);
     }
 

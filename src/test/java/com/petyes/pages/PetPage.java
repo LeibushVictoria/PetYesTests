@@ -16,10 +16,9 @@ public class PetPage {
     }
 
     @Step("Выбрать породу животного")
-    public PetPage selectBreed(String value) {
+    public void selectBreed(String value) {
         $(".breed-select").click();
         $$(".breed-select .as-select__dropdown-menu .as-select__option-item").findBy(text(value)).click();
-        return this;
     }
 
     @Step("Нажать на пункт меню")
@@ -50,16 +49,14 @@ public class PetPage {
     }
 
     @Step("Ввести описание выставки")
-    public PetPage enterExpositionDescription(String textareaName, String value) {
-        $("textarea[aria-placeholder=\"]" + textareaName + "\"").setValue(value);
-        return this;
+    public void enterExpositionDescription(String textareaName, String value) {
+        $("textarea[aria-placeholder=\"" + textareaName + "\"]").setValue(value);
     }
 
     @Step("Выбрать группу крови")
-    public PetPage enterBloodGroup(String dropdownName, String value) {
+    public void enterBloodGroup(String dropdownName, String value) {
         $$(".as-form-item").findBy(text(dropdownName)).$(".as-select__container").click();
         $$(".as-select__option-item").findBy(text(value)).shouldBe(visible).click();
-        return this;
     }
 
     @Step("Проверить отображение характеристик и описания питомца")
@@ -105,8 +102,7 @@ public class PetPage {
     }
 
     @Step("Удалить питомца")
-    public PetPage deletePet() {
+    public void deletePet() {
         $(".as-modal__content").$$(".as-button__slot").findBy(text("Удалить")).click();
-        return this;
     }
 }

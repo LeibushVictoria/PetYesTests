@@ -1,6 +1,5 @@
 package com.petyes.domain;
 
-
 import com.petyes.config.App;
 
 public enum ItemsForLogin {

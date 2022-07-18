@@ -2,31 +2,36 @@ package com.petyes.tests;
 
 import com.petyes.api.Login;
 import com.petyes.api.Pet;
+import com.petyes.api.Sale;
 import com.petyes.config.App;
+import com.petyes.domain.ItemsForLogin;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
 import com.petyes.pages.components.CityComponent;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import java.util.Date;
 
 public class SaleListTests extends TestBase {
 
-    @Test
-    @DisplayName("Работа фильтров")
-    void filterSalesTest() {
+    @EnumSource(ItemsForLogin.class)
+    @ParameterizedTest(name = "Работа фильтров: {0}")
+    void filterSalesTest(ItemsForLogin items) {
         BasePage basePage = new BasePage();
         Login login = new Login();
         CityComponent cityComponent = new CityComponent();
         CalendarComponent calendarComponent = new CalendarComponent();
         Pet pet = new Pet();
+        Sale sale = new Sale();
 
         Date birth = calendarComponent.getOtherDate(-20);
         int pet_id = pet.createPetByAPI(false, 13, "autoTestSaleCat", birth, 0, 1004, 1,596);
-        int sale_id = pet.salePetByAPI(false, false, true, 9998, pet_id);
+        int sale_id = sale.salePetByAPI(false, false, true, 9998, pet_id);
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(items.getPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -46,7 +51,7 @@ public class SaleListTests extends TestBase {
                 .clickOnSubmitButton()
                 .checkLinkById(sale_id);
 
-        pet.cancelPetSaleByAPI(pet_id);
+        sale.cancelPetSaleByAPI(pet_id);
         pet.deletePetByAPI(pet_id);
     }
 
@@ -57,10 +62,11 @@ public class SaleListTests extends TestBase {
         Login login = new Login();
         CalendarComponent calendarComponent = new CalendarComponent();
         Pet pet = new Pet();
+        Sale sale = new Sale();
 
         Date birth = calendarComponent.getOtherDate(-20);
         int pet_id = pet.createPetByAPI(false, 13, "autoTestSaleCat", birth, 0, 1004, 1,596);
-        int sale_id = pet.salePetByAPI(false, false, true, 9998, pet_id);
+        int sale_id = sale.salePetByAPI(false, false, true, 9998, pet_id);
 
         String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
 
@@ -71,7 +77,7 @@ public class SaleListTests extends TestBase {
                 .checkBlockDisplay("autoTestSaleCat, Австралийский мист")
                 .checkBlockDisplay("Продавец Автотест");
 
-        pet.cancelPetSaleByAPI(pet_id);
+        sale.cancelPetSaleByAPI(pet_id);
         pet.deletePetByAPI(pet_id);
     }
 
