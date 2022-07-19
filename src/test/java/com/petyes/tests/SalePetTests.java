@@ -27,7 +27,7 @@ public class SalePetTests extends TestBase{
         Date birth = calendarComponent.getOtherDate(-20);
         int pet_id = pet.createPetByAPI(false, 13, "autoTestSaleCat", birth, 0, 1007, 1,597);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -59,7 +59,7 @@ public class SalePetTests extends TestBase{
         String petType = "Кошки";
         String nickname = "autoTestFreeSaleCat";
 
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -100,7 +100,7 @@ public class SalePetTests extends TestBase{
 
         String price= "99 999";
 
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -129,7 +129,7 @@ public class SalePetTests extends TestBase{
         int pet_id = pet.createPetByAPI(false, 13, "autoTestSaleCat", birth, 0, 1007, 1,597);
         int sale_id = sale.salePetByAPI(false, false, true, 10000, pet_id);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);

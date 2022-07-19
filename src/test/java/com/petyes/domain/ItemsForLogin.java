@@ -3,8 +3,8 @@ package com.petyes.domain;
 import com.petyes.config.App;
 
 public enum ItemsForLogin {
-    BREEDER(App.config.breederPhoneNumberAPI()),
-    CUSTOMER(App.config.customerPhoneNumberAPI());
+    BREEDER(App.config.breederPhoneNumber()),
+    CUSTOMER(App.config.customerPhoneNumber());
 
     private final String phoneNumber;
 

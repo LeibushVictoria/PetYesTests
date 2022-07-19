@@ -68,7 +68,7 @@ public class SaleListTests extends TestBase {
         int pet_id = pet.createPetByAPI(false, 13, "autoTestSaleCat", birth, 0, 1004, 1,596);
         int sale_id = sale.salePetByAPI(false, false, true, 9998, pet_id);
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -87,7 +87,7 @@ public class SaleListTests extends TestBase {
         BasePage basePage = new BasePage();
         Login login = new Login();
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);

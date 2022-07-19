@@ -19,7 +19,7 @@ public class Request {
                                   String address, String coordinate_lat, String coordinate_lng, int color, int sex, int date_from, int date_to,
                                   boolean buy_for_free, boolean is_not_for_breeding, Date date, int breed_id) {
         Login login = new Login();
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
         SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String get_date = formater.format(date);
@@ -69,7 +69,7 @@ public class Request {
     @Step("Удаление запроса по API")
     public void deleteRequestByAPI(int id) {
         Login login = new Login();
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
         RequestData requestData = RequestData.builder()
                 .id(id)

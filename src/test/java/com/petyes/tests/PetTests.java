@@ -80,7 +80,7 @@ public class PetTests extends TestBase {
         String expositionFile = "pet_exposition.jpg";
         String cureFile = "pet_cure.jpg";
 
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -260,7 +260,7 @@ public class PetTests extends TestBase {
         String birth = formater.format(birthDate);
         String birthOut = birthFormater.format(birthDate);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -297,7 +297,7 @@ public class PetTests extends TestBase {
         Date birth = calendarComponent.getOtherDate(-20);
         int pet_id = pet.createPetByAPI(false, 13, "autoTestSaleCat", birth, 0, 1007, 1,597);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -326,7 +326,7 @@ public class PetTests extends TestBase {
         Date birth = calendarComponent.getOtherDate(-20);
         int pet_id = pet.createPetByAPI(false, 13, "autoTestSaleCat", birth, 0, 1007, 1,597);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);

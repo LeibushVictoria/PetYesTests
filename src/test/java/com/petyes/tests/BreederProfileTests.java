@@ -21,7 +21,7 @@ public class BreederProfileTests extends TestBase {
         BasePage basePage = new BasePage();
         Login login = new Login();
 
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
         int user_id = login.getUserId(token);
 
         login
@@ -40,7 +40,7 @@ public class BreederProfileTests extends TestBase {
 
         String aboutMe = faker.chuckNorris().fact();
 
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
         int user_id = login.getUserId(token);
 
         login
@@ -68,7 +68,7 @@ public class BreederProfileTests extends TestBase {
         int pet_id = pet.createPetByAPI(false, 13, "autoTestCat", birth, 0, 1007, 1,597);
         int sale_id = sale.salePetByAPI(false, false, true, 10000, pet_id);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
         int user_id = login.getUserId(token);
 
         login
@@ -94,7 +94,7 @@ public class BreederProfileTests extends TestBase {
 
         int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1, 20000, false, false);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
         int user_id = login.getUserId(token);
 
         login

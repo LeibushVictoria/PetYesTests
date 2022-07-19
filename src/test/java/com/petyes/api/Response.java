@@ -13,7 +13,7 @@ public class Response {
     @Step("Отклик на запрос по API")
     public void responseByAPI(int request_id, int pet_id) {
         Login login = new Login();
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
         ArrayList<Integer> pet_ids = new ArrayList<>();
         pet_ids.add(pet_id);

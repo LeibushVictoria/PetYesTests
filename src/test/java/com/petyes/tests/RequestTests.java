@@ -39,7 +39,7 @@ public class RequestTests extends TestBase {
         String priceTo = "30 000";
         String city = "Санкт-Петербург";
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -96,7 +96,7 @@ public class RequestTests extends TestBase {
 
         String petType = "Собаки";
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -136,7 +136,7 @@ public class RequestTests extends TestBase {
         String priceFrom = "10 000";
         String priceTo = "30 000";
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -176,7 +176,7 @@ public class RequestTests extends TestBase {
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 0, 6,
                 false, true, today, 597);
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -211,7 +211,7 @@ public class RequestTests extends TestBase {
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 0, 6,
                 false, true, today, 597);
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -241,7 +241,7 @@ public class RequestTests extends TestBase {
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0,0, 6,
                 false, true, today, 597);
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -268,7 +268,7 @@ public class RequestTests extends TestBase {
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0,0, 6,
                 false, true, today, 597);
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);

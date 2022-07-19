@@ -87,7 +87,7 @@ public class AuctionListTests extends TestBase {
         int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1,
                 20000, false, false);
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -115,7 +115,7 @@ public class AuctionListTests extends TestBase {
         int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1,
                 20000, false, false);
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);

@@ -35,7 +35,7 @@ public class AuctionTests extends TestBase {
         Date dateDayAfterTomorrow = calendarComponent.getOtherDate(2);
         String dayAfterTomorrow = formaterAuction.format(dateDayAfterTomorrow);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -74,7 +74,7 @@ public class AuctionTests extends TestBase {
 
         String price= "99 999";
 
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -102,7 +102,7 @@ public class AuctionTests extends TestBase {
 
         int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1, 20000, false, false);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);

@@ -31,7 +31,7 @@ public class RequestListTests extends TestBase {
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0,0, 6,
                 false, true, today, 597);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -66,7 +66,7 @@ public class RequestListTests extends TestBase {
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0,0, 6,
                 false, true, today, 597);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -100,7 +100,7 @@ public class RequestListTests extends TestBase {
                 "Санкт-Петербург", "59.939084", "30.315879", 1004, 0,0, 6,
                 false, true, today, 596);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);

@@ -120,7 +120,7 @@ public class KnowledgeTests extends TestBase {
         Login login = new Login();
         KnowledgePage knowledgePage = new KnowledgePage();
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);

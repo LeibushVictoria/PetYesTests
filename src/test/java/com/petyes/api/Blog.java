@@ -10,7 +10,7 @@ public class Blog {
     @Step("Создать категорию статьи по API")
     public int addBlogCategoryByAPI(String name, String color) {
         Login login = new Login();
-        String token = login.loginByAPI(App.config.managerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.managerPhoneNumber(), App.config.userPassword());
 
         BlogData category = BlogData.builder()
                 .name(name)
@@ -32,7 +32,7 @@ public class Blog {
     @Step("Удалить категорию статьи по API")
     public void deleteBlogCategoryByAPI(int category_id) {
         Login login = new Login();
-        String token = login.loginByAPI(App.config.managerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.managerPhoneNumber(), App.config.userPassword());
 
         given()
                 .header("Authorization", "Bearer " + token)

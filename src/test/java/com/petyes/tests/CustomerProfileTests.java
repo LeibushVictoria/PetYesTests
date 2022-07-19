@@ -19,7 +19,7 @@ public class CustomerProfileTests extends TestBase {
         BasePage basePage = new BasePage();
         Login login = new Login();
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
         int user_id = login.getUserId(token);
 
         login
@@ -38,7 +38,7 @@ public class CustomerProfileTests extends TestBase {
 
         String aboutMe = faker.chuckNorris().fact();
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
         int user_id = login.getUserId(token);
 
         login
@@ -66,7 +66,7 @@ public class CustomerProfileTests extends TestBase {
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0,0, 6,
                 false, true, today, 597);
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
         int user_id = login.getUserId(token);
 
         login

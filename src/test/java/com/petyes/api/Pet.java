@@ -14,7 +14,7 @@ public class Pet {
     @Step("Создание питомца по API")
     public int createPetByAPI(boolean avatar_id, int specialization_id, String nickname, Date dateBirth, int sex, int color, int is_neutered, int breed) {
         Login login = new Login();
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
         SimpleDateFormat formaterBirth = new SimpleDateFormat("dd.MM.yyyy");
         String birth = formaterBirth.format(dateBirth);
@@ -42,7 +42,7 @@ public class Pet {
     @Step("Удаление питомца по API")
     public void deletePetByAPI(int id) {
         Login login = new Login();
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
         PetData petData = PetData.builder()
                 .pet_id(id)

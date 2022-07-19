@@ -21,8 +21,8 @@ public class ChatTests extends TestBase {
         ChatPage chatPage = new ChatPage();
         CalendarComponent calendarComponent = new CalendarComponent();
 
-        String customerToken = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
-        String breederToken = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String customerToken = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
+        String breederToken = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
         int breeder_id = login.getUserId(breederToken);
 
         Date dateToday = calendarComponent.getTodayDate();

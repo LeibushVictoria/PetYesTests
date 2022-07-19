@@ -22,7 +22,7 @@ public class BreederListTests extends TestBase {
         BasePage basePage = new BasePage();
         Login login = new Login();
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -39,7 +39,7 @@ public class BreederListTests extends TestBase {
         Login login = new Login();
         BreedersPage breedersPage = new BreedersPage();
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -58,7 +58,7 @@ public class BreederListTests extends TestBase {
         Login login = new Login();
         BreedersPage breedersPage = new BreedersPage();
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);

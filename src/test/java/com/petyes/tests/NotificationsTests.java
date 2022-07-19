@@ -31,7 +31,7 @@ public class NotificationsTests extends TestBase {
         int pet_id = pet.createPetByAPI(false, 13, "autoTestCat", birth, 0, 1007, 0,597);
         int sale_id = sale.salePetByAPI(false, false, true, 10000, pet_id);
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -67,7 +67,7 @@ public class NotificationsTests extends TestBase {
 
         response.responseByAPI(request_id, pet_id);
 
-        String token = login.loginByAPI(App.config.customerPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -100,7 +100,7 @@ public class NotificationsTests extends TestBase {
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 0, 6,
                 false, true, today, 597);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);
@@ -126,7 +126,7 @@ public class NotificationsTests extends TestBase {
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 0, 6,
                 false, true, today, 597);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
         login
                 .setCookie(token);

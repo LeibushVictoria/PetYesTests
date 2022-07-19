@@ -24,7 +24,7 @@ public class Auction {
         String started_at = formaterAuction.format(start);
         String finished_at = formaterAuction.format(finish);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
         int pet_id = pet.createPetByAPI(false, 13, "autoTestAuctionCat", birth, 0, 1007, 1,597);
 
         int id = given()
@@ -52,7 +52,7 @@ public class Auction {
     @Step("Удаление аукциона по API")
     public void deleteAuctionByAPI(int id) {
         Login login = new Login();
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
         PetData petData = PetData.builder()
                 .auction(id)

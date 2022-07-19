@@ -10,7 +10,7 @@ public class Sale {
     @Step("Продать питомца по API")
     public int salePetByAPI(boolean deliverable, boolean sell_for_free, boolean is_not_for_breeding, int not_for_breeding_price, int pet_id) {
         Login login = new Login();
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
         PetData petData = PetData.builder()
                 .deliverable(deliverable)
@@ -35,7 +35,7 @@ public class Sale {
     @Step("Снять питомца с продажи по API")
     public void cancelPetSaleByAPI(int pet_id) {
         Login login = new Login();
-        String token = login.loginByAPI(App.config.breederPhoneNumberAPI(), App.config.userPassword());
+        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
         PetData petData = PetData.builder()
                 .pet_id(pet_id)

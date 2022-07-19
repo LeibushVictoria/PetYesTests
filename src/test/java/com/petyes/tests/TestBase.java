@@ -22,7 +22,7 @@ public class TestBase {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
         DriverSettings.configure();
         Configuration.baseUrl = App.config.webUrl();
-        RestAssured.baseURI = App.config.apiUrl();
+        RestAssured.baseURI = App.config.webUrl();
     }
 
     @AfterEach
