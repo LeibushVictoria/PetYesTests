@@ -18,6 +18,7 @@ public class SalePetTests extends TestBase{
 
     @Test
     @Tag("smoke")
+    @Tag("regression")
     @DisplayName("Продать существующего питомца")
     void saleExistingPetTest() {
         Pet pet = new Pet();
@@ -45,6 +46,7 @@ public class SalePetTests extends TestBase{
     }
 
     @Test
+    @Tag("regression")
     @DisplayName("Отдать даром питомца без породы")
     void freeSaleExistingPetTest() {
         Pet pet = new Pet();
@@ -88,6 +90,7 @@ public class SalePetTests extends TestBase{
     }
 
     @Test
+    @Tag("regression")
     @DisplayName("Редактирование объявление (цена)")
     void editPetSaleTest() {
         BasePage basePage = new BasePage();
@@ -119,6 +122,7 @@ public class SalePetTests extends TestBase{
     }
 
     @Test
+    @Tag("regression")
     @DisplayName("Снятие объявления с продажи")
     void cancelPetSaleTest() {
         BasePage basePage = new BasePage();

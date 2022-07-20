@@ -12,6 +12,7 @@ public class LoginTests extends TestBase {
 
     @Test
     @Tag("smoke")
+    @Tag("regression")
     @AllureId("5696")
     @DisplayName("Успешная авторизация продавца")
     void loginAsBreederTest() {
@@ -30,6 +31,7 @@ public class LoginTests extends TestBase {
 
     @Test
     @AllureId("5697")
+    @Tag("regression")
     @DisplayName("Успешная авторизация покупателя")
     void loginAsCustomerTest() {
         BasePage basePage = new BasePage();
@@ -47,6 +49,7 @@ public class LoginTests extends TestBase {
 
     @Test
     @AllureId("5699")
+    @Tag("regression")
     @DisplayName("Авторизация с неправильным паролем")
     void loginWithWrongPasswordTest() {
         BasePage basePage = new BasePage();

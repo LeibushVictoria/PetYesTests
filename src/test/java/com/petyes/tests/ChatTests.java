@@ -6,6 +6,7 @@ import com.petyes.pages.BasePage;
 import com.petyes.pages.ChatPage;
 import com.petyes.pages.components.CalendarComponent;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
@@ -14,6 +15,7 @@ import java.util.Date;
 public class ChatTests extends TestBase {
 
     @Test
+    @Tag("regression")
     @DisplayName("Отправка и получение сообщения")
     void messageExchangeTest() {
         BasePage basePage = new BasePage();

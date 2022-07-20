@@ -7,6 +7,7 @@ import com.petyes.config.App;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.Date;
 public class CustomerProfileTests extends TestBase {
 
     @Test
+    @Tag("regression")
     @DisplayName("Просмотр покупателем своего профиля")
     void viewCustomerProfileTest() {
         BasePage basePage = new BasePage();
@@ -30,6 +32,7 @@ public class CustomerProfileTests extends TestBase {
     }
 
     @Test
+    @Tag("regression")
     @DisplayName("Редактирование покупателем своего профиля (о себе)")
     void editProfileTest() {
         Faker faker = new Faker();
@@ -54,6 +57,7 @@ public class CustomerProfileTests extends TestBase {
     }
 
     @Test
+    @Tag("regression")
     @DisplayName("Просмотр покупателем запросов в своем профиле")
     void viewRequestTest() {
         BasePage basePage = new BasePage();

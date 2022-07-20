@@ -18,6 +18,7 @@ import org.junit.jupiter.params.provider.EnumSource;
 public class BreederListTests extends TestBase {
 
     @Test
+    @Tag("regression")
     @DisplayName("Переход в создание запроса из раздела Заводчики")
     void createRequestTest() {
         BasePage basePage = new BasePage();
@@ -34,6 +35,7 @@ public class BreederListTests extends TestBase {
     }
 
     @Test
+    @Tag("regression")
     @DisplayName("Открытие страницы заводчика")
     void openBreederTest() {
         BasePage basePage = new BasePage();
@@ -53,6 +55,7 @@ public class BreederListTests extends TestBase {
     }
 
     @Test
+    @Tag("regression")
     @DisplayName("Оставить отзыв о зоводчике")
     void breederReviewTest() {
         BasePage basePage = new BasePage();
@@ -76,6 +79,7 @@ public class BreederListTests extends TestBase {
 
     @EnumSource(ItemsForLogin.class)
     @ParameterizedTest(name = "Работа фильтров: {0}")
+    @Tag("regression")
     @Tag("smoke")
     void filterBreedersTest(ItemsForLogin items) {
         BasePage basePage = new BasePage();

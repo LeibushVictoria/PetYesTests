@@ -9,6 +9,7 @@ import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
 import com.petyes.pages.components.CityComponent;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -19,6 +20,7 @@ public class SaleListTests extends TestBase {
 
     @EnumSource(ItemsForLogin.class)
     @ParameterizedTest(name = "Работа фильтров: {0}")
+    @Tag("regression")
     void filterSalesTest(ItemsForLogin items) {
         BasePage basePage = new BasePage();
         Login login = new Login();
@@ -56,6 +58,7 @@ public class SaleListTests extends TestBase {
     }
 
     @Test
+    @Tag("regression")
     @DisplayName("Просмотр объявления")
     void viewSaleTest() {
         BasePage basePage = new BasePage();
@@ -82,6 +85,7 @@ public class SaleListTests extends TestBase {
     }
 
     @Test
+    @Tag("regression")
     @DisplayName("Переход в создание запроса из раздела Объявления")
     void createRequestTest() {
         BasePage basePage = new BasePage();

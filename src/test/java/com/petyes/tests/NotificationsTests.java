@@ -6,6 +6,7 @@ import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
@@ -13,6 +14,7 @@ import java.util.Date;
 public class NotificationsTests extends TestBase {
 
     @Test
+    @Tag("regression")
     @DisplayName("Уведомление о питомце, подходящем под запрос")
     void newPetNotificationTest() {
         BasePage basePage = new BasePage();
@@ -46,6 +48,7 @@ public class NotificationsTests extends TestBase {
 
     @Disabled("Баг с откликами, PET-724")
     @Test
+    @Tag("regression")
     @DisplayName("Уведомление об отклике на запрос")
     void newResponseNotificationTest() {
         BasePage basePage = new BasePage();
@@ -82,6 +85,7 @@ public class NotificationsTests extends TestBase {
     }
 
     @Test
+    @Tag("regression")
     @DisplayName("Уведомление о новом запросе, подходящем под объявление")
     void newRequestNotificationTest() {
         BasePage basePage = new BasePage();
@@ -115,6 +119,7 @@ public class NotificationsTests extends TestBase {
 
     @Disabled("Баг PET-740")
     @Test
+    @Tag("regression")
     @DisplayName("Уведомление о новом запросе, подходящем под специализацию")
     void newRequestSpecNotificationTest() {
         BasePage basePage = new BasePage();

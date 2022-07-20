@@ -11,6 +11,7 @@ import com.petyes.pages.components.CalendarComponent;
 import com.petyes.pages.components.CityComponent;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
@@ -18,6 +19,7 @@ import java.util.Date;
 public class RequestListTests extends TestBase {
 
     @Test
+    @Tag("regression")
     @DisplayName("Работа фильтров")
     void filterRequestsTest() {
         BasePage basePage = new BasePage();
@@ -54,6 +56,7 @@ public class RequestListTests extends TestBase {
     }
 
     @Test
+    @Tag("regression")
     @DisplayName("Просмотр запроса")
     void viewRequestTest() {
         BasePage basePage = new BasePage();
@@ -81,6 +84,7 @@ public class RequestListTests extends TestBase {
 
     @Disabled("Баг с откликами, PET-724")
     @Test
+    @Tag("regression")
     @DisplayName("Отклик на запрос")
     void requestApplicationTest() {
         BasePage basePage = new BasePage();

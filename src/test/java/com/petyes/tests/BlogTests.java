@@ -6,6 +6,7 @@ import com.petyes.config.App;
 import com.petyes.domain.ItemsForLogin;
 import com.petyes.pages.ArticlePage;
 import com.petyes.pages.BasePage;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
@@ -15,6 +16,7 @@ public class BlogTests extends TestBase {
 
     @EnumSource(ItemsForLogin.class)
     @ParameterizedTest(name = "Создать статью: {0}")
+    @Tag("regression")
     void createArticleTest(ItemsForLogin items) {
         BasePage basePage = new BasePage();
         Login login = new Login();
@@ -50,6 +52,7 @@ public class BlogTests extends TestBase {
 
     @EnumSource(ItemsForLogin.class)
     @ParameterizedTest(name = "Работа фильтров: {0}")
+    @Tag("regression")
     void filterArticlesTest(ItemsForLogin items) {
         BasePage basePage = new BasePage();
         Login login = new Login();

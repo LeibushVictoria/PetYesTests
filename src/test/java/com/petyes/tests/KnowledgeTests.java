@@ -17,6 +17,7 @@ public class KnowledgeTests extends TestBase {
 
     @EnumSource(ItemsForLogin.class)
     @ParameterizedTest(name = "Подобрать породу: {0}")
+    @Tag("regression")
     void chooseABreedTest(ItemsForLogin items) {
         BasePage basePage = new BasePage();
         Login login = new Login();
@@ -60,6 +61,7 @@ public class KnowledgeTests extends TestBase {
 
     @EnumSource(ItemsForLogin.class)
     @ParameterizedTest(name = "Сравнить породы: {0}")
+    @Tag("regression")
     void compareBreedsTest(ItemsForLogin items) {
         BasePage basePage = new BasePage();
         Login login = new Login();
@@ -88,6 +90,7 @@ public class KnowledgeTests extends TestBase {
 
     @EnumSource(ItemsForLogin.class)
     @ParameterizedTest(name = "Работа фильтров: {0}")
+    @Tag("regression")
     void filterBreedsTest(ItemsForLogin items) {
         BasePage basePage = new BasePage();
         Login login = new Login();
@@ -116,6 +119,7 @@ public class KnowledgeTests extends TestBase {
 
     @Test
     @Tag("smoke")
+    @Tag("regression")
     @DisplayName("Переход в создание запроса из раздела Каталог пород")
     void createRequestTest() {
         BasePage basePage = new BasePage();
@@ -136,6 +140,7 @@ public class KnowledgeTests extends TestBase {
 
     @EnumSource(ItemsForLogin.class)
     @ParameterizedTest(name = "Просмотр породы: {0}")
+    @Tag("regression")
     void viewBreedTest(ItemsForLogin items) {
         BasePage basePage = new BasePage();
         Login login = new Login();

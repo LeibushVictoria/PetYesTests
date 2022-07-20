@@ -23,6 +23,7 @@ public class RequestTests extends TestBase {
 
     @Test
     @Tag("smoke")
+    @Tag("regression")
     @AllureId("5701")
     @DisplayName("Создание запроса на питомца (куплю)")
     void createBuyRequestTest() {
@@ -88,6 +89,7 @@ public class RequestTests extends TestBase {
     }
 
     @Test
+    @Tag("regression")
     @DisplayName("Создание запроса на питомца (возьму бесплатно)")
     void createFreeRequestTest() {
         BasePage basePage = new BasePage();
@@ -122,6 +124,7 @@ public class RequestTests extends TestBase {
 
     @Disabled("Баг PET-702")
     @Test
+    @Tag("regression")
     @DisplayName("Редактирование запроса на питомца (цена)")
     void editRequestTest() {
         BasePage basePage = new BasePage();
@@ -159,6 +162,7 @@ public class RequestTests extends TestBase {
 
     @Disabled("Баг PET-729")
     @Test
+    @Tag("regression")
     @DisplayName("Смотреть подходящие предложения")
     void seeSaleOffersTest() {
         BasePage basePage = new BasePage();
@@ -194,6 +198,7 @@ public class RequestTests extends TestBase {
     }
 
     @Test
+    @Tag("regression")
     @DisplayName("Смотреть похожие предложения")
     void seeSimilarOffersTest() {
         BasePage basePage = new BasePage();
@@ -229,6 +234,7 @@ public class RequestTests extends TestBase {
     }
 
     @Test
+    @Tag("regression")
     @AllureId("5702")
     @DisplayName("Удаление запроса на питомца")
     void deleteRequestTest() {
@@ -257,6 +263,7 @@ public class RequestTests extends TestBase {
     }
 
     @Test
+    @Tag("regression")
     @DisplayName("Завершение запроса на питомца")
     void closeRequestTest() {
         BasePage basePage = new BasePage();

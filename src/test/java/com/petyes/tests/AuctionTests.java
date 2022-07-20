@@ -8,6 +8,7 @@ import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
@@ -16,6 +17,7 @@ import java.util.Date;
 public class AuctionTests extends TestBase {
 
     @Test
+    @Tag("regression")
     @DisplayName("Выставить на аукцион существующего питомца")
     void auctionPetTest() {
         Pet pet = new Pet();
@@ -60,6 +62,7 @@ public class AuctionTests extends TestBase {
 
     @Disabled("Баг, аукционы пока переделываются")
     @Test
+    @Tag("regression")
     @DisplayName("Редактировать аукцион (блиц-цена)")
     void editPetAuctionTest() {
         BasePage basePage = new BasePage();
@@ -90,6 +93,7 @@ public class AuctionTests extends TestBase {
 
     @Disabled("Баг, аукционы пока переделываются")
     @Test
+    @Tag("regression")
     @DisplayName("Удалить аукцион")
     void cancelPetSaleTest() {
         BasePage basePage = new BasePage();
