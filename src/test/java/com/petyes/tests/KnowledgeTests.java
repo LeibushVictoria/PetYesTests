@@ -7,6 +7,7 @@ import com.petyes.pages.BasePage;
 import com.petyes.pages.KnowledgePage;
 import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -114,6 +115,7 @@ public class KnowledgeTests extends TestBase {
     }
 
     @Test
+    @Tag("smoke")
     @DisplayName("Переход в создание запроса из раздела Каталог пород")
     void createRequestTest() {
         BasePage basePage = new BasePage();
