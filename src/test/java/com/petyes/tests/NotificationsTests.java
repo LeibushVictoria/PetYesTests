@@ -113,6 +113,7 @@ public class NotificationsTests extends TestBase {
         request.deleteRequestByAPI(request_id);
     }
 
+    @Disabled("Баг PET-740")
     @Test
     @DisplayName("Уведомление о новом запросе, подходящем под специализацию")
     void newRequestSpecNotificationTest() {

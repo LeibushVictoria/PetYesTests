@@ -9,7 +9,7 @@ repositories {
 }
 
 def allureVersion = '2.17.3',
-    selenideVersion = '6.4.0',
+    selenideVersion = '6.6.3',
     junitVersion = '5.8.2'
 
 allure {
@@ -28,10 +28,10 @@ dependencies {
             "com.codeborne:selenide:$selenideVersion",
             "io.qameta.allure:allure-selenide:$allureVersion",
             "com.github.javafaker:javafaker:1.0.2",
-            'io.rest-assured:rest-assured:5.0.1',
+            'io.rest-assured:rest-assured:5.1.1',
             "io.qameta.allure:allure-rest-assured:$allureVersion",
             "org.aeonbits.owner:owner:1.0.12",
-            'org.assertj:assertj-core:3.22.0',
+            'org.assertj:assertj-core:3.23.1',
             "org.junit.jupiter:junit-jupiter:$junitVersion")
     testRuntimeOnly(
             'org.slf4j:slf4j-simple:1.7.36',

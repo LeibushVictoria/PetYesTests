@@ -46,7 +46,7 @@ public class RequestListTests extends TestBase {
                 .enterValueByKeys(1, "9999")
                 .enterValueByKeys(2, "10002")
                 .chooseRadio("Самец")
-                //.chooseCheckbox("До 6 месяцев") bug
+                //.chooseCheckbox("До 6 месяцев") bug PET-737
                 .clickOnSubmitButton()
                 .checkLinkById(request_id);
 

@@ -19,6 +19,7 @@ public class LoginTests extends TestBase {
 
         basePage
                 .openPage("/login")
+                .clearValueInInput("phone")
                 .enterValueInInput("phone", App.config.breederPhoneNumber())
                 .enterValueInInput("password", App.config.userPassword())
                 .clickOnButton("Войти");
@@ -35,6 +36,7 @@ public class LoginTests extends TestBase {
 
         basePage
                 .openPage("/login")
+                .clearValueInInput("phone")
                 .enterValueInInput("phone", App.config.customerPhoneNumber())
                 .enterValueInInput("password", App.config.userPassword())
                 .clickOnButton("Войти");
@@ -51,6 +53,7 @@ public class LoginTests extends TestBase {
 
         basePage
                 .openPage("/login")
+                .clearValueInInput("phone")
                 .enterValueInInput("phone", App.config.customerPhoneNumber())
                 .enterValueInInput("password", "WrongPassword")
                 .clickOnButton("Войти");

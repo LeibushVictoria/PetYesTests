@@ -9,6 +9,8 @@ import com.petyes.pages.BasePage;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
+import java.io.File;
+
 public class BlogTests extends TestBase {
 
     @EnumSource(ItemsForLogin.class)
@@ -19,7 +21,9 @@ public class BlogTests extends TestBase {
         Blog blog = new Blog();
         ArticlePage articlePage = new ArticlePage();
 
-        blog.addBlogCategoryByAPI("autotest", "#666666");
+        String categoryName = "CreateArticleTest";
+
+        blog.addBlogCategoryByAPI(categoryName, "#666666");
 
         String token = login.loginByAPI(items.getPhoneNumber(), App.config.userPassword());
 
@@ -29,7 +33,7 @@ public class BlogTests extends TestBase {
                 .openPage("/knowledge/article/new")
                 .enterValueInInput("name","Автотестовое название статьи");
         articlePage
-                .selectCategory("autotest");
+                .selectCategory(categoryName);
         basePage
                 .chooseRadio("Кошки")
                 .enterValueInTextarea("annotation", "Автотестовая аннотация статьи");
@@ -50,9 +54,14 @@ public class BlogTests extends TestBase {
         BasePage basePage = new BasePage();
         Login login = new Login();
         Blog blog = new Blog();
-        ArticlePage articlePage = new ArticlePage();
 
-        blog.addBlogCategoryByAPI("autotest", "#666666");
+        String categoryName = "autotest";
+        String articleName = "autotest article";
+        File file = new File("src/test/resources/pet_photo.jpg");
+
+        int category_id = blog.addBlogCategoryByAPI(categoryName, "#666666");
+        int article_id = blog.addArticleByAPI(articleName, "autotest text", file,
+                "autotest annotation", category_id, 13);
 
         String token = login.loginByAPI(items.getPhoneNumber(), App.config.userPassword());
 
@@ -62,10 +71,12 @@ public class BlogTests extends TestBase {
                 .openPage("/knowledge/articles")
                 .chooseRadio("Кошки")
                 .openFilter("Категория")
-                .chooseCheckbox("autotest");
+                .chooseCheckbox(categoryName);
         basePage
-                .clickOnButton("Показать");
-        articlePage
-                .checkResult("Автотестовое название статьи");
+                .clickOnButton("Показать")
+                .checkLinkById(article_id);
+
+        blog.deleteArticleByAPI(article_id);
+        blog.deleteBlogCategoryByAPI(category_id);
     }
 }

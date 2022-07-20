@@ -37,7 +37,7 @@ public class BasePage {
 
     @Step("Проверить заголовок")
     public BasePage checkHeader(int headerNumber, String headerName) {
-        $(".h" + headerNumber).shouldHave(text(headerName));
+        $(".h" + headerNumber).shouldBe(visible).shouldHave(text(headerName));
         return this;
     }
 
@@ -156,7 +156,7 @@ public class BasePage {
 
     @Step("Проверить наличие ссылки по id")
     public void checkLinkById(int id) {
-        $("a[href*=\""+id+"\"]").exists();
+        $("a[href*=\""+id+"\"]").shouldBe(exist);
     }
 
     @Step("Проверить наличие ссылки")
