@@ -11,6 +11,7 @@ import org.junit.jupiter.api.*;
 public class LoginTests extends TestBase {
 
     @Test
+    @Tag("smoke")
     @AllureId("5696")
     @DisplayName("Успешная авторизация продавца")
     void loginAsBreederTest() {

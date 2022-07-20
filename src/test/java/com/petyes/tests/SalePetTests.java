@@ -8,6 +8,7 @@ import com.petyes.pages.PetPage;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
@@ -16,6 +17,7 @@ import java.util.Date;
 public class SalePetTests extends TestBase{
 
     @Test
+    @Tag("smoke")
     @DisplayName("Продать существующего питомца")
     void saleExistingPetTest() {
         Pet pet = new Pet();

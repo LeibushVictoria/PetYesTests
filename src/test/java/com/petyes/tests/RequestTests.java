@@ -13,6 +13,7 @@ import io.qameta.allure.AllureId;
 import io.qameta.allure.Feature;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
@@ -21,6 +22,7 @@ import java.util.Date;
 public class RequestTests extends TestBase {
 
     @Test
+    @Tag("smoke")
     @AllureId("5701")
     @DisplayName("Создание запроса на питомца (куплю)")
     void createBuyRequestTest() {

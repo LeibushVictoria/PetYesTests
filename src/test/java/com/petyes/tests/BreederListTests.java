@@ -8,6 +8,7 @@ import com.petyes.api.Login;
 import com.petyes.pages.components.CityComponent;
 import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -75,6 +76,7 @@ public class BreederListTests extends TestBase {
 
     @EnumSource(ItemsForLogin.class)
     @ParameterizedTest(name = "Работа фильтров: {0}")
+    @Tag("smoke")
     void filterBreedersTest(ItemsForLogin items) {
         BasePage basePage = new BasePage();
         Login login = new Login();

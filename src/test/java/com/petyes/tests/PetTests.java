@@ -9,6 +9,7 @@ import com.petyes.pages.components.CalendarComponent;
 import io.qameta.allure.AllureId;
 import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
@@ -240,6 +241,7 @@ public class PetTests extends TestBase {
     }
 
     @Test
+    @Tag("smoke")
     @DisplayName("Создание питомца без породы")
     void addPetWithoutBreedTest() {
         BasePage basePage = new BasePage();
