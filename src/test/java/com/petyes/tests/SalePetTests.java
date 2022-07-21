@@ -46,6 +46,7 @@ public class SalePetTests extends TestBase{
     }
 
     @Test
+    @Tag("smoke")
     @Tag("regression")
     @DisplayName("Отдать даром питомца без породы")
     void freeSaleExistingPetTest() {
@@ -90,8 +91,9 @@ public class SalePetTests extends TestBase{
     }
 
     @Test
+    @Tag("smoke")
     @Tag("regression")
-    @DisplayName("Редактирование объявление (цена)")
+    @DisplayName("Редактирование объявление (комментарий)")
     void editPetSaleTest() {
         BasePage basePage = new BasePage();
         Pet pet = new Pet();
@@ -103,8 +105,7 @@ public class SalePetTests extends TestBase{
         int pet_id = pet.createPetByAPI(false, 13, "autoTestSaleCat", birth, 0, 1007, 1,597);
         int sale_id = sale.salePetByAPI(false, false, true, 10000, pet_id);
 
-        String price= "99 999";
-
+        String comment = "Автотестовый комментарий";
         String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
         login
@@ -112,10 +113,10 @@ public class SalePetTests extends TestBase{
         basePage
                 .openPage("/sale/" + sale_id)
                 .clickOnButton("Редактировать")
-                .enterValueByKeys(1, price)
+                .enterValueInSingleTextarea(comment)
                 .clickOnButton("Сохранить")
                 .checkGreenMessage()
-                .checkBlockDisplay(price + " ₽");
+                .checkBlockDisplay(comment);
 
         sale.cancelPetSaleByAPI(pet_id);
         pet.deletePetByAPI(pet_id);

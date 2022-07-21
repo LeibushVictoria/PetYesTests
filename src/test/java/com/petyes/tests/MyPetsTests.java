@@ -70,6 +70,7 @@ public class MyPetsTests extends TestBase {
     }
 
     @Test
+    @Tag("smoke")
     @Tag("regression")
     @DisplayName("Открыть редактирование питомца")
     void openEditPetTest() {

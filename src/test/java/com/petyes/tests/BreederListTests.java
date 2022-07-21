@@ -97,7 +97,7 @@ public class BreederListTests extends TestBase {
         basePage
                 .chooseRadio("Кошки")
                 .selectValueInDropdownInFilter("Выберите породу", "Абиссинская")
-                .clickOnButton("Показать")
+                .clickOnSubmitButton()
                 .checkResult("Продавец Автотест");
     }
 }

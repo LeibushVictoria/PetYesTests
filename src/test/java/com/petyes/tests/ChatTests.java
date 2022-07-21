@@ -15,6 +15,7 @@ import java.util.Date;
 public class ChatTests extends TestBase {
 
     @Test
+    @Tag("smoke")
     @Tag("regression")
     @DisplayName("Отправка и получение сообщения")
     void messageExchangeTest() {

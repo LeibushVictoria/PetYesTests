@@ -19,12 +19,6 @@ public class RequestPage {
         return this;
     }
 
-    @Step("Проверить отображение цены")
-    public RequestPage checkPrice(String price) {
-        $(".buy-request__content-top").shouldHave(text(price));
-        return this;
-    }
-
     @Step("Проверить отображение тэга")
     public RequestPage checkTag(String tag) {
         $(".buy-request__tags").shouldHave(text(tag));

@@ -19,6 +19,7 @@ import java.util.Date;
 public class RequestListTests extends TestBase {
 
     @Test
+    @Tag("smoke")
     @Tag("regression")
     @DisplayName("Работа фильтров")
     void filterRequestsTest() {

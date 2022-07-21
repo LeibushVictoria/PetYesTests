@@ -71,7 +71,6 @@ public class RequestTests extends TestBase {
                 .clickOnButton("Перейти к запросу")
                 .checkHeader(3, breed);
         requestPage
-                .checkPrice(priceFrom + " - " + priceTo + " ₽")
                 .checkTag("Не для разведения")
                 .checkResults(0, "Порода", breed)
                 .checkResults(1, "Пол", sex)
@@ -125,7 +124,7 @@ public class RequestTests extends TestBase {
     @Disabled("Баг PET-702")
     @Test
     @Tag("regression")
-    @DisplayName("Редактирование запроса на питомца (цена)")
+    @DisplayName("Редактирование запроса на питомца (пол)")
     void editRequestTest() {
         BasePage basePage = new BasePage();
         Request request = new Request();
@@ -138,9 +137,7 @@ public class RequestTests extends TestBase {
                 "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 0, 6,
                 false, true, today, 597);
 
-        String priceFrom = "10 000";
-        String priceTo = "30 000";
-
+        String sex = "Самка";
         String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
         login
@@ -148,14 +145,13 @@ public class RequestTests extends TestBase {
         basePage
                 .openPage("/buy/" + request_id)
                 .clickOnButton("Редактировать")
-                .enterValueByKeys(0, priceFrom)
-                .enterValueByKeys(1, priceTo)
+                .chooseRadio(sex)
                 .clickOnButton("Продолжить")
                 .clickOnButton("Продолжить")
                 .clickOnButton("Сохранить")
                 .checkGreenMessage();
         requestPage
-                .checkPrice(priceFrom + " - " + priceTo + " ₽");
+                .checkResults(1, "Пол", sex);
 
         request.deleteRequestByAPI(request_id);
     }
@@ -198,6 +194,7 @@ public class RequestTests extends TestBase {
     }
 
     @Test
+    @Tag("smoke")
     @Tag("regression")
     @DisplayName("Смотреть похожие предложения")
     void seeSimilarOffersTest() {
@@ -234,6 +231,7 @@ public class RequestTests extends TestBase {
     }
 
     @Test
+    @Tag("smoke")
     @Tag("regression")
     @AllureId("5702")
     @DisplayName("Удаление запроса на питомца")

@@ -52,6 +52,7 @@ public class BlogTests extends TestBase {
 
     @EnumSource(ItemsForLogin.class)
     @ParameterizedTest(name = "Работа фильтров: {0}")
+    @Tag("smoke")
     @Tag("regression")
     void filterArticlesTest(ItemsForLogin items) {
         BasePage basePage = new BasePage();

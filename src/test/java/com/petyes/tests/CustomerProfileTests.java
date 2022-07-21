@@ -32,6 +32,7 @@ public class CustomerProfileTests extends TestBase {
     }
 
     @Test
+    @Tag("smoke")
     @Tag("regression")
     @DisplayName("Редактирование покупателем своего профиля (о себе)")
     void editProfileTest() {
