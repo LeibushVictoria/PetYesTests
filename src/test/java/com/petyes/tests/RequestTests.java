@@ -231,7 +231,6 @@ public class RequestTests extends TestBase {
     }
 
     @Test
-    @Tag("smoke")
     @Tag("regression")
     @AllureId("5702")
     @DisplayName("Удаление запроса на питомца")

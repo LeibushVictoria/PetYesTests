@@ -20,7 +20,6 @@ public class SaleListTests extends TestBase {
 
     @EnumSource(ItemsForLogin.class)
     @ParameterizedTest(name = "Работа фильтров: {0}")
-    @Tag("smoke")
     @Tag("regression")
     void filterSalesTest(ItemsForLogin items) {
         BasePage basePage = new BasePage();
@@ -86,7 +85,6 @@ public class SaleListTests extends TestBase {
     }
 
     @Test
-    @Tag("smoke")
     @Tag("regression")
     @DisplayName("Переход в создание запроса из раздела Объявления")
     void createRequestTest() {
