@@ -1,6 +1,7 @@
 package com.petyes.api;
 
 import com.petyes.config.App;
+import com.petyes.helpers.AllureRestAssuredFilter;
 import io.qameta.allure.Step;
 import com.petyes.models.AgeRangeData;
 import com.petyes.models.CityData;
@@ -15,9 +16,9 @@ import static io.restassured.RestAssured.given;
 public class Request {
 
     @Step("Создание запроса по API")
-    public int createRequestByAPI(int specialization_id, int price_min, int price_max, boolean important_price,
-                                  String address, String coordinate_lat, String coordinate_lng, int color, int sex, int date_from, int date_to,
-                                  boolean buy_for_free, boolean is_not_for_breeding, Date date, int breed_id) {
+    public int createRequestByAPI(int price_min, int price_max, boolean important_price,
+                                  String address, String coordinate_lat, String coordinate_lng, int sex, int date_from, int date_to,
+                                  boolean buy_for_free, boolean is_not_for_breeding, Date date) {
         Login login = new Login();
         String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
@@ -38,9 +39,8 @@ public class Request {
         ArrayList<AgeRangeData> ageRange = new ArrayList<>();
         ageRange.add(ageRangeData);
         ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(color);
         RequestData requestData = RequestData.builder()
-                .specialization_id(specialization_id)
+                .specialization_id(App.config.specialization())
                 .price_min(price_min)
                 .price_max(price_max)
                 .important_price(important_price)
@@ -51,9 +51,10 @@ public class Request {
                 .buy_for_free(buy_for_free)
                 .is_not_for_breeding(is_not_for_breeding)
                 .get_date(get_date)
-                .breed_id(breed_id)
+                .breed_id(App.config.breed())
                 .build();
         int id = given()
+                .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .header("Authorization", "Bearer " + token)
                 .contentType("application/json;charset=UTF-8")
                 .body(requestData)
@@ -75,6 +76,7 @@ public class Request {
                 .id(id)
                 .build();
         given()
+                .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .header("Authorization", "Bearer " + token)
                 .contentType("application/json;charset=UTF-8")
                 .body(requestData)

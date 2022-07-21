@@ -35,7 +35,6 @@ public class RequestTests extends TestBase {
 
         String petType = "Кошки";
         String breed = "Абиссинская";
-        String color = "Белый";
         String sex = "Самец";
         String age = "До 6 месяцев";
         String priceFrom = "10 000";
@@ -55,8 +54,7 @@ public class RequestTests extends TestBase {
                 .chooseRadio(sex)
                 .chooseCheckbox(age)
                 .enterValueByKeys(0, priceFrom)
-                .enterValueByKeys(1, priceTo)
-                .selectValueInDropdown("colors", color);
+                .enterValueByKeys(1, priceTo);
         cityComponent
                 .chooseCity(city);
         basePage
@@ -75,7 +73,6 @@ public class RequestTests extends TestBase {
                 .checkResults(0, "Порода", breed)
                 .checkResults(1, "Пол", sex)
                 .checkResults(2, "Возраст", age)
-                .checkResults(3, "Окрас", color)
                 .checkResults(4, "Метрика", "Да")
                 .checkResults(5, "Вакцинация", "Да")
                 .checkResults(6, "Кастрация", "Нет")
@@ -133,9 +130,9 @@ public class RequestTests extends TestBase {
         RequestPage requestPage = new RequestPage();
 
         Date today = calendarComponent.getTodayDate();
-        int request_id = request.createRequestByAPI(13, 0, 20000, false,
-                "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 0, 6,
-                false, true, today, 597);
+        int request_id = request.createRequestByAPI(0, 20000, false,
+                "Санкт-Петербург", "59.939084", "30.315879", 0, 0, 6,
+                false, true, today);
 
         String sex = "Самка";
         String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
@@ -170,13 +167,13 @@ public class RequestTests extends TestBase {
         RequestPage requestPage = new RequestPage();
 
         Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, 13, "autoTestCat", birth, 0, 1007, 0,597);
+        int pet_id = pet.createPetByAPI(false, "autoTestCat", birth, 0, 0);
         int sale_id = sale.salePetByAPI(false, false, true, 10000, pet_id);
 
         Date today = calendarComponent.getTodayDate();
-        int request_id = request.createRequestByAPI(13, 0, 20000, false,
-                "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 0, 6,
-                false, true, today, 597);
+        int request_id = request.createRequestByAPI(0, 20000, false,
+                "Санкт-Петербург", "59.939084", "30.315879", 0, 0, 6,
+                false, true, today);
 
         String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
@@ -207,13 +204,13 @@ public class RequestTests extends TestBase {
         RequestPage requestPage = new RequestPage();
 
         Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, 13, "autoTestCat", birth, 1, 1007, 0,597);
+        int pet_id = pet.createPetByAPI(false, "autoTestCat", birth, 1, 0);
         int sale_id = sale.salePetByAPI(false, false, true, 10000, pet_id);
 
         Date today = calendarComponent.getTodayDate();
-        int request_id = request.createRequestByAPI(13, 0, 20000, false,
-                "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 0, 6,
-                false, true, today, 597);
+        int request_id = request.createRequestByAPI(0, 20000, false,
+                "Санкт-Петербург", "59.939084", "30.315879", 0, 0, 6,
+                false, true, today);
 
         String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
@@ -242,9 +239,9 @@ public class RequestTests extends TestBase {
         Login login = new Login();
 
         Date today = calendarComponent.getTodayDate();
-        int id = request.createRequestByAPI(13, 0, 20000, false,
-                "Санкт-Петербург", "59.939084", "30.315879", 1007, 0,0, 6,
-                false, true, today, 597);
+        int id = request.createRequestByAPI(0, 20000, false,
+                "Санкт-Петербург", "59.939084", "30.315879", 0,0, 6,
+                false, true, today);
 
         String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
@@ -270,9 +267,9 @@ public class RequestTests extends TestBase {
         RequestPage requestPage = new RequestPage();
 
         Date today = calendarComponent.getTodayDate();
-        int request_id = request.createRequestByAPI(13, 0, 20000, false,
-                "Санкт-Петербург", "59.939084", "30.315879", 1007, 0,0, 6,
-                false, true, today, 597);
+        int request_id = request.createRequestByAPI(0, 20000, false,
+                "Санкт-Петербург", "59.939084", "30.315879", 0,0, 6,
+                false, true, today);
 
         String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 

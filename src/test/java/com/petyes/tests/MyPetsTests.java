@@ -26,7 +26,7 @@ public class MyPetsTests extends TestBase {
 
         String nickname = "autoTestMyPetsCat";
         Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, 13, nickname, birth, 0, 1007, 1,597);
+        int pet_id = pet.createPetByAPI(false, nickname, birth, 0, 1);
 
         String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
@@ -54,7 +54,7 @@ public class MyPetsTests extends TestBase {
 
         String nickname = "autoTestMyPetsCat";
         Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, 13, nickname, birth, 0, 1007, 1,597);
+        int pet_id = pet.createPetByAPI(false, nickname, birth, 0, 1);
 
         String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
@@ -81,7 +81,7 @@ public class MyPetsTests extends TestBase {
         MyPetsPage myPetsPage = new MyPetsPage();
 
         Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, 13, "autoTestMyPetsCat", birth, 0, 1007, 1,597);
+        int pet_id = pet.createPetByAPI(false, "autoTestMyPetsCat", birth, 0, 1);
 
         String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
@@ -108,7 +108,7 @@ public class MyPetsTests extends TestBase {
         MyPetsPage myPetsPage = new MyPetsPage();
 
         Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, 13, "autoTestMyPetsCat", birth, 0, 1007, 1,597);
+        int pet_id = pet.createPetByAPI(false, "autoTestMyPetsCat", birth, 0, 1);
 
         String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
@@ -134,7 +134,7 @@ public class MyPetsTests extends TestBase {
         MyPetsPage myPetsPage = new MyPetsPage();
 
         Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, 13, "autoTestMyPetsCat", birth, 0, 1007, 1,597);
+        int pet_id = pet.createPetByAPI(false, "autoTestMyPetsCat", birth, 0, 1);
 
         String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 

@@ -27,7 +27,7 @@ public class AuctionTests extends TestBase {
         Auction auction = new Auction();
 
         Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, 13, "autoTestAuctionCat", birth, 0, 1007, 1,597);
+        int pet_id = pet.createPetByAPI(false, "autoTestAuctionCat", birth, 0, 1);
 
         SimpleDateFormat formaterAuction = new SimpleDateFormat("dd.MM.yyyy HH:mm z");
 
@@ -54,7 +54,7 @@ public class AuctionTests extends TestBase {
                 .clickOnButton("Закрыть")
                 .checkGreenMessage()
                 .checkBlockDisplay("Абиссинская")
-                .checkBlockDisplay("10 000 ₽");
+                .checkBlockDisplay("Управление");
 
         int auction_id = basePage.getIdFromUrl();
         auction.deleteAuctionByAPI(auction_id);

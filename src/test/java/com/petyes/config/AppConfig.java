@@ -15,4 +15,6 @@ public interface AppConfig extends Config {
     String adminPhoneNumber();
     String userPassword();
     String adminPassword();
+    int specialization();
+    int breed();
 }

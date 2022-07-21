@@ -25,12 +25,12 @@ public class NotificationsTests extends TestBase {
         Login login = new Login();
 
         Date today = calendarComponent.getTodayDate();
-        int request_id = request.createRequestByAPI(13, 0, 20000, false,
-                "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 0, 6,
-                false, true, today, 597);
+        int request_id = request.createRequestByAPI(0, 20000, false,
+                "Санкт-Петербург", "59.939084", "30.315879", 0, 0, 6,
+                false, true, today);
 
         Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, 13, "autoTestCat", birth, 0, 1007, 0,597);
+        int pet_id = pet.createPetByAPI(false, "autoTestCat", birth, 0, 0);
         int sale_id = sale.salePetByAPI(false, false, true, 10000, pet_id);
 
         String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
@@ -60,12 +60,12 @@ public class NotificationsTests extends TestBase {
         Response response = new Response();
 
         Date today = calendarComponent.getTodayDate();
-        int request_id = request.createRequestByAPI(13, 0, 20000, false,
-                "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 0, 6,
-                false, true, today, 597);
+        int request_id = request.createRequestByAPI(0, 20000, false,
+                "Санкт-Петербург", "59.939084", "30.315879", 0, 0, 6,
+                false, true, today);
 
         Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, 13, "autoTestCat", birth, 0, 1007, 0,597);
+        int pet_id = pet.createPetByAPI(false, "autoTestCat", birth, 0, 0);
         int sale_id = sale.salePetByAPI(false, false, true, 10000, pet_id);
 
         response.responseByAPI(request_id, pet_id);
@@ -96,13 +96,13 @@ public class NotificationsTests extends TestBase {
         Login login = new Login();
 
         Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, 13, "autoTestCat", birth, 0, 1007, 0,597);
+        int pet_id = pet.createPetByAPI(false, "autoTestCat", birth, 0, 0);
         sale.salePetByAPI(false, false, true, 10000, pet_id);
 
         Date today = calendarComponent.getTodayDate();
-        int request_id = request.createRequestByAPI(13, 0, 20000, false,
-                "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 0, 6,
-                false, true, today, 597);
+        int request_id = request.createRequestByAPI(0, 20000, false,
+                "Санкт-Петербург", "59.939084", "30.315879", 0, 0, 6,
+                false, true, today);
 
         String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
@@ -128,9 +128,9 @@ public class NotificationsTests extends TestBase {
         Login login = new Login();
 
         Date today = calendarComponent.getTodayDate();
-        int request_id = request.createRequestByAPI(13, 0, 20000, false,
-                "Санкт-Петербург", "59.939084", "30.315879", 1007, 0, 0, 6,
-                false, true, today, 597);
+        int request_id = request.createRequestByAPI(0, 20000, false,
+                "Санкт-Петербург", "59.939084", "30.315879", 0, 0, 6,
+                false, true, today);
 
         String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 

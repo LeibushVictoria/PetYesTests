@@ -1,6 +1,7 @@
 package com.petyes.api;
 
 import com.petyes.config.App;
+import com.petyes.helpers.AllureRestAssuredFilter;
 import io.qameta.allure.Step;
 import com.petyes.models.PetData;
 
@@ -12,7 +13,7 @@ import static io.restassured.RestAssured.given;
 public class Pet {
 
     @Step("Создание питомца по API")
-    public int createPetByAPI(boolean avatar_id, int specialization_id, String nickname, Date dateBirth, int sex, int color, int is_neutered, int breed) {
+    public int createPetByAPI(boolean avatar_id, String nickname, Date dateBirth, int sex, int is_neutered) {
         Login login = new Login();
         String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
@@ -20,16 +21,16 @@ public class Pet {
         String birth = formaterBirth.format(dateBirth);
 
         int id = given()
+                .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .contentType("multipart/form-data")
                 .header("Authorization", "Bearer " + token)
                 .multiPart("avatar_id", avatar_id)
-                .multiPart("specialization_id", specialization_id)
+                .multiPart("specialization_id", App.config.specialization())
                 .multiPart("nickname", nickname)
                 .multiPart("birth", birth)
                 .multiPart("sex", sex)
-                .multiPart("color", color)
                 .multiPart("is_neutered", is_neutered)
-                .multiPart("breed", breed)
+                .multiPart("breed", App.config.breed())
                 .when()
                 .post("/api/pet/create")
                 .then()
@@ -48,6 +49,7 @@ public class Pet {
                 .pet_id(id)
                 .build();
         given()
+                .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .contentType("application/json;charset=UTF-8")
                 .header("Authorization", "Bearer " + token)
                 .body(petData)

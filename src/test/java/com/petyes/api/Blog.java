@@ -1,6 +1,7 @@
 package com.petyes.api;
 
 import com.petyes.config.App;
+import com.petyes.helpers.AllureRestAssuredFilter;
 import com.petyes.models.BlogData;
 import io.qameta.allure.Step;
 
@@ -19,6 +20,7 @@ public class Blog {
                 .color(color)
                 .build();
         int category_id = given()
+                .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .header("Authorization", "Bearer " + token)
                 .contentType("application/json")
                 .body(category)
@@ -37,6 +39,7 @@ public class Blog {
         String token = login.loginByAPI(App.config.adminPhoneNumber(), App.config.adminPassword());
 
         int article_id = given()
+                .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .contentType("multipart/form-data")
                 .header("Authorization", "Bearer " + token)
                 .multiPart("name", name)
@@ -63,6 +66,7 @@ public class Blog {
         String token = login.loginByAPI(App.config.adminPhoneNumber(), App.config.adminPassword());
 
         given()
+                .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .header("Authorization", "Bearer " + token)
                 .when()
                 .post("/api/blog/category/delete/" + category_id)
@@ -76,6 +80,7 @@ public class Blog {
         String token = login.loginByAPI(App.config.adminPhoneNumber(), App.config.adminPassword());
 
         given()
+                .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .header("Authorization", "Bearer " + token)
                 .when()
                 .post("/api/blog/article/delete/" + article_id)

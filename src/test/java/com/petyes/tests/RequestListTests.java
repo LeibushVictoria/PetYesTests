@@ -30,9 +30,9 @@ public class RequestListTests extends TestBase {
         Request request = new Request();
 
         Date today = calendarComponent.getTodayDate();
-        int request_id = request.createRequestByAPI(13, 10000, 10001, false,
-                "Санкт-Петербург", "59.939084", "30.315879", 1007, 0,0, 6,
-                false, true, today, 597);
+        int request_id = request.createRequestByAPI(10000, 10001, false,
+                "Санкт-Петербург", "59.939084", "30.315879", 0,0, 6,
+                false, true, today);
 
         String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
@@ -66,9 +66,9 @@ public class RequestListTests extends TestBase {
         Request request = new Request();
 
         Date today = calendarComponent.getTodayDate();
-        int request_id = request.createRequestByAPI(13, 10000, 10001, false,
-                "Санкт-Петербург", "59.939084", "30.315879", 1007, 0,0, 6,
-                false, true, today, 597);
+        int request_id = request.createRequestByAPI(10000, 10001, false,
+                "Санкт-Петербург", "59.939084", "30.315879", 0,0, 6,
+                false, true, today);
 
         String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
@@ -97,13 +97,13 @@ public class RequestListTests extends TestBase {
         RequestPage requestPage = new RequestPage();
 
         Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, 13, "autoTestRequestCat", birth, 0, 1004, 1,596);
+        int pet_id = pet.createPetByAPI(false, "autoTestRequestCat", birth, 0, 1);
         sale.salePetByAPI(false, false, true, 10000, pet_id);
 
         Date today = calendarComponent.getTodayDate();
-        int request_id = request.createRequestByAPI(13, 10000, 10001, false,
-                "Санкт-Петербург", "59.939084", "30.315879", 1004, 0,0, 6,
-                false, true, today, 596);
+        int request_id = request.createRequestByAPI(10000, 10001, false,
+                "Санкт-Петербург", "59.939084", "30.315879", 0,0, 6,
+                false, true, today);
 
         String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 

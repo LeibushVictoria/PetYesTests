@@ -72,18 +72,20 @@ public class KnowledgeTests extends TestBase {
         login
                 .setCookie(token);
         basePage
-                .openPage("/knowledge/breeds");
+                .openPage("/knowledge/breeds")
+                .chooseRadio("Кошки")
+                .clickOnSubmitButton();
         knowledgePage
                 .addToComparison("Абиссинская")
                 .addToComparison("Австралийская дымчатая")
-                .addToComparison("Австралийский мист")
+                .addToComparison("Азиатская короткошерстная / малайская")
                 .openComparison();
         basePage
                 .clickOnButton("Перейти к сравнению");
         knowledgePage
                 .checkComparison("Абиссинская")
                 .checkComparison("Австралийская дымчатая")
-                .checkComparison("Австралийский мист");
+                .checkComparison("Азиатская короткошерстная / малайская");
         basePage
                 .clickOnButton("Очистить список");
     }

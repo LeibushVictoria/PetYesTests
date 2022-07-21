@@ -69,7 +69,7 @@ public class BreederProfileTests extends TestBase {
         Login login = new Login();
 
         Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, 13, "autoTestCat", birth, 0, 1007, 1,597);
+        int pet_id = pet.createPetByAPI(false, "autoTestCat", birth, 0, 1);
         int sale_id = sale.salePetByAPI(false, false, true, 10000, pet_id);
 
         String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());

@@ -30,7 +30,7 @@ public class SaleListTests extends TestBase {
         Sale sale = new Sale();
 
         Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, 13, "autoTestSaleCat", birth, 0, 1004, 1,596);
+        int pet_id = pet.createPetByAPI(false, "autoTestSaleCat", birth, 0, 1);
         int sale_id = sale.salePetByAPI(false, false, true, 9998, pet_id);
 
         String token = login.loginByAPI(items.getPhoneNumber(), App.config.userPassword());
@@ -43,7 +43,7 @@ public class SaleListTests extends TestBase {
                 .chooseCity("Санкт-Петербург");
         basePage
                 .chooseRadio("Кошки")
-                .selectValueInDropdownInFilter("Выберите породу", "Австралийский мист")
+                .selectValueInDropdownInFilter("Выберите породу", "Абиссинская")
                 .chooseRadio("Куплю")
                 .enterValueByKeys(0, "9997")
                 .enterValueByKeys(1, "9999")
@@ -68,7 +68,7 @@ public class SaleListTests extends TestBase {
         Sale sale = new Sale();
 
         Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, 13, "autoTestSaleCat", birth, 0, 1004, 1,596);
+        int pet_id = pet.createPetByAPI(false, "autoTestSaleCat", birth, 0, 1);
         int sale_id = sale.salePetByAPI(false, false, true, 9998, pet_id);
 
         String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
@@ -77,7 +77,7 @@ public class SaleListTests extends TestBase {
                 .setCookie(token);
         basePage
                 .openPage("/sale/" + sale_id)
-                .checkBlockDisplay("autoTestSaleCat, Австралийский мист")
+                .checkBlockDisplay("autoTestSaleCat, Абиссинская")
                 .checkBlockDisplay("Продавец Автотест");
 
         sale.cancelPetSaleByAPI(pet_id);

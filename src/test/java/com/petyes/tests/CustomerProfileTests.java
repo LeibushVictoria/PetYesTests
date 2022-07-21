@@ -67,9 +67,9 @@ public class CustomerProfileTests extends TestBase {
         Login login = new Login();
 
         Date today = calendarComponent.getTodayDate();
-        int request_id = request.createRequestByAPI(13, 0, 20000, false,
-                "Санкт-Петербург", "59.939084", "30.315879", 1007, 0,0, 6,
-                false, true, today, 597);
+        int request_id = request.createRequestByAPI(0, 20000, false,
+                "Санкт-Петербург", "59.939084", "30.315879", 0,0, 6,
+                false, true, today);
 
         String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
         int user_id = login.getUserId(token);

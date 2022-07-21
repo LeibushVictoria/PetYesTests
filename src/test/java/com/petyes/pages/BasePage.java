@@ -97,7 +97,7 @@ public class BasePage {
     @Step("Выбрать значение в выпадающем списке")
     public BasePage selectValueInDropdown(String selectName, String value) {
         $("div[data-vv-name=\"" + selectName +"\"]").click();
-        $$(".as-select__option-item").findBy(text(value)).click();
+        $$(".as-select__option-item").findBy(text(value)).shouldBe(visible).click();
         return this;
     }
 

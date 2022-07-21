@@ -1,6 +1,7 @@
 package com.petyes.api;
 
 import com.petyes.config.App;
+import com.petyes.helpers.AllureRestAssuredFilter;
 import com.petyes.models.PetData;
 import com.petyes.pages.components.CalendarComponent;
 import io.qameta.allure.Step;
@@ -25,9 +26,10 @@ public class Auction {
         String finished_at = formaterAuction.format(finish);
 
         String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-        int pet_id = pet.createPetByAPI(false, 13, "autoTestAuctionCat", birth, 0, 1007, 1,597);
+        int pet_id = pet.createPetByAPI(false, "autoTestAuctionCat", birth, 0, 1);
 
         int id = given()
+                .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .contentType("multipart/form-data")
                 .header("Authorization", "Bearer " + token)
                 .multiPart("started_at", started_at)
@@ -58,10 +60,12 @@ public class Auction {
                 .auction(id)
                 .build();
         given()
+                .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .contentType("application/json;charset=UTF-8")
                 .header("Authorization", "Bearer " + token)
                 .body(petData)
                 .when()
+                .log().all()
                 .delete("/api/auction/delete")
                 .then()
                 .log().all()

@@ -1,6 +1,7 @@
 package com.petyes.api;
 
 import com.petyes.config.App;
+import com.petyes.helpers.AllureRestAssuredFilter;
 import com.petyes.models.ResponseData;
 import io.qameta.allure.Step;
 
@@ -22,6 +23,7 @@ public class Response {
                 .pet_ids(pet_ids)
                 .build();
         given()
+                .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .header("Authorization", "Bearer " + token)
                 .contentType("application/json;charset=UTF-8")
                 .body(responseData)

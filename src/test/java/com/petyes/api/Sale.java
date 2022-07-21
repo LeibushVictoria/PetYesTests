@@ -1,6 +1,7 @@
 package com.petyes.api;
 
 import com.petyes.config.App;
+import com.petyes.helpers.AllureRestAssuredFilter;
 import com.petyes.models.PetData;
 import io.qameta.allure.Step;
 
@@ -20,6 +21,7 @@ public class Sale {
                 .pet_id(pet_id)
                 .build();
         int id = given()
+                .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .contentType("application/json;charset=UTF-8")
                 .header("Authorization", "Bearer " + token)
                 .body(petData)
@@ -41,6 +43,7 @@ public class Sale {
                 .pet_id(pet_id)
                 .build();
         given()
+                .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .contentType("application/json;charset=UTF-8")
                 .header("Authorization", "Bearer " + token)
                 .body(petData)

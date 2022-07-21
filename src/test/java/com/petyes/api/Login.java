@@ -1,5 +1,6 @@
 package com.petyes.api;
 
+import com.petyes.helpers.AllureRestAssuredFilter;
 import io.qameta.allure.Step;
 import com.petyes.models.LoginData;
 import org.openqa.selenium.Cookie;
@@ -20,6 +21,7 @@ public class Login {
                 .remember(true)
                 .build();
         String token = given()
+                .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .contentType("application/json;charset=UTF-8")
                 .body(user)
                 .when()
@@ -39,6 +41,7 @@ public class Login {
     @Step("Получить id авторизованного юзера")
     public int getUserId(String token) {
         Map<String, Integer> user = given()
+                .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .header("Authorization", "Bearer " + token)
                 .when()
                 .get("/api/user")

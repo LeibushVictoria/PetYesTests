@@ -300,7 +300,7 @@ public class PetTests extends TestBase {
         Login login = new Login();
 
         Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, 13, "autoTestSaleCat", birth, 0, 1007, 1,597);
+        int pet_id = pet.createPetByAPI(false, "autoTestSaleCat", birth, 0, 1);
 
         String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
@@ -330,7 +330,7 @@ public class PetTests extends TestBase {
         PetPage petPage = new PetPage();
 
         Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, 13, "autoTestSaleCat", birth, 0, 1007, 1,597);
+        int pet_id = pet.createPetByAPI(false, "autoTestSaleCat", birth, 0, 1);
 
         String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
