@@ -6,7 +6,6 @@ import com.petyes.api.Pet;
 import com.petyes.config.App;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -60,7 +59,6 @@ public class AuctionTests extends TestBase {
         auction.deleteAuctionByAPI(auction_id);
     }
 
-    @Disabled("Баг, аукционы пока переделываются")
     @Test
     @Tag("regression")
     @DisplayName("Редактировать аукцион (блиц-цена)")
@@ -91,7 +89,6 @@ public class AuctionTests extends TestBase {
         auction.deleteAuctionByAPI(auction_id);
     }
 
-    @Disabled("Баг, аукционы пока переделываются")
     @Test
     @Tag("regression")
     @DisplayName("Удалить аукцион")

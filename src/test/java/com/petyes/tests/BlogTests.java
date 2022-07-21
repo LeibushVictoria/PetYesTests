@@ -75,8 +75,7 @@ public class BlogTests extends TestBase {
                 .openPage("/knowledge/articles")
                 .chooseRadio("Кошки")
                 .openFilter("Категория")
-                .chooseCheckbox(categoryName);
-        basePage
+                .chooseCheckbox(categoryName)
                 .clickOnButton("Показать")
                 .checkLinkById(article_id);
 

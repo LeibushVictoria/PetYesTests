@@ -4,7 +4,6 @@ import com.petyes.api.*;
 import com.petyes.config.App;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -46,10 +45,9 @@ public class NotificationsTests extends TestBase {
         pet.deletePetByAPI(pet_id);
     }
 
-    @Disabled("Баг с откликами, PET-724")
     @Test
     @Tag("regression")
-    @DisplayName("Уведомление об отклике на запрос")
+    @DisplayName("PET-724 Уведомление об отклике на запрос")
     void newResponseNotificationTest() {
         BasePage basePage = new BasePage();
         Request request = new Request();
@@ -117,10 +115,9 @@ public class NotificationsTests extends TestBase {
         request.deleteRequestByAPI(request_id);
     }
 
-    @Disabled("Баг PET-740")
     @Test
     @Tag("regression")
-    @DisplayName("Уведомление о новом запросе, подходящем под специализацию")
+    @DisplayName("PET-740 Уведомление о новом запросе, подходящем под специализацию")
     void newRequestSpecNotificationTest() {
         BasePage basePage = new BasePage();
         Request request = new Request();

@@ -9,7 +9,6 @@ import com.petyes.pages.BasePage;
 import com.petyes.pages.RequestPage;
 import com.petyes.pages.components.CalendarComponent;
 import com.petyes.pages.components.CityComponent;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -83,10 +82,9 @@ public class RequestListTests extends TestBase {
         request.deleteRequestByAPI(request_id);
     }
 
-    @Disabled("Баг с откликами, PET-724")
     @Test
     @Tag("regression")
-    @DisplayName("Отклик на запрос")
+    @DisplayName("PET-724 Отклик на запрос")
     void requestApplicationTest() {
         BasePage basePage = new BasePage();
         Login login = new Login();

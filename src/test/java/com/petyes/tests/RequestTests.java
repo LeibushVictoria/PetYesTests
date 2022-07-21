@@ -11,7 +11,6 @@ import com.petyes.pages.components.CalendarComponent;
 import com.petyes.pages.components.CityComponent;
 import io.qameta.allure.AllureId;
 import io.qameta.allure.Feature;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -118,10 +117,9 @@ public class RequestTests extends TestBase {
         request.deleteRequestByAPI(request_id);
     }
 
-    @Disabled("Баг PET-702")
     @Test
     @Tag("regression")
-    @DisplayName("Редактирование запроса на питомца (пол)")
+    @DisplayName("PET-702 Редактирование запроса на питомца (пол)")
     void editRequestTest() {
         BasePage basePage = new BasePage();
         Request request = new Request();
@@ -153,10 +151,9 @@ public class RequestTests extends TestBase {
         request.deleteRequestByAPI(request_id);
     }
 
-    @Disabled("Баг PET-729")
     @Test
     @Tag("regression")
-    @DisplayName("Смотреть подходящие предложения")
+    @DisplayName("PET-729 Смотреть подходящие предложения")
     void seeSaleOffersTest() {
         BasePage basePage = new BasePage();
         Request request = new Request();
