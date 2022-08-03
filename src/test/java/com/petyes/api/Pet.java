@@ -1,6 +1,7 @@
 package com.petyes.api;
 
 import com.petyes.config.App;
+import com.petyes.config.AuthConfig;
 import com.petyes.helpers.AllureRestAssuredFilter;
 import io.qameta.allure.Step;
 import com.petyes.models.PetData;
@@ -14,16 +15,13 @@ public class Pet {
 
     @Step("Создание питомца по API")
     public int createPetByAPI(boolean avatar_id, String nickname, Date dateBirth, int sex, int is_neutered) {
-        Login login = new Login();
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-
         SimpleDateFormat formaterBirth = new SimpleDateFormat("dd.MM.yyyy");
         String birth = formaterBirth.format(dateBirth);
 
         int id = given()
                 .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .contentType("multipart/form-data")
-                .header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + AuthConfig.breederToken)
                 .multiPart("avatar_id", avatar_id)
                 .multiPart("specialization_id", App.config.specialization())
                 .multiPart("nickname", nickname)
@@ -42,16 +40,13 @@ public class Pet {
 
     @Step("Удаление питомца по API")
     public void deletePetByAPI(int id) {
-        Login login = new Login();
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-
         PetData petData = PetData.builder()
                 .pet_id(id)
                 .build();
         given()
                 .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .contentType("application/json;charset=UTF-8")
-                .header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + AuthConfig.breederToken)
                 .body(petData)
                 .when()
                 .post("/api/pet/remove")

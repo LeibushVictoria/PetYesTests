@@ -4,7 +4,7 @@ import com.petyes.api.Login;
 import com.petyes.api.Pet;
 import com.petyes.api.Request;
 import com.petyes.api.Sale;
-import com.petyes.config.App;
+import com.petyes.config.AuthConfig;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.RequestPage;
 import com.petyes.pages.components.CalendarComponent;
@@ -33,10 +33,8 @@ public class RequestListTests extends TestBase {
                 "Санкт-Петербург", "59.939084", "30.315879", 0,0, 6,
                 false, true, today);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.breederToken);
         basePage
                 .openPage("/search?type=0");
         cityComponent
@@ -69,10 +67,8 @@ public class RequestListTests extends TestBase {
                 "Санкт-Петербург", "59.939084", "30.315879", 0,0, 6,
                 false, true, today);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.breederToken);
         basePage
                 .openPage("/buy/" + request_id)
                 .checkBlockDisplay("Требуемые характеристики")
@@ -103,10 +99,8 @@ public class RequestListTests extends TestBase {
                 "Санкт-Петербург", "59.939084", "30.315879", 0,0, 6,
                 false, true, today);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.breederToken);
         basePage
                 .openPage("/buy/" + request_id)
                 .clickOnButton("Откликнуться");

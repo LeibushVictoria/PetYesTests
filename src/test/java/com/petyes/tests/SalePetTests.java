@@ -3,7 +3,7 @@ package com.petyes.tests;
 import com.petyes.api.Login;
 import com.petyes.api.Pet;
 import com.petyes.api.Sale;
-import com.petyes.config.App;
+import com.petyes.config.AuthConfig;
 import com.petyes.pages.PetPage;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
@@ -30,10 +30,8 @@ public class SalePetTests extends TestBase{
         Date birth = calendarComponent.getOtherDate(-20);
         int pet_id = pet.createPetByAPI(false, "autoTestSaleCat", birth, 0, 1);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.breederToken);
         basePage
                 .openPage("/sale/add/" + pet_id)
                 .enterNumberInInput("not_for_breeding_price", "10000")
@@ -64,10 +62,8 @@ public class SalePetTests extends TestBase{
         String petType = "Кошки";
         String nickname = "autoTestFreeSaleCat";
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.breederToken);
         basePage
                 .openPage("/sale-pets-list")
                 .clickOnButton("Новое животное");
@@ -106,10 +102,9 @@ public class SalePetTests extends TestBase{
         int sale_id = sale.salePetByAPI(false, false, true, 10000, pet_id);
 
         String comment = "Автотестовый комментарий";
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
 
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.breederToken);
         basePage
                 .openPage("/sale/" + sale_id)
                 .clickOnButton("Редактировать")
@@ -136,10 +131,8 @@ public class SalePetTests extends TestBase{
         int pet_id = pet.createPetByAPI(false, "autoTestSaleCat", birth, 0, 1);
         int sale_id = sale.salePetByAPI(false, false, true, 10000, pet_id);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.breederToken);
         basePage
                 .openPage("/sale/" + sale_id)
                 .clickOnButton("Снять с продажи")

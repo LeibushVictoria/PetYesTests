@@ -5,7 +5,7 @@ import com.petyes.api.Auction;
 import com.petyes.api.Login;
 import com.petyes.api.Pet;
 import com.petyes.api.Sale;
-import com.petyes.config.App;
+import com.petyes.config.AuthConfig;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
 import org.junit.jupiter.api.DisplayName;
@@ -23,13 +23,10 @@ public class BreederProfileTests extends TestBase {
         BasePage basePage = new BasePage();
         Login login = new Login();
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-        int user_id = login.getUserId(token);
-
-        login
-                .setCookie(token);
-        basePage
-                .openPage("/user/" + user_id)
+       login
+                .setCookie(AuthConfig.breederToken);
+       basePage
+                .openPage("/user/" + AuthConfig.breederId)
                 .checkHeader(4,"Продавец  Автотест");
     }
 
@@ -43,18 +40,15 @@ public class BreederProfileTests extends TestBase {
 
         String aboutMe = faker.chuckNorris().fact();
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-        int user_id = login.getUserId(token);
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.breederToken);
         basePage
                 .openPage("/settings/info")
                 .clearTextarea()
                 .enterValueInTextarea("description", aboutMe)
                 .clickOnButton("Сохранить изменения")
                 .checkGreenMessage()
-                .openPage("/user/" + user_id)
+                .openPage("/user/" + AuthConfig.breederId)
                 .checkBlockDisplay(aboutMe);
     }
 
@@ -72,13 +66,10 @@ public class BreederProfileTests extends TestBase {
         int pet_id = pet.createPetByAPI(false, "autoTestCat", birth, 0, 1);
         int sale_id = sale.salePetByAPI(false, false, true, 10000, pet_id);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-        int user_id = login.getUserId(token);
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.breederToken);
         basePage
-                .openPage("/user/" + user_id + "#sales")
+                .openPage("/user/" + AuthConfig.breederId + "#sales")
                 .checkLinkById(sale_id);
 
         sale.cancelPetSaleByAPI(pet_id);
@@ -99,13 +90,10 @@ public class BreederProfileTests extends TestBase {
 
         int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1, 20000, false, false);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-        int user_id = login.getUserId(token);
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.breederToken);
         basePage
-                .openPage("/user/" + user_id + "#auctions")
+                .openPage("/user/" + AuthConfig.breederId + "#auctions")
                 .checkLinkById(auction_id);
 
         auction.deleteAuctionByAPI(auction_id);

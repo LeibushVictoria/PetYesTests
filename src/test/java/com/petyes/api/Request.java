@@ -1,6 +1,7 @@
 package com.petyes.api;
 
 import com.petyes.config.App;
+import com.petyes.config.AuthConfig;
 import com.petyes.helpers.AllureRestAssuredFilter;
 import io.qameta.allure.Step;
 import com.petyes.models.AgeRangeData;
@@ -19,9 +20,6 @@ public class Request {
     public int createRequestByAPI(int price_min, int price_max, boolean important_price,
                                   String address, String coordinate_lat, String coordinate_lng, int sex, int date_from, int date_to,
                                   boolean buy_for_free, boolean is_not_for_breeding, Date date) {
-        Login login = new Login();
-        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
-
         SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String get_date = formater.format(date);
 
@@ -55,7 +53,7 @@ public class Request {
                 .build();
         int id = given()
                 .filter(AllureRestAssuredFilter.withCustomTemplates())
-                .header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + AuthConfig.customerToken)
                 .contentType("application/json;charset=UTF-8")
                 .body(requestData)
                 .when()
@@ -69,15 +67,12 @@ public class Request {
 
     @Step("Удаление запроса по API")
     public void deleteRequestByAPI(int id) {
-        Login login = new Login();
-        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
-
         RequestData requestData = RequestData.builder()
                 .id(id)
                 .build();
         given()
                 .filter(AllureRestAssuredFilter.withCustomTemplates())
-                .header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + AuthConfig.customerToken)
                 .contentType("application/json;charset=UTF-8")
                 .body(requestData)
                 .when()

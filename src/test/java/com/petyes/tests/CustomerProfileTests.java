@@ -3,7 +3,7 @@ package com.petyes.tests;
 import com.github.javafaker.Faker;
 import com.petyes.api.Login;
 import com.petyes.api.Request;
-import com.petyes.config.App;
+import com.petyes.config.AuthConfig;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
 import org.junit.jupiter.api.DisplayName;
@@ -21,13 +21,10 @@ public class CustomerProfileTests extends TestBase {
         BasePage basePage = new BasePage();
         Login login = new Login();
 
-        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
-        int user_id = login.getUserId(token);
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.customerToken);
         basePage
-                .openPage("/user/" + user_id)
+                .openPage("/user/" + AuthConfig.customerId)
                 .checkHeader(4,"Покупатель Автотест");
     }
 
@@ -42,18 +39,15 @@ public class CustomerProfileTests extends TestBase {
 
         String aboutMe = faker.chuckNorris().fact();
 
-        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
-        int user_id = login.getUserId(token);
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.customerToken);
         basePage
                 .openPage("/settings/info")
                 .clearTextarea()
                 .enterValueInTextarea("description", aboutMe)
                 .clickOnButton("Сохранить изменения")
                 .checkGreenMessage()
-                .openPage("/user/" + user_id)
+                .openPage("/user/" + AuthConfig.customerId)
                 .checkBlockDisplay(aboutMe);
     }
 
@@ -71,13 +65,10 @@ public class CustomerProfileTests extends TestBase {
                 "Санкт-Петербург", "59.939084", "30.315879", 0,0, 6,
                 false, true, today);
 
-        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
-        int user_id = login.getUserId(token);
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.customerToken);
         basePage
-                .openPage("/user/" + user_id + "#requests")
+                .openPage("/user/" + AuthConfig.customerId + "#requests")
                 .checkLinkById(request_id);
 
         request.deleteRequestByAPI(request_id);

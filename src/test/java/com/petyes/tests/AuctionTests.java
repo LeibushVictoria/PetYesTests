@@ -3,7 +3,7 @@ package com.petyes.tests;
 import com.petyes.api.Auction;
 import com.petyes.api.Login;
 import com.petyes.api.Pet;
-import com.petyes.config.App;
+import com.petyes.config.AuthConfig;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
 import org.junit.jupiter.api.DisplayName;
@@ -36,10 +36,8 @@ public class AuctionTests extends TestBase {
         Date dateDayAfterTomorrow = calendarComponent.getOtherDate(2);
         String dayAfterTomorrow = formaterAuction.format(dateDayAfterTomorrow);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.breederToken);
         basePage
                 .openPage("/sale/add/" + pet_id)
                 .chooseRadio("Аукцион");
@@ -75,10 +73,8 @@ public class AuctionTests extends TestBase {
 
         String price= "99 999";
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.breederToken);
         basePage
                 .openPage("/auction/" + auction_id)
                 .clickOnButton("Управление")
@@ -103,10 +99,8 @@ public class AuctionTests extends TestBase {
 
         int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1, 20000, false, false);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.breederToken);
         basePage
                 .openPage("/auction/" + auction_id)
                 .clickOnButton("Управление")

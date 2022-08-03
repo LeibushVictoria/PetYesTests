@@ -4,7 +4,7 @@ import com.petyes.api.Login;
 import com.petyes.api.Pet;
 import com.petyes.api.Request;
 import com.petyes.api.Sale;
-import com.petyes.config.App;
+import com.petyes.config.AuthConfig;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.RequestPage;
 import com.petyes.pages.components.CalendarComponent;
@@ -40,10 +40,8 @@ public class RequestTests extends TestBase {
         String priceTo = "30 000";
         String city = "Санкт-Петербург";
 
-        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.customerToken);
         basePage
                 .openPage("/buy-add");
         requestPage
@@ -95,10 +93,8 @@ public class RequestTests extends TestBase {
 
         String petType = "Собаки";
 
-        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.customerToken);
         basePage
                 .openPage("/buy-add")
                 .chooseRadio("Возьму бесплатно в хорошие руки");
@@ -133,10 +129,9 @@ public class RequestTests extends TestBase {
                 false, true, today);
 
         String sex = "Самка";
-        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
 
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.customerToken);
         basePage
                 .openPage("/buy/" + request_id)
                 .clickOnButton("Редактировать")
@@ -172,10 +167,8 @@ public class RequestTests extends TestBase {
                 "Санкт-Петербург", "59.939084", "30.315879", 0, 0, 6,
                 false, true, today);
 
-        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.customerToken);
         basePage
                 .openPage("/buy/" + request_id)
                 .clickOnButton("Смотреть предложения");
@@ -209,10 +202,8 @@ public class RequestTests extends TestBase {
                 "Санкт-Петербург", "59.939084", "30.315879", 0, 0, 6,
                 false, true, today);
 
-        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.customerToken);
         basePage
                 .openPage("/buy/" + request_id)
                 .clickOnButton("Смотреть предложения");
@@ -240,10 +231,8 @@ public class RequestTests extends TestBase {
                 "Санкт-Петербург", "59.939084", "30.315879", 0,0, 6,
                 false, true, today);
 
-        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.customerToken);
         basePage
                 .openPage("/buy/" + id)
                 .clickOnButton("Удалить");
@@ -268,10 +257,8 @@ public class RequestTests extends TestBase {
                 "Санкт-Петербург", "59.939084", "30.315879", 0,0, 6,
                 false, true, today);
 
-        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.customerToken);
         basePage
                 .openPage("/buy/" + request_id)
                 .clickOnButton("Завершить")

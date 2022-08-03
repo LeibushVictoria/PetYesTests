@@ -2,7 +2,7 @@ package com.petyes.tests;
 
 import com.petyes.api.Login;
 import com.petyes.api.Pet;
-import com.petyes.config.App;
+import com.petyes.config.AuthConfig;
 import com.petyes.pages.PetPage;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
@@ -82,10 +82,8 @@ public class PetTests extends TestBase {
         String expositionFile = "pet_exposition.jpg";
         String cureFile = "pet_cure.jpg";
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.breederToken);
         basePage
                 .openPage("/pet/new");
         petPage
@@ -264,10 +262,8 @@ public class PetTests extends TestBase {
         String birth = formater.format(birthDate);
         String birthOut = birthFormater.format(birthDate);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.breederToken);
         basePage
                 .openPage("/pet/new");
         petPage
@@ -302,10 +298,8 @@ public class PetTests extends TestBase {
         Date birth = calendarComponent.getOtherDate(-20);
         int pet_id = pet.createPetByAPI(false, "autoTestSaleCat", birth, 0, 1);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.breederToken);
         basePage
                 .openPage("/pet/" + pet_id)
                 .clickOnButton("Редактировать карточку")
@@ -332,10 +326,8 @@ public class PetTests extends TestBase {
         Date birth = calendarComponent.getOtherDate(-20);
         int pet_id = pet.createPetByAPI(false, "autoTestSaleCat", birth, 0, 1);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.breederToken);
         basePage
                 .openPage("/pet/" + pet_id)
                 .clickOnButton("Редактировать карточку")

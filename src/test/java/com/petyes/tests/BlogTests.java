@@ -2,7 +2,6 @@ package com.petyes.tests;
 
 import com.petyes.api.Blog;
 import com.petyes.api.Login;
-import com.petyes.config.App;
 import com.petyes.domain.ItemsForLogin;
 import com.petyes.pages.ArticlePage;
 import com.petyes.pages.BasePage;
@@ -27,10 +26,8 @@ public class BlogTests extends TestBase {
 
         blog.addBlogCategoryByAPI(categoryName, "#666666");
 
-        String token = login.loginByAPI(items.getPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(items.getToken());
         basePage
                 .openPage("/knowledge/article/new")
                 .enterValueInInput("name","Автотестовое название статьи");
@@ -67,10 +64,8 @@ public class BlogTests extends TestBase {
         int article_id = blog.addArticleByAPI(articleName, "autotest text", file,
                 "autotest annotation", category_id, 13);
 
-        String token = login.loginByAPI(items.getPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(items.getToken());
         basePage
                 .openPage("/knowledge/articles")
                 .chooseRadio("Кошки")

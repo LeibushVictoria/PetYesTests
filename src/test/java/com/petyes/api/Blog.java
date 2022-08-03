@@ -1,6 +1,6 @@
 package com.petyes.api;
 
-import com.petyes.config.App;
+import com.petyes.config.AuthConfig;
 import com.petyes.helpers.AllureRestAssuredFilter;
 import com.petyes.models.BlogData;
 import io.qameta.allure.Step;
@@ -12,16 +12,13 @@ import static io.restassured.RestAssured.given;
 public class Blog {
     @Step("Создать категорию статьи по API")
     public int addBlogCategoryByAPI(String name, String color) {
-        Login login = new Login();
-        String token = login.loginByAPI(App.config.adminPhoneNumber(), App.config.adminPassword());
-
         BlogData category = BlogData.builder()
                 .name(name)
                 .color(color)
                 .build();
         int category_id = given()
                 .filter(AllureRestAssuredFilter.withCustomTemplates())
-                .header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + AuthConfig.adminToken)
                 .contentType("application/json")
                 .body(category)
                 .when()
@@ -35,13 +32,10 @@ public class Blog {
 
     @Step("Создать статью по API")
     public int addArticleByAPI(String name, String text, File file, String annotation, int category_id, int specialization_id) {
-        Login login = new Login();
-        String token = login.loginByAPI(App.config.adminPhoneNumber(), App.config.adminPassword());
-
         int article_id = given()
                 .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .contentType("multipart/form-data")
-                .header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + AuthConfig.adminToken)
                 .multiPart("name", name)
                 .multiPart("text", "{\"type\":\"doc\",\"content\":[{\"type\":\"paragraph\",\"attrs\":{\"textAlign\":\"left\"}," +
                         "\"content\":[{\"type\":\"text\",\"text\":\"" + text + "\"}]}]}")
@@ -62,12 +56,9 @@ public class Blog {
 
     @Step("Удалить категорию статьи по API")
     public void deleteBlogCategoryByAPI(int category_id) {
-        Login login = new Login();
-        String token = login.loginByAPI(App.config.adminPhoneNumber(), App.config.adminPassword());
-
         given()
                 .filter(AllureRestAssuredFilter.withCustomTemplates())
-                .header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + AuthConfig.adminToken)
                 .when()
                 .post("/api/blog/category/delete/" + category_id)
                 .then()
@@ -76,12 +67,9 @@ public class Blog {
 
     @Step("Удалить статью по API")
     public void deleteArticleByAPI(int article_id) {
-        Login login = new Login();
-        String token = login.loginByAPI(App.config.adminPhoneNumber(), App.config.adminPassword());
-
         given()
                 .filter(AllureRestAssuredFilter.withCustomTemplates())
-                .header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + AuthConfig.adminToken)
                 .when()
                 .post("/api/blog/article/delete/" + article_id)
                 .then()

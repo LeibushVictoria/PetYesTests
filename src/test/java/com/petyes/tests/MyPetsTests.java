@@ -2,7 +2,7 @@ package com.petyes.tests;
 
 import com.petyes.api.Login;
 import com.petyes.api.Pet;
-import com.petyes.config.App;
+import com.petyes.config.AuthConfig;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.MyPetsPage;
 import com.petyes.pages.components.CalendarComponent;
@@ -28,10 +28,8 @@ public class MyPetsTests extends TestBase {
         Date birth = calendarComponent.getOtherDate(-20);
         int pet_id = pet.createPetByAPI(false, nickname, birth, 0, 1);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.breederToken);
         basePage
                 .openPage("/mypets");
         myPetsPage
@@ -56,10 +54,8 @@ public class MyPetsTests extends TestBase {
         Date birth = calendarComponent.getOtherDate(-20);
         int pet_id = pet.createPetByAPI(false, nickname, birth, 0, 1);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.breederToken);
         basePage
                 .openPage("/mypets");
         myPetsPage
@@ -83,10 +79,8 @@ public class MyPetsTests extends TestBase {
         Date birth = calendarComponent.getOtherDate(-20);
         int pet_id = pet.createPetByAPI(false, "autoTestMyPetsCat", birth, 0, 1);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.breederToken);
         basePage
                 .openPage("/mypets");
         myPetsPage
@@ -110,10 +104,8 @@ public class MyPetsTests extends TestBase {
         Date birth = calendarComponent.getOtherDate(-20);
         int pet_id = pet.createPetByAPI(false, "autoTestMyPetsCat", birth, 0, 1);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.breederToken);
         basePage
                 .openPage("/mypets");
         myPetsPage
@@ -136,10 +128,8 @@ public class MyPetsTests extends TestBase {
         Date birth = calendarComponent.getOtherDate(-20);
         int pet_id = pet.createPetByAPI(false, "autoTestMyPetsCat", birth, 0, 1);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.breederToken);
         basePage
                 .openPage("/mypets");
         myPetsPage

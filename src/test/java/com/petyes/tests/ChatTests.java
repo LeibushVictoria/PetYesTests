@@ -1,7 +1,7 @@
 package com.petyes.tests;
 
 import com.petyes.api.Login;
-import com.petyes.config.App;
+import com.petyes.config.AuthConfig;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.ChatPage;
 import com.petyes.pages.components.CalendarComponent;
@@ -24,25 +24,21 @@ public class ChatTests extends TestBase {
         ChatPage chatPage = new ChatPage();
         CalendarComponent calendarComponent = new CalendarComponent();
 
-        String customerToken = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
-        String breederToken = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-        int breeder_id = login.getUserId(breederToken);
-
         Date dateToday = calendarComponent.getTodayDate();
         SimpleDateFormat formater = new SimpleDateFormat("HH:mm:ss");
         String message = "Автотестовое сообщение " + formater.format(dateToday);
 
         login
-                .setCookie(customerToken);
+                .setCookie(AuthConfig.customerToken);
         basePage
-                .openPage("/user/" + breeder_id)
+                .openPage("/user/" + AuthConfig.breederId)
                 .clickOnButton("Начать чат")
                 .enterValueInSingleTextarea(message);
         chatPage
                 .sendMessage()
                 .checkMessage(message);
         login
-                .setCookie(breederToken);
+                .setCookie(AuthConfig.breederToken);
         basePage
                 .openPage("/chat");
         chatPage

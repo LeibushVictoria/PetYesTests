@@ -1,7 +1,6 @@
 package com.petyes.tests;
 
 import com.petyes.api.Login;
-import com.petyes.config.App;
 import com.petyes.domain.ItemsForLogin;
 import com.petyes.pages.BasePage;
 import org.junit.jupiter.api.Tag;
@@ -17,10 +16,8 @@ public class ReviewsTests extends TestBase {
         BasePage basePage = new BasePage();
         Login login = new Login();
 
-        String token = login.loginByAPI(items.getPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(items.getToken());
         basePage
                 .openPage("/reviews")
                 .clickOnButton("Написать отзыв")

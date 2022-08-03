@@ -1,6 +1,6 @@
 package com.petyes.api;
 
-import com.petyes.config.App;
+import com.petyes.config.AuthConfig;
 import com.petyes.helpers.AllureRestAssuredFilter;
 import com.petyes.models.PetData;
 import com.petyes.pages.components.CalendarComponent;
@@ -15,7 +15,6 @@ public class Auction {
 
     @Step("Создание аукциона по API")
     public int createAuctionByAPI(Date start, Date finish, int start_cost, int availability_type, int blitz_price, boolean auto_renew, boolean is_fixed) {
-        Login login = new Login();
         Pet pet = new Pet();
         CalendarComponent calendarComponent = new CalendarComponent();
         SimpleDateFormat formaterAuction = new SimpleDateFormat("dd.MM.yyyy HH:mm z");
@@ -25,13 +24,12 @@ public class Auction {
         String started_at = formaterAuction.format(start);
         String finished_at = formaterAuction.format(finish);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
         int pet_id = pet.createPetByAPI(false, "autoTestAuctionCat", birth, 0, 1);
 
         int id = given()
                 .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .contentType("multipart/form-data")
-                .header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + AuthConfig.breederToken)
                 .multiPart("started_at", started_at)
                 .multiPart("finished_at", finished_at)
                 .multiPart("start_cost", start_cost)
@@ -53,16 +51,13 @@ public class Auction {
 
     @Step("Удаление аукциона по API")
     public void deleteAuctionByAPI(int id) {
-        Login login = new Login();
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-
         PetData petData = PetData.builder()
                 .auction(id)
                 .build();
         given()
                 .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .contentType("application/json;charset=UTF-8")
-                .header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + AuthConfig.breederToken)
                 .body(petData)
                 .when()
                 .log().all()

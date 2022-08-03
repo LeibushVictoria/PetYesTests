@@ -1,7 +1,7 @@
 package com.petyes.tests;
 
 import com.petyes.api.Login;
-import com.petyes.config.App;
+import com.petyes.config.AuthConfig;
 import com.petyes.domain.ItemsForLogin;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.KnowledgePage;
@@ -23,10 +23,8 @@ public class KnowledgeTests extends TestBase {
         Login login = new Login();
         KnowledgePage knowledgePage = new KnowledgePage();
 
-        String token = login.loginByAPI(items.getPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(items.getToken());
         basePage
                 .openPage("/knowledge")
                 .clickOnButton("Подобрать породу");
@@ -67,10 +65,8 @@ public class KnowledgeTests extends TestBase {
         Login login = new Login();
         KnowledgePage knowledgePage = new KnowledgePage();
 
-        String token = login.loginByAPI(items.getPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(items.getToken());
         basePage
                 .openPage("/knowledge/breeds")
                 .chooseRadio("Кошки")
@@ -98,10 +94,8 @@ public class KnowledgeTests extends TestBase {
         Login login = new Login();
         KnowledgePage knowledgePage = new KnowledgePage();
 
-        String token = login.loginByAPI(items.getPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(items.getToken());
         basePage
                 .openPage("/knowledge/breeds")
                 .chooseRadio("Кошки")
@@ -128,10 +122,8 @@ public class KnowledgeTests extends TestBase {
         Login login = new Login();
         KnowledgePage knowledgePage = new KnowledgePage();
 
-        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.customerToken);
         basePage
                 .openPage("/knowledge/breeds");
         knowledgePage
@@ -148,10 +140,8 @@ public class KnowledgeTests extends TestBase {
         Login login = new Login();
         KnowledgePage knowledgePage = new KnowledgePage();
 
-        String token = login.loginByAPI(items.getPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(items.getToken());
         basePage
                 .openPage("/knowledge/breeds");
         knowledgePage

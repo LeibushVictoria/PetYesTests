@@ -1,6 +1,6 @@
 package com.petyes.tests;
 
-import com.petyes.config.App;
+import com.petyes.config.AuthConfig;
 import com.petyes.domain.ItemsForLogin;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.BreedersPage;
@@ -24,10 +24,8 @@ public class BreederListTests extends TestBase {
         BasePage basePage = new BasePage();
         Login login = new Login();
 
-        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.customerToken);
         basePage
                 .openPage("/breeders")
                 .clickOnButton("Найти питомца")
@@ -42,10 +40,8 @@ public class BreederListTests extends TestBase {
         Login login = new Login();
         BreedersPage breedersPage = new BreedersPage();
 
-        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.customerToken);
         basePage
                 .openPage("/breeders");
         breedersPage
@@ -62,10 +58,8 @@ public class BreederListTests extends TestBase {
         Login login = new Login();
         BreedersPage breedersPage = new BreedersPage();
 
-        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.customerToken);
         basePage
                 .openPage("/breeders");
         breedersPage
@@ -86,10 +80,8 @@ public class BreederListTests extends TestBase {
         Login login = new Login();
         CityComponent cityComponent = new CityComponent();
 
-        String token = login.loginByAPI(items.getPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(items.getToken());
         basePage
                 .openPage("/breeders");
         cityComponent

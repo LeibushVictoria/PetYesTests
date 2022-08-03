@@ -2,7 +2,7 @@ package com.petyes.tests;
 
 import com.petyes.api.Auction;
 import com.petyes.api.Login;
-import com.petyes.config.App;
+import com.petyes.config.AuthConfig;
 import com.petyes.domain.ItemsForLogin;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
@@ -39,10 +39,8 @@ public class AuctionListTests extends TestBase {
         int auction_id = auction.createAuctionByAPI(dateTomorrow, dateDayAfterTomorrow, 10000, 1,
                 20000, false, false);
 
-        String token = login.loginByAPI(items.getPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(items.getToken());
         basePage
                 .openPage("/auctions");
         cityComponent
@@ -89,10 +87,8 @@ public class AuctionListTests extends TestBase {
         int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1,
                 20000, false, false);
 
-        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.customerToken);
         basePage
                 .openPage("/auction/" + auction_id)
                 .checkBlockDisplay("Характеристики")
@@ -117,10 +113,8 @@ public class AuctionListTests extends TestBase {
         int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1,
                 20000, false, false);
 
-        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.customerToken);
         basePage
                 .openPage("/auction/" + auction_id)
                 .clickOnButton("Подать заявку на участие")

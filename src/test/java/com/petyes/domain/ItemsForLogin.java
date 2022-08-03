@@ -1,18 +1,18 @@
 package com.petyes.domain;
 
-import com.petyes.config.App;
+import com.petyes.config.AuthConfig;
 
 public enum ItemsForLogin {
-    BREEDER(App.config.breederPhoneNumber()),
-    CUSTOMER(App.config.customerPhoneNumber());
+    BREEDER(AuthConfig.breederToken),
+    CUSTOMER(AuthConfig.customerToken);
 
-    private final String phoneNumber;
+    private final String token;
 
-    ItemsForLogin(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    ItemsForLogin(String token) {
+        this.token = token;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getToken() {
+        return token;
     }
 }

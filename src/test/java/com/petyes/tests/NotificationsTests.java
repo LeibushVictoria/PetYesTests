@@ -1,7 +1,7 @@
 package com.petyes.tests;
 
 import com.petyes.api.*;
-import com.petyes.config.App;
+import com.petyes.config.AuthConfig;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
 import org.junit.jupiter.api.DisplayName;
@@ -32,10 +32,8 @@ public class NotificationsTests extends TestBase {
         int pet_id = pet.createPetByAPI(false, "autoTestCat", birth, 0, 0);
         int sale_id = sale.salePetByAPI(false, false, true, 10000, pet_id);
 
-        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.customerToken);
         basePage
                 .openPage("/user/notifications")
                 .checkLinkById(sale_id);
@@ -68,10 +66,8 @@ public class NotificationsTests extends TestBase {
 
         response.responseByAPI(request_id, pet_id);
 
-        String token = login.loginByAPI(App.config.customerPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.customerToken);
         basePage
                 .openPage("/user/notifications")
                 .openLink("/user/49?buy_request=" + request_id)
@@ -102,10 +98,8 @@ public class NotificationsTests extends TestBase {
                 "Санкт-Петербург", "59.939084", "30.315879", 0, 0, 6,
                 false, true, today);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.breederToken);
         basePage
                 .openPage("/user/notifications")
                 .checkLinkById(request_id);
@@ -129,10 +123,8 @@ public class NotificationsTests extends TestBase {
                 "Санкт-Петербург", "59.939084", "30.315879", 0, 0, 6,
                 false, true, today);
 
-        String token = login.loginByAPI(App.config.breederPhoneNumber(), App.config.userPassword());
-
         login
-                .setCookie(token);
+                .setCookie(AuthConfig.breederToken);
         basePage
                 .openPage("/user/notifications")
                 .checkLinkById(request_id);
