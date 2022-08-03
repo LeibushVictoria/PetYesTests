@@ -15,6 +15,18 @@ ___
 
 ## :arrow_forward: Запуск тестов
 
+При запуске тестов можно выбрать окружение, на котором они будут прогоняться. Для этого должен быть файл {env}.properties со следующим содержанием:
+```bash
+webUrl ={webUrl}
+breederPhoneNumber ={phone}
+customerPhoneNumber ={phone}
+adminPhoneNumber ={phone}
+userPassword ={password}
+adminPassword ={password}
+specialization ={id}
+breed ={id}
+```
+
 Если файл local.properties заполнен, то для запуска тестов необходимо выполнить следующую команду:
 
 ```bash
@@ -30,7 +42,8 @@ gradle clean test
 -DbrowserSize=${BROWSER_SIZE} 
 -DbrowserMobileView="${BROWSER_MOBILE}" 
 -DremoteDriverUrl=https://user1:1234@${REMOTE_DRIVER_URL}/wd/hub/ 
--DvideoStorage=https://${REMOTE_DRIVER_URL}/video/ -Dthreads=${THREADS}
+-DvideoStorage=https://${REMOTE_DRIVER_URL}/video/
+-Dthreads=${THREADS}
 ```
 - в параметре Dbrowser - указываем браузер, в котором будут выполняться тесты
 - в параметре DbrowserVersion - указываем версию браузера
