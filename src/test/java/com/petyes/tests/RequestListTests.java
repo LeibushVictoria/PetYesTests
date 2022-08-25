@@ -36,7 +36,7 @@ public class RequestListTests extends TestBase {
         login
                 .setCookie(AuthConfig.breederToken);
         basePage
-                .openPage("/search?type=0");
+                .openPage("/search");
         cityComponent
                 .chooseCity("Санкт-Петербург");
         basePage
