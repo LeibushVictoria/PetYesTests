@@ -33,11 +33,11 @@ public class SalePetTests extends TestBase{
         login
                 .setCookie(AuthConfig.breederToken);
         basePage
-                .openPage("/sale/add/" + pet_id)
+                .openPage("/for-sale/create/" + pet_id)
                 .enterNumberInInput("not_for_breeding_price", "10000")
                 .clickOnButton("Опубликовать")
                 .checkGreenMessage()
-                .checkBlockDisplay("autoTestSaleCat, Абиссинская");
+                .checkBlockDisplay("Кошка Абиссинская 20 дней");
 
         sale.cancelPetSaleByAPI(pet_id);
         pet.deletePetByAPI(pet_id);
@@ -59,31 +59,29 @@ public class SalePetTests extends TestBase{
         SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
         String birth = formater.format(dateBirth);
 
-        String petType = "Кошки";
-        String nickname = "autoTestFreeSaleCat";
-
         login
                 .setCookie(AuthConfig.breederToken);
         basePage
                 .openPage("/sale-pets-list")
                 .clickOnButton("Новое животное");
         petPage
-                .selectPetType("Выберите вид животного", petType);
+                .selectPetTypeSaleNewPet("cat");
         basePage
-                .enterValueInInput("nickname", nickname);
+                .enterValueInInput("nickname", "autoTestFreeSaleCat");
         calendarComponent
                 .enterDate("birth", birth);
         basePage
-                .clickOnSubmitButton()
-                .checkHeader(2, "Подача объявления");
-        int pet_id = basePage.getIdFromUrl();
-        basePage
-                .clickOnButton("Опубликовать")
-                .checkGreenMessage()
-                .checkBlockDisplay(nickname + ", Без породы");
+                .clickOnButton("Далее")
+                .clickOnButton("Далее")
+                .clickOnButton("Далее")
+                .clickOnButton("Отдам даром")
+                .clickOnButton("Завершить")
+                .clickOnButton("Перейти к объявлению")
+                .checkBlockDisplay("Кошка 20 дней");
 
-        sale.cancelPetSaleByAPI(pet_id);
-        pet.deletePetByAPI(pet_id);
+        //int pet_id = basePage.getIdFromUrl();
+        //sale.cancelPetSaleByAPI(pet_id);
+        //pet.deletePetByAPI(pet_id);
     }
 
     @Test
@@ -106,7 +104,7 @@ public class SalePetTests extends TestBase{
         login
                 .setCookie(AuthConfig.breederToken);
         basePage
-                .openPage("/sale/" + sale_id)
+                .openPage("/for-sale/cat/" + sale_id)
                 .clickOnButton("Редактировать")
                 .enterValueInSingleTextarea(comment)
                 .clickOnButton("Сохранить")
@@ -134,7 +132,7 @@ public class SalePetTests extends TestBase{
         login
                 .setCookie(AuthConfig.breederToken);
         basePage
-                .openPage("/sale/" + sale_id)
+                .openPage("/for-sale/cat/" + sale_id)
                 .clickOnButton("Снять с продажи")
                 .chooseRadio("Другое")
                 .enterValueInSingleTextarea("Автотестовая причина завершения")

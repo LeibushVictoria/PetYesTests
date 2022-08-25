@@ -36,7 +36,7 @@ public class SaleListTests extends TestBase {
         login
                 .setCookie(items.getToken());
         basePage
-                .openPage("/search?type=1");
+                .openPage("/for-sale");
         cityComponent
                 .chooseCity("Санкт-Петербург");
         basePage
@@ -72,8 +72,8 @@ public class SaleListTests extends TestBase {
         login
                 .setCookie(AuthConfig.customerToken);
         basePage
-                .openPage("/sale/" + sale_id)
-                .checkBlockDisplay("autoTestSaleCat, Абиссинская")
+                .openPage("/for-sale/cat/" + sale_id)
+                .checkBlockDisplay("Кошка Абиссинская 20 дней")
                 .checkBlockDisplay("Продавец Автотест");
 
         sale.cancelPetSaleByAPI(pet_id);
@@ -90,7 +90,7 @@ public class SaleListTests extends TestBase {
         login
                 .setCookie(AuthConfig.customerToken);
         basePage
-                .openPage("/search?type=1")
+                .openPage("/for-sale")
                 .clickOnButton("Оставить заявку")
                 .checkHeader(2, "Создание запроса на подбор животного");
     }

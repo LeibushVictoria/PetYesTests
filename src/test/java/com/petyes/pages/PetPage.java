@@ -15,6 +15,12 @@ public class PetPage {
         return this;
     }
 
+    @Step("Выбрать вид животного при создании объявления")
+    public PetPage selectPetTypeSaleNewPet(String petType) {
+        $(".specialization-choose__btn--" + petType).click();
+        return this;
+    }
+
     @Step("Выбрать породу животного")
     public void selectBreed(String value) {
         $(".breed-select").click();
