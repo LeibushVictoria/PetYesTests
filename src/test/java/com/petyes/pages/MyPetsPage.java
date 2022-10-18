@@ -31,7 +31,7 @@ public class MyPetsPage {
 
     @Step("Нажать на иконку отдать даром")
     public MyPetsPage clickOnFreeSale(int id) {
-        $("a[href=\"/sale/add/"+id+"?is_free=1\"]").click();
+        $("a[href=\"/for-sale/create/"+id+"?is_free=1\"]").click();
         return this;
     }
 
@@ -42,7 +42,7 @@ public class MyPetsPage {
 
     @Step("Нажать на иконку продажи")
     public MyPetsPage clickOnSale(int id) {
-        $("a[href=\"/sale/add/"+id+"\"]").click();
+        $("a[href=\"/for-sale/create/"+id+"\"]").click();
         return this;
     }
 }

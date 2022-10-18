@@ -39,7 +39,7 @@ public class AuctionTests extends TestBase {
         login
                 .setCookie(AuthConfig.breederToken);
         basePage
-                .openPage("/sale/add/" + pet_id)
+                .openPage("/for-sale/create/" + pet_id)
                 .chooseRadio("Аукцион");
         calendarComponent
                 .enterDate("finished_at", dayAfterTomorrow)
