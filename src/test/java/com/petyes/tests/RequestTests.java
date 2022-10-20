@@ -115,7 +115,7 @@ public class RequestTests extends TestBase {
 
     @Test
     @Tag("regression")
-    @DisplayName("PET-702 Редактирование запроса на питомца (пол)")
+    @DisplayName("Редактирование запроса на питомца (пол)")
     void editRequestTest() {
         BasePage basePage = new BasePage();
         Request request = new Request();
@@ -136,7 +136,6 @@ public class RequestTests extends TestBase {
                 .openPage("/buy/" + request_id)
                 .clickOnButton("Редактировать")
                 .chooseRadio(sex)
-                .clickOnButton("Продолжить")
                 .clickOnButton("Продолжить")
                 .clickOnButton("Сохранить")
                 .checkGreenMessage();

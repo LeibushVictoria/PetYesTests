@@ -45,7 +45,7 @@ public class NotificationsTests extends TestBase {
 
     @Test
     @Tag("regression")
-    @DisplayName("PET-724 Уведомление об отклике на запрос")
+    @DisplayName("Уведомление об отклике на запрос")
     void newResponseNotificationTest() {
         BasePage basePage = new BasePage();
         Request request = new Request();
@@ -74,7 +74,7 @@ public class NotificationsTests extends TestBase {
                 .checkLinkById(sale_id);
 
         request.deleteRequestByAPI(request_id);
-        sale.cancelPetSaleByAPI(sale_id);
+        sale.cancelPetSaleByAPI(pet_id);
         pet.deletePetByAPI(pet_id);
     }
 

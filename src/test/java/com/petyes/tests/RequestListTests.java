@@ -80,7 +80,7 @@ public class RequestListTests extends TestBase {
 
     @Test
     @Tag("regression")
-    @DisplayName("PET-724 Отклик на запрос")
+    @DisplayName("Отклик на запрос")
     void requestApplicationTest() {
         BasePage basePage = new BasePage();
         Login login = new Login();
