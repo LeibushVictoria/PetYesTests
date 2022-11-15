@@ -7,6 +7,7 @@ import com.petyes.domain.ItemsForLogin;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
 import com.petyes.pages.components.CityComponent;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,7 @@ import org.junit.jupiter.params.provider.EnumSource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@Disabled
 public class AuctionListTests extends TestBase {
 
     @EnumSource(ItemsForLogin.class)

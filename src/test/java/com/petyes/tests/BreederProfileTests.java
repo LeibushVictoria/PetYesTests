@@ -8,6 +8,7 @@ import com.petyes.api.Sale;
 import com.petyes.config.AuthConfig;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -76,6 +77,7 @@ public class BreederProfileTests extends TestBase {
         pet.deletePetByAPI(pet_id);
     }
 
+    @Disabled
     @Test
     @Tag("regression")
     @DisplayName("Просмотр продавцом аукционов в своем профиле")
