@@ -1,7 +1,7 @@
 package com.petyes.tests;
 
 import com.petyes.api.Login;
-import com.petyes.config.AuthConfig;
+import com.petyes.domain.DataBuilder;
 import com.petyes.domain.ItemsForLogin;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.KnowledgePage;
@@ -26,8 +26,7 @@ public class KnowledgeTests extends TestBase {
         login
                 .setCookie(items.getToken());
         basePage
-                .openPage("/knowledge")
-                .clickOnButton("Подобрать породу");
+                .openPage("/breeds/choose");
         knowledgePage
                 .choosePetType();
         basePage
@@ -68,9 +67,7 @@ public class KnowledgeTests extends TestBase {
         login
                 .setCookie(items.getToken());
         basePage
-                .openPage("/knowledge/breeds")
-                .chooseRadio("Кошки")
-                .clickOnSubmitButton();
+                .openPage("/breeds/cat");
         knowledgePage
                 .addToComparison("Абиссинская")
                 .addToComparison("Австралийская дымчатая")
@@ -97,7 +94,7 @@ public class KnowledgeTests extends TestBase {
         login
                 .setCookie(items.getToken());
         basePage
-                .openPage("/knowledge/breeds")
+                .openPage("/breeds")
                 .chooseRadio("Кошки")
                 .openFilter("Длина шерсти")
                 .chooseCheckbox("Короткая")
@@ -123,9 +120,9 @@ public class KnowledgeTests extends TestBase {
         KnowledgePage knowledgePage = new KnowledgePage();
 
         login
-                .setCookie(AuthConfig.customerToken);
+                .setCookie(DataBuilder.customerToken);
         basePage
-                .openPage("/knowledge/breeds");
+                .openPage("/breeds");
         knowledgePage
                 .clickOnRequestButton("Абиссинская");
         basePage
@@ -143,12 +140,9 @@ public class KnowledgeTests extends TestBase {
         login
                 .setCookie(items.getToken());
         basePage
-                .openPage("/knowledge/breeds");
+                .openPage("/breeds/abissinskaya")
+                .checkHeader(2,"Абиссинская");
         knowledgePage
-                .openBreed("Абиссинская");
-        basePage
-                .checkHeader(2,"Абиссинская")
-                .clickOnButton("Полная информация")
-                .checkHeader(3,"Подробные данные");
+                .checkCharacteristics("Характерные черты");
     }
 }

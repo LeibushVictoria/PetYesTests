@@ -1,6 +1,6 @@
 package com.petyes.api;
 
-import com.petyes.config.AuthConfig;
+import com.petyes.domain.DataBuilder;
 import com.petyes.helpers.AllureRestAssuredFilter;
 import com.petyes.models.BlogData;
 import io.qameta.allure.Step;
@@ -10,6 +10,8 @@ import java.io.File;
 import static io.restassured.RestAssured.given;
 
 public class Blog {
+    DataBuilder dataBuilder = new DataBuilder();
+    
     @Step("Создать категорию статьи по API")
     public int addBlogCategoryByAPI(String name, String color) {
         BlogData category = BlogData.builder()
@@ -18,7 +20,7 @@ public class Blog {
                 .build();
         int category_id = given()
                 .filter(AllureRestAssuredFilter.withCustomTemplates())
-                .header("Authorization", "Bearer " + AuthConfig.adminToken)
+                .header("Authorization", "Bearer " + dataBuilder.getAdminToken())
                 .contentType("application/json")
                 .body(category)
                 .when()
@@ -35,7 +37,7 @@ public class Blog {
         int article_id = given()
                 .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .contentType("multipart/form-data")
-                .header("Authorization", "Bearer " + AuthConfig.adminToken)
+                .header("Authorization", "Bearer " + dataBuilder.getAdminToken())
                 .multiPart("name", name)
                 .multiPart("text", "{\"type\":\"doc\",\"content\":[{\"type\":\"paragraph\",\"attrs\":{\"textAlign\":\"left\"}," +
                         "\"content\":[{\"type\":\"text\",\"text\":\"" + text + "\"}]}]}")
@@ -58,7 +60,7 @@ public class Blog {
     public void deleteBlogCategoryByAPI(int category_id) {
         given()
                 .filter(AllureRestAssuredFilter.withCustomTemplates())
-                .header("Authorization", "Bearer " + AuthConfig.adminToken)
+                .header("Authorization", "Bearer " + dataBuilder.getAdminToken())
                 .when()
                 .post("/api/blog/category/delete/" + category_id)
                 .then()
@@ -69,7 +71,7 @@ public class Blog {
     public void deleteArticleByAPI(int article_id) {
         given()
                 .filter(AllureRestAssuredFilter.withCustomTemplates())
-                .header("Authorization", "Bearer " + AuthConfig.adminToken)
+                .header("Authorization", "Bearer " + dataBuilder.getAdminToken())
                 .when()
                 .post("/api/blog/article/delete/" + article_id)
                 .then()

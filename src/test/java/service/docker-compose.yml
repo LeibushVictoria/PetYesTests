@@ -1,0 +1,29 @@
+version: '3'
+
+networks:
+  hb-network:
+    driver: bridge
+
+services:
+  selenoid:
+    container_name: selenoid
+    image: aerokube/selenoid:latest-release
+    volumes:
+      - ./selenoid:/etc/selenoid
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: [ "-conf", "/etc/selenoid/browsers.json", "-limit", "6", "-video-output-dir", "/opt/selenoid/video", "-log-output-dir", "/opt/selenoid/logs", "-container-network", "service_hb-network" ]
+    ports:
+      - 4444:4444
+    networks:
+      - hb-network
+
+  selenoid-ui:
+    container_name: selenoid-ui
+    image: aerokube/selenoid-ui:latest-release
+    links:
+      - selenoid
+    ports:
+      - 8080:8080
+    command: [ "--selenoid-uri", "http://selenoid:4444" ]
+    networks:
+      - hb-network

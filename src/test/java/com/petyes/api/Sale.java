@@ -1,6 +1,6 @@
 package com.petyes.api;
 
-import com.petyes.config.AuthConfig;
+import com.petyes.domain.DataBuilder;
 import com.petyes.helpers.AllureRestAssuredFilter;
 import com.petyes.models.PetData;
 import io.qameta.allure.Step;
@@ -8,6 +8,8 @@ import io.qameta.allure.Step;
 import static io.restassured.RestAssured.given;
 
 public class Sale {
+    DataBuilder dataBuilder = new DataBuilder();
+
     @Step("Продать питомца по API")
     public int salePetByAPI(boolean deliverable, boolean sell_for_free, boolean is_not_for_breeding, int not_for_breeding_price, int pet_id) {
         PetData petData = PetData.builder()
@@ -20,7 +22,7 @@ public class Sale {
         int id = given()
                 .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .contentType("application/json;charset=UTF-8")
-                .header("Authorization", "Bearer " + AuthConfig.breederToken)
+                .header("Authorization", "Bearer " + DataBuilder.breederToken)
                 .body(petData)
                 .when()
                 .post("/api/pet/sell_request/add")
@@ -39,7 +41,7 @@ public class Sale {
         given()
                 .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .contentType("application/json;charset=UTF-8")
-                .header("Authorization", "Bearer " + AuthConfig.breederToken)
+                .header("Authorization", "Bearer " + DataBuilder.breederToken)
                 .body(petData)
                 .when()
                 .post("/api/pet/sell_request/remove")

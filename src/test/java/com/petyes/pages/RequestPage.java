@@ -44,7 +44,7 @@ public class RequestPage {
 
     @Step("Проверить отображение объявления")
     public void checkSaleOffer(int index, int id) {
-        $(".as-card__body", index).$("a[href=\"/sale/"+id+"\"]").should(exist);
+        $(".as-card__body", index).$("a[href$=\""+id+"\"]").should(exist);
     }
 
     @Step("Выбрать питомца для отклика")

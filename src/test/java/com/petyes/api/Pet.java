@@ -1,7 +1,7 @@
 package com.petyes.api;
 
 import com.petyes.config.App;
-import com.petyes.config.AuthConfig;
+import com.petyes.domain.DataBuilder;
 import com.petyes.helpers.AllureRestAssuredFilter;
 import io.qameta.allure.Step;
 import com.petyes.models.PetData;
@@ -12,6 +12,7 @@ import java.util.Date;
 import static io.restassured.RestAssured.given;
 
 public class Pet {
+    DataBuilder dataBuilder = new DataBuilder();
 
     @Step("Создание питомца по API")
     public int createPetByAPI(boolean avatar_id, String nickname, Date dateBirth, int sex, int is_neutered) {
@@ -21,7 +22,7 @@ public class Pet {
         int id = given()
                 .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .contentType("multipart/form-data")
-                .header("Authorization", "Bearer " + AuthConfig.breederToken)
+                .header("Authorization", "Bearer " + DataBuilder.breederToken)
                 .multiPart("avatar_id", avatar_id)
                 .multiPart("specialization_id", App.config.specialization())
                 .multiPart("nickname", nickname)
@@ -46,7 +47,7 @@ public class Pet {
         given()
                 .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .contentType("application/json;charset=UTF-8")
-                .header("Authorization", "Bearer " + AuthConfig.breederToken)
+                .header("Authorization", "Bearer " + DataBuilder.breederToken)
                 .body(petData)
                 .when()
                 .post("/api/pet/remove")

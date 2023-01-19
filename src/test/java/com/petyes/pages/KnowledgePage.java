@@ -50,9 +50,9 @@ public class KnowledgePage {
         $$(".breed-preview").findBy(text(breed)).$$(".as-button__slot").findBy(text("Запросить")).click();
     }
 
-    @Step("Открыть породу")
-    public void openBreed(String breed) {
-        $$(".breed-preview__link").findBy(text(breed)).click();
+    @Step("Проверить отображение характеристик породы")
+    public void checkCharacteristics(String text) {
+        $(".breed-characteristics").shouldHave(text(text));
     }
 
     @Step("Проверить отображение пород в списке сравнения")

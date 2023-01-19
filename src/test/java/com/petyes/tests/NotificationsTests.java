@@ -1,7 +1,7 @@
 package com.petyes.tests;
 
 import com.petyes.api.*;
-import com.petyes.config.AuthConfig;
+import com.petyes.domain.DataBuilder;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
 import org.junit.jupiter.api.DisplayName;
@@ -33,7 +33,7 @@ public class NotificationsTests extends TestBase {
         int sale_id = sale.salePetByAPI(false, false, true, 10000, pet_id);
 
         login
-                .setCookie(AuthConfig.customerToken);
+                .setCookie(DataBuilder.customerToken);
         basePage
                 .openPage("/user/notifications")
                 .checkLinkById(sale_id);
@@ -67,7 +67,7 @@ public class NotificationsTests extends TestBase {
         response.responseByAPI(request_id, pet_id);
 
         login
-                .setCookie(AuthConfig.customerToken);
+                .setCookie(DataBuilder.customerToken);
         basePage
                 .openPage("/user/notifications")
                 .openLink("/user/49?buy_request=" + request_id)
@@ -99,7 +99,7 @@ public class NotificationsTests extends TestBase {
                 false, true, today);
 
         login
-                .setCookie(AuthConfig.breederToken);
+                .setCookie(DataBuilder.breederToken);
         basePage
                 .openPage("/user/notifications")
                 .checkLinkById(request_id);
@@ -111,7 +111,7 @@ public class NotificationsTests extends TestBase {
 
     @Test
     @Tag("regression")
-    @DisplayName("PET-740 Уведомление о новом запросе, подходящем под специализацию")
+    @DisplayName("Уведомление о новом запросе, подходящем под специализацию")
     void newRequestSpecNotificationTest() {
         BasePage basePage = new BasePage();
         Request request = new Request();
@@ -124,7 +124,7 @@ public class NotificationsTests extends TestBase {
                 false, true, today);
 
         login
-                .setCookie(AuthConfig.breederToken);
+                .setCookie(DataBuilder.breederToken);
         basePage
                 .openPage("/user/notifications")
                 .checkLinkById(request_id);

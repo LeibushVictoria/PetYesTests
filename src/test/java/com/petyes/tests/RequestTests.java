@@ -1,10 +1,8 @@
 package com.petyes.tests;
 
 import com.petyes.api.Login;
-import com.petyes.api.Pet;
 import com.petyes.api.Request;
-import com.petyes.api.Sale;
-import com.petyes.config.AuthConfig;
+import com.petyes.domain.DataBuilder;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.RequestPage;
 import com.petyes.pages.components.CalendarComponent;
@@ -41,7 +39,7 @@ public class RequestTests extends TestBase {
         String city = "Санкт-Петербург";
 
         login
-                .setCookie(AuthConfig.customerToken);
+                .setCookie(DataBuilder.customerToken);
         basePage
                 .openPage("/buy-add");
         requestPage
@@ -94,7 +92,7 @@ public class RequestTests extends TestBase {
         String petType = "Собаки";
 
         login
-                .setCookie(AuthConfig.customerToken);
+                .setCookie(DataBuilder.customerToken);
         basePage
                 .openPage("/buy-add")
                 .chooseRadio("Возьму бесплатно в хорошие руки");
@@ -131,7 +129,7 @@ public class RequestTests extends TestBase {
         String sex = "Самка";
 
         login
-                .setCookie(AuthConfig.customerToken);
+                .setCookie(DataBuilder.customerToken);
         basePage
                 .openPage("/buy/" + request_id)
                 .clickOnButton("Редактировать")
@@ -150,67 +148,42 @@ public class RequestTests extends TestBase {
     @DisplayName("PET-729 Смотреть подходящие предложения")
     void seeSaleOffersTest() {
         BasePage basePage = new BasePage();
-        Request request = new Request();
-        Pet pet = new Pet();
-        Sale sale = new Sale();
-        CalendarComponent calendarComponent = new CalendarComponent();
         Login login = new Login();
         RequestPage requestPage = new RequestPage();
 
-        Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, "autoTestCat", birth, 0, 0);
-        int sale_id = sale.salePetByAPI(false, false, true, 10000, pet_id);
-
-        Date today = calendarComponent.getTodayDate();
-        int request_id = request.createRequestByAPI(0, 20000, false,
-                "Санкт-Петербург", "59.939084", "30.315879", 0, 0, 6,
-                false, true, today);
-
         login
-                .setCookie(AuthConfig.customerToken);
+                .setCookie(DataBuilder.customerToken);
         basePage
-                .openPage("/buy/" + request_id)
+                .openPage("/buy/" + DataBuilder.request_id)
                 .clickOnButton("Смотреть предложения");
         requestPage
-                .checkSaleOffer(0, sale_id);
-
-        sale.cancelPetSaleByAPI(pet_id);
-        pet.deletePetByAPI(pet_id);
-        request.deleteRequestByAPI(request_id);
+                .checkSaleOffer(0, DataBuilder.sale_id);
     }
 
     @Test
     @Tag("smoke")
     @Tag("regression")
-    @DisplayName("Смотреть похожие предложения")
+    @DisplayName("Смотреть похожие предложения (разный пол)")
     void seeSimilarOffersTest() {
         BasePage basePage = new BasePage();
         Request request = new Request();
-        Pet pet = new Pet();
-        Sale sale = new Sale();
         CalendarComponent calendarComponent = new CalendarComponent();
         Login login = new Login();
         RequestPage requestPage = new RequestPage();
 
-        Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, "autoTestCat", birth, 1, 0);
-        int sale_id = sale.salePetByAPI(false, false, true, 10000, pet_id);
-
         Date today = calendarComponent.getTodayDate();
         int request_id = request.createRequestByAPI(0, 20000, false,
-                "Санкт-Петербург", "59.939084", "30.315879", 0, 0, 6,
+                "Санкт-Петербург", "59.939084", "30.315879", 1, 0, 6,
                 false, true, today);
 
         login
-                .setCookie(AuthConfig.customerToken);
+                .setCookie(DataBuilder.customerToken);
         basePage
                 .openPage("/buy/" + request_id)
                 .clickOnButton("Смотреть предложения");
         requestPage
-                .checkSaleOffer(1, sale_id);
+                .checkSaleOffer(1, DataBuilder.sale_id);
 
-        sale.cancelPetSaleByAPI(pet_id);
-        pet.deletePetByAPI(pet_id);
         request.deleteRequestByAPI(request_id);
     }
 
@@ -231,7 +204,7 @@ public class RequestTests extends TestBase {
                 false, true, today);
 
         login
-                .setCookie(AuthConfig.customerToken);
+                .setCookie(DataBuilder.customerToken);
         basePage
                 .openPage("/buy/" + id)
                 .clickOnButton("Удалить");
@@ -257,7 +230,7 @@ public class RequestTests extends TestBase {
                 false, true, today);
 
         login
-                .setCookie(AuthConfig.customerToken);
+                .setCookie(DataBuilder.customerToken);
         basePage
                 .openPage("/buy/" + request_id)
                 .clickOnButton("Завершить")

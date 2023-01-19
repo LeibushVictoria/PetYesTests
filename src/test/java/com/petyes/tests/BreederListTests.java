@@ -1,6 +1,6 @@
 package com.petyes.tests;
 
-import com.petyes.config.AuthConfig;
+import com.petyes.domain.DataBuilder;
 import com.petyes.domain.ItemsForLogin;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.BreedersPage;
@@ -25,7 +25,7 @@ public class BreederListTests extends TestBase {
         Login login = new Login();
 
         login
-                .setCookie(AuthConfig.customerToken);
+                .setCookie(DataBuilder.customerToken);
         basePage
                 .openPage("/breeders")
                 .clickOnButton("Найти питомца")
@@ -41,13 +41,13 @@ public class BreederListTests extends TestBase {
         BreedersPage breedersPage = new BreedersPage();
 
         login
-                .setCookie(AuthConfig.customerToken);
+                .setCookie(DataBuilder.customerToken);
         basePage
                 .openPage("/breeders");
         breedersPage
                 .openBreederPage("Продавец Автотест");
         basePage
-                .checkHeader(5,"Привет, я Продавец Автотест");
+                .checkHeader(5,"Здравствуйте! Я, Продавец Автотест");
     }
 
     @Test
@@ -59,7 +59,7 @@ public class BreederListTests extends TestBase {
         BreedersPage breedersPage = new BreedersPage();
 
         login
-                .setCookie(AuthConfig.customerToken);
+                .setCookie(DataBuilder.customerToken);
         basePage
                 .openPage("/breeders");
         breedersPage
@@ -90,6 +90,6 @@ public class BreederListTests extends TestBase {
                 .chooseRadio("Кошки")
                 .selectValueInDropdownInFilter("Выберите породу", "Абиссинская")
                 .clickOnSubmitButton()
-                .checkResult("Продавец Автотест");
+                .checkLinkById(DataBuilder.customer_id);
     }
 }

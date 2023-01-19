@@ -2,7 +2,7 @@ package com.petyes.tests;
 
 import com.petyes.api.Login;
 import com.petyes.api.Pet;
-import com.petyes.config.AuthConfig;
+import com.petyes.domain.DataBuilder;
 import com.petyes.pages.PetPage;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
@@ -83,7 +83,7 @@ public class PetTests extends TestBase {
         String cureFile = "pet_cure.jpg";
 
         login
-                .setCookie(AuthConfig.breederToken);
+                .setCookie(DataBuilder.breederToken);
         basePage
                 .openPage("/pet/new");
         petPage
@@ -102,9 +102,9 @@ public class PetTests extends TestBase {
                 .chooseCheckbox("Кастрат");
         petPage
                 .uploadAvatarFile(0, avatarFile)
-                .clickOnSideBarTab("Регистрационные данные");
+                .clickOnSideBarTab("Регистрационные данные")
+                .chooseOption("Паспорт питомца", "Да");
         basePage
-                .clickOnButton("Продолжить заполнение")
                 .enterValueInInput("passport_num", passportNum)
                 .enterValueInInput("passport_from", passportFrom);
         calendarComponent
@@ -112,9 +112,10 @@ public class PetTests extends TestBase {
         basePage
                 .enterValueInInput("passport_name", passportName);
         petPage
-                .uploadFile(1, passportFile);
+                .uploadFile(1, passportFile)
+                .chooseOption("Метрика", "Да")
+                .chooseOption("Чипирование", "Да");
         basePage
-                .chooseRadio("Да")
                 .enterValueInInput("chip_num", chipNum);
         calendarComponent
                 .enterDate("chip_date", date);
@@ -152,8 +153,10 @@ public class PetTests extends TestBase {
         basePage
                 .enterValueInTextarea("food[0].description", foodDescription);
         petPage
-                .clickOnSideBarTab("Вакцинация");
+                .clickOnSideBarTab("Вакцинация")
+                .chooseOption("Вакцинация", "Да");
         basePage
+                .clickOnButton("Добавить вакцинацию")
                 .enterValueInDropdown("vaccines[0].vaccine", vaccinesName);
         calendarComponent
                 .enterDate("vaccines[0].date_from", date);
@@ -263,7 +266,7 @@ public class PetTests extends TestBase {
         String birthOut = birthFormater.format(birthDate);
 
         login
-                .setCookie(AuthConfig.breederToken);
+                .setCookie(DataBuilder.breederToken);
         basePage
                 .openPage("/pet/new");
         petPage
@@ -299,7 +302,7 @@ public class PetTests extends TestBase {
         int pet_id = pet.createPetByAPI(false, "autoTestSaleCat", birth, 0, 1);
 
         login
-                .setCookie(AuthConfig.breederToken);
+                .setCookie(DataBuilder.breederToken);
         basePage
                 .openPage("/pet/" + pet_id)
                 .clickOnButton("Редактировать карточку")
@@ -327,7 +330,7 @@ public class PetTests extends TestBase {
         int pet_id = pet.createPetByAPI(false, "autoTestSaleCat", birth, 0, 1);
 
         login
-                .setCookie(AuthConfig.breederToken);
+                .setCookie(DataBuilder.breederToken);
         basePage
                 .openPage("/pet/" + pet_id)
                 .clickOnButton("Редактировать карточку")

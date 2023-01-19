@@ -40,6 +40,12 @@ public class PetPage {
         return this;
     }
 
+    @Step("Выбрать дополнительный параметр")
+    public PetPage chooseOption(String optionName, String radio) {
+        $$(".as-form-item").findBy(text(optionName)).$$(".as-radio__text").findBy(text(radio)).click();
+        return this;
+    }
+
     @Step("Загрузить файл")
     public PetPage uploadFile(int id, String fileName) {
         $("input[type=\"file\"]", id).uploadFromClasspath(fileName);

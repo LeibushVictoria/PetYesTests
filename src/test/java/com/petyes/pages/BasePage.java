@@ -156,10 +156,10 @@ public class BasePage {
 
     @Step("Проверить наличие ссылки по id")
     public void checkLinkById(int id) {
-        $("a[href*=\""+id+"\"]").shouldBe(exist);
+        $("a[href$=\""+id+"\"]").shouldBe(exist);
     }
 
-    @Step("Проверить наличие ссылки")
+    @Step("Открыть ссылку")
     public BasePage openLink(String link) {
         $("a[href=\"" + link + "\"]").click();
         return this;

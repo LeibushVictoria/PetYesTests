@@ -1,10 +1,8 @@
 package com.petyes.domain;
 
-import com.petyes.config.AuthConfig;
-
 public enum ItemsForLogin {
-    BREEDER(AuthConfig.breederToken),
-    CUSTOMER(AuthConfig.customerToken);
+    BREEDER(DataBuilder.breederToken),
+    CUSTOMER(DataBuilder.customerToken);
 
     private final String token;
 

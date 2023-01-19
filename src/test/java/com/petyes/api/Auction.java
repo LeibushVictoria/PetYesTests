@@ -1,6 +1,6 @@
 package com.petyes.api;
 
-import com.petyes.config.AuthConfig;
+import com.petyes.domain.DataBuilder;
 import com.petyes.helpers.AllureRestAssuredFilter;
 import com.petyes.models.PetData;
 import com.petyes.pages.components.CalendarComponent;
@@ -12,6 +12,7 @@ import java.util.Date;
 import static io.restassured.RestAssured.given;
 
 public class Auction {
+    DataBuilder dataBuilder = new DataBuilder();
 
     @Step("Создание аукциона по API")
     public int createAuctionByAPI(Date start, Date finish, int start_cost, int availability_type, int blitz_price, boolean auto_renew, boolean is_fixed) {
@@ -29,7 +30,7 @@ public class Auction {
         int id = given()
                 .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .contentType("multipart/form-data")
-                .header("Authorization", "Bearer " + AuthConfig.breederToken)
+                .header("Authorization", "Bearer " + DataBuilder.breederToken)
                 .multiPart("started_at", started_at)
                 .multiPart("finished_at", finished_at)
                 .multiPart("start_cost", start_cost)
@@ -57,7 +58,7 @@ public class Auction {
         given()
                 .filter(AllureRestAssuredFilter.withCustomTemplates())
                 .contentType("application/json;charset=UTF-8")
-                .header("Authorization", "Bearer " + AuthConfig.breederToken)
+                .header("Authorization", "Bearer " + DataBuilder.breederToken)
                 .body(petData)
                 .when()
                 .log().all()

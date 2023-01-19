@@ -12,10 +12,12 @@ public interface ProjectConfig extends Config {
 
     @DefaultValue("chrome")
     String browser();
-    @DefaultValue("100.0")
+    @DefaultValue("108.0")
     String browserVersion();
     @DefaultValue("1920x1080")
     String browserSize();
+    @DefaultValue("http://localhost:4444/wd/hub")
     String remoteDriverUrl();
+    @DefaultValue("http://localhost:8080/video")
     String videoStorage();
 }

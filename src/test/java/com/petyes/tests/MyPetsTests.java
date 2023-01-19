@@ -1,16 +1,12 @@
 package com.petyes.tests;
 
 import com.petyes.api.Login;
-import com.petyes.api.Pet;
-import com.petyes.config.AuthConfig;
+import com.petyes.domain.DataBuilder;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.MyPetsPage;
-import com.petyes.pages.components.CalendarComponent;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-
-import java.util.Date;
 
 public class MyPetsTests extends TestBase {
 
@@ -18,51 +14,35 @@ public class MyPetsTests extends TestBase {
     @Tag("regression")
     @DisplayName("Открыть страницу питомца")
     void openPetTest() {
-        Pet pet = new Pet();
         BasePage basePage = new BasePage();
         Login login = new Login();
-        CalendarComponent calendarComponent = new CalendarComponent();
         MyPetsPage myPetsPage = new MyPetsPage();
 
-        String nickname = "autoTestMyPetsCat";
-        Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, nickname, birth, 0, 1);
-
         login
-                .setCookie(AuthConfig.breederToken);
+                .setCookie(DataBuilder.breederToken);
         basePage
                 .openPage("/mypets");
         myPetsPage
-                .clickOnPet(nickname);
+                .clickOnPet(DataBuilder.petName);
         basePage
-                .checkBlockDisplay(nickname);
-
-        pet.deletePetByAPI(pet_id);
+                .checkBlockDisplay(DataBuilder.petName);
     }
 
     @Test
     @Tag("regression")
     @DisplayName("Открыть родословную питомца")
     void openGenTreeTest() {
-        Pet pet = new Pet();
         BasePage basePage = new BasePage();
         Login login = new Login();
-        CalendarComponent calendarComponent = new CalendarComponent();
         MyPetsPage myPetsPage = new MyPetsPage();
 
-        String nickname = "autoTestMyPetsCat";
-        Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, nickname, birth, 0, 1);
-
         login
-                .setCookie(AuthConfig.breederToken);
+                .setCookie(DataBuilder.breederToken);
         basePage
                 .openPage("/mypets");
         myPetsPage
-                .clickOnGenTree(pet_id)
-                .checkGenTree(nickname);
-
-        pet.deletePetByAPI(pet_id);
+                .clickOnGenTree(DataBuilder.pet_id)
+                .checkGenTree(DataBuilder.petName);
     }
 
     @Test
@@ -70,72 +50,51 @@ public class MyPetsTests extends TestBase {
     @Tag("regression")
     @DisplayName("Открыть редактирование питомца")
     void openEditPetTest() {
-        Pet pet = new Pet();
         BasePage basePage = new BasePage();
         Login login = new Login();
-        CalendarComponent calendarComponent = new CalendarComponent();
         MyPetsPage myPetsPage = new MyPetsPage();
 
-        Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, "autoTestMyPetsCat", birth, 0, 1);
-
         login
-                .setCookie(AuthConfig.breederToken);
+                .setCookie(DataBuilder.breederToken);
         basePage
                 .openPage("/mypets");
         myPetsPage
-                .clickOnEdit(pet_id);
+                .clickOnEdit(DataBuilder.pet_id);
         basePage
                 .checkHeader(2, "Редактирование карточки питомца");
-
-        pet.deletePetByAPI(pet_id);
     }
 
     @Test
     @Tag("regression")
     @DisplayName("Открыть продажу питомца (отдать даром)")
     void openFreeSalePetTest() {
-        Pet pet = new Pet();
         BasePage basePage = new BasePage();
         Login login = new Login();
-        CalendarComponent calendarComponent = new CalendarComponent();
         MyPetsPage myPetsPage = new MyPetsPage();
 
-        Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, "autoTestMyPetsCat", birth, 0, 1);
-
         login
-                .setCookie(AuthConfig.breederToken);
+                .setCookie(DataBuilder.breederToken);
         basePage
                 .openPage("/mypets");
         myPetsPage
-                .clickOnFreeSale(pet_id)
+                .clickOnFreeSale(DataBuilder.pet_id)
                 .checkSale("Отдам бесплатно в хорошие руки");
-
-        pet.deletePetByAPI(pet_id);
     }
 
     @Test
     @Tag("regression")
     @DisplayName("Открыть продажу питомца")
     void openSalePetTest() {
-        Pet pet = new Pet();
         BasePage basePage = new BasePage();
         Login login = new Login();
-        CalendarComponent calendarComponent = new CalendarComponent();
         MyPetsPage myPetsPage = new MyPetsPage();
 
-        Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, "autoTestMyPetsCat", birth, 0, 1);
-
         login
-                .setCookie(AuthConfig.breederToken);
+                .setCookie(DataBuilder.breederToken);
         basePage
                 .openPage("/mypets");
         myPetsPage
-                .clickOnSale(pet_id)
+                .clickOnSale(DataBuilder.pet_id)
                 .checkSale("Продажа сейчас");
-
-        pet.deletePetByAPI(pet_id);
     }
 }

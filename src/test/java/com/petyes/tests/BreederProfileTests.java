@@ -3,9 +3,7 @@ package com.petyes.tests;
 import com.github.javafaker.Faker;
 import com.petyes.api.Auction;
 import com.petyes.api.Login;
-import com.petyes.api.Pet;
-import com.petyes.api.Sale;
-import com.petyes.config.AuthConfig;
+import com.petyes.domain.DataBuilder;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
 import org.junit.jupiter.api.Disabled;
@@ -24,10 +22,10 @@ public class BreederProfileTests extends TestBase {
         BasePage basePage = new BasePage();
         Login login = new Login();
 
-       login
-                .setCookie(AuthConfig.breederToken);
-       basePage
-                .openPage("/user/" + AuthConfig.breederId)
+        login
+                .setCookie(DataBuilder.breederToken);
+        basePage
+                .openPage("/user/" + DataBuilder.breeder_id)
                 .checkHeader(4,"Продавец  Автотест");
     }
 
@@ -42,14 +40,14 @@ public class BreederProfileTests extends TestBase {
         String aboutMe = faker.chuckNorris().fact();
 
         login
-                .setCookie(AuthConfig.breederToken);
+                .setCookie(DataBuilder.breederToken);
         basePage
                 .openPage("/settings/info")
                 .clearTextarea()
                 .enterValueInTextarea("description", aboutMe)
                 .clickOnButton("Сохранить изменения")
                 .checkGreenMessage()
-                .openPage("/user/" + AuthConfig.breederId)
+                .openPage("/user/" + DataBuilder.breeder_id)
                 .checkBlockDisplay(aboutMe);
     }
 
@@ -58,23 +56,13 @@ public class BreederProfileTests extends TestBase {
     @DisplayName("Просмотр продавцом объявлений в своем профиле")
     void viewSaleTest() {
         BasePage basePage = new BasePage();
-        Pet pet = new Pet();
-        Sale sale = new Sale();
-        CalendarComponent calendarComponent = new CalendarComponent();
         Login login = new Login();
 
-        Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, "autoTestCat", birth, 0, 1);
-        int sale_id = sale.salePetByAPI(false, false, true, 10000, pet_id);
-
         login
-                .setCookie(AuthConfig.breederToken);
+                .setCookie(DataBuilder.breederToken);
         basePage
-                .openPage("/user/" + AuthConfig.breederId + "#sales")
-                .checkLinkById(sale_id);
-
-        sale.cancelPetSaleByAPI(pet_id);
-        pet.deletePetByAPI(pet_id);
+                .openPage("/user/" + DataBuilder.breeder_id + "#sales")
+                .checkLinkById(DataBuilder.sale_id);
     }
 
     @Disabled
@@ -93,9 +81,9 @@ public class BreederProfileTests extends TestBase {
         int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1, 20000, false, false);
 
         login
-                .setCookie(AuthConfig.breederToken);
+                .setCookie(DataBuilder.breederToken);
         basePage
-                .openPage("/user/" + AuthConfig.breederId + "#auctions")
+                .openPage("/user/" + DataBuilder.breeder_id + "#auctions")
                 .checkLinkById(auction_id);
 
         auction.deleteAuctionByAPI(auction_id);

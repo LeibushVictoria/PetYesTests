@@ -1,15 +1,13 @@
 package com.petyes.tests;
 
-import com.petyes.api.Blog;
 import com.petyes.api.Login;
+import com.petyes.domain.DataBuilder;
 import com.petyes.domain.ItemsForLogin;
 import com.petyes.pages.ArticlePage;
 import com.petyes.pages.BasePage;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
-
-import java.io.File;
 
 public class BlogTests extends TestBase {
 
@@ -19,12 +17,7 @@ public class BlogTests extends TestBase {
     void createArticleTest(ItemsForLogin items) {
         BasePage basePage = new BasePage();
         Login login = new Login();
-        Blog blog = new Blog();
         ArticlePage articlePage = new ArticlePage();
-
-        String categoryName = "CreateArticleTest";
-
-        blog.addBlogCategoryByAPI(categoryName, "#666666");
 
         login
                 .setCookie(items.getToken());
@@ -32,7 +25,7 @@ public class BlogTests extends TestBase {
                 .openPage("/knowledge/article/new")
                 .enterValueInInput("name","Автотестовое название статьи");
         articlePage
-                .selectCategory(categoryName);
+                .selectCategory(DataBuilder.categoryName);
         basePage
                 .chooseRadio("Кошки")
                 .enterValueInTextarea("annotation", "Автотестовая аннотация статьи");
@@ -40,11 +33,12 @@ public class BlogTests extends TestBase {
                 .enterText("Автотестовый текст статьи")
                 .uploadFile("pet_photo.jpg");
         basePage
-                .clickOnButton("Опубликовать")
-                .clickOnButton("Смотреть все статьи");
+                .clickOnButton("Опубликовать");
         articlePage
-                .checkCreateArticles("Статья успешно создана")
-                .checkCreateArticles("Смотреть все статьи");
+                .checkCreateArticles("Статья успешно создана");
+        basePage
+                .clickOnButton("Смотреть все статьи")
+                .checkHeader(2, "Статьи");
     }
 
     @EnumSource(ItemsForLogin.class)
@@ -54,15 +48,8 @@ public class BlogTests extends TestBase {
     void filterArticlesTest(ItemsForLogin items) {
         BasePage basePage = new BasePage();
         Login login = new Login();
-        Blog blog = new Blog();
 
-        String categoryName = "autotest";
-        String articleName = "autotest article";
-        File file = new File("src/test/resources/pet_photo.jpg");
-
-        int category_id = blog.addBlogCategoryByAPI(categoryName, "#666666");
-        int article_id = blog.addArticleByAPI(articleName, "autotest text", file,
-                "autotest annotation", category_id, 13);
+        int article_id = DataBuilder.article_id;
 
         login
                 .setCookie(items.getToken());
@@ -70,11 +57,8 @@ public class BlogTests extends TestBase {
                 .openPage("/knowledge/articles")
                 .chooseRadio("Кошки")
                 .openFilter("Категория")
-                .chooseCheckbox(categoryName)
+                .chooseCheckbox(DataBuilder.categoryName)
                 .clickOnButton("Показать")
                 .checkLinkById(article_id);
-
-        blog.deleteArticleByAPI(article_id);
-        blog.deleteBlogCategoryByAPI(category_id);
     }
 }

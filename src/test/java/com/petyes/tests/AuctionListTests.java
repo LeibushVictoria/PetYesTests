@@ -2,7 +2,7 @@ package com.petyes.tests;
 
 import com.petyes.api.Auction;
 import com.petyes.api.Login;
-import com.petyes.config.AuthConfig;
+import com.petyes.domain.DataBuilder;
 import com.petyes.domain.ItemsForLogin;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
@@ -90,7 +90,7 @@ public class AuctionListTests extends TestBase {
                 20000, false, false);
 
         login
-                .setCookie(AuthConfig.customerToken);
+                .setCookie(DataBuilder.customerToken);
         basePage
                 .openPage("/auction/" + auction_id)
                 .checkBlockDisplay("Характеристики")
@@ -116,7 +116,7 @@ public class AuctionListTests extends TestBase {
                 20000, false, false);
 
         login
-                .setCookie(AuthConfig.customerToken);
+                .setCookie(DataBuilder.customerToken);
         basePage
                 .openPage("/auction/" + auction_id)
                 .clickOnButton("Подать заявку на участие")

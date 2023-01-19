@@ -1,19 +1,13 @@
 package com.petyes.tests;
 
 import com.petyes.api.Login;
-import com.petyes.api.Pet;
-import com.petyes.api.Request;
-import com.petyes.api.Sale;
-import com.petyes.config.AuthConfig;
+import com.petyes.domain.DataBuilder;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.RequestPage;
-import com.petyes.pages.components.CalendarComponent;
 import com.petyes.pages.components.CityComponent;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-
-import java.util.Date;
 
 public class RequestListTests extends TestBase {
 
@@ -25,16 +19,9 @@ public class RequestListTests extends TestBase {
         BasePage basePage = new BasePage();
         Login login = new Login();
         CityComponent cityComponent = new CityComponent();
-        CalendarComponent calendarComponent = new CalendarComponent();
-        Request request = new Request();
-
-        Date today = calendarComponent.getTodayDate();
-        int request_id = request.createRequestByAPI(10000, 10001, false,
-                "Санкт-Петербург", "59.939084", "30.315879", 0,0, 6,
-                false, true, today);
 
         login
-                .setCookie(AuthConfig.breederToken);
+                .setCookie(DataBuilder.breederToken);
         basePage
                 .openPage("/search");
         cityComponent
@@ -46,11 +33,9 @@ public class RequestListTests extends TestBase {
                 .enterValueByKeys(1, "9999")
                 .enterValueByKeys(2, "10002")
                 .chooseRadio("Самец")
-                //.chooseCheckbox("До 6 месяцев") bug PET-737
+                .chooseCheckbox("До 6 месяцев")
                 .clickOnSubmitButton()
-                .checkLinkById(request_id);
-
-        request.deleteRequestByAPI(request_id);
+                .checkLinkById(DataBuilder.request_id);
     }
 
     @Test
@@ -59,23 +44,14 @@ public class RequestListTests extends TestBase {
     void viewRequestTest() {
         BasePage basePage = new BasePage();
         Login login = new Login();
-        CalendarComponent calendarComponent = new CalendarComponent();
-        Request request = new Request();
-
-        Date today = calendarComponent.getTodayDate();
-        int request_id = request.createRequestByAPI(10000, 10001, false,
-                "Санкт-Петербург", "59.939084", "30.315879", 0,0, 6,
-                false, true, today);
 
         login
-                .setCookie(AuthConfig.breederToken);
+                .setCookie(DataBuilder.breederToken);
         basePage
-                .openPage("/buy/" + request_id)
+                .openPage("/buy/" + DataBuilder.request_id)
                 .checkBlockDisplay("Требуемые характеристики")
                 .checkBlockDisplay("Откликнуться")
                 .checkBlockDisplay("Покупатель Автотест");
-
-        request.deleteRequestByAPI(request_id);
     }
 
     @Test
@@ -84,35 +60,20 @@ public class RequestListTests extends TestBase {
     void requestApplicationTest() {
         BasePage basePage = new BasePage();
         Login login = new Login();
-        CalendarComponent calendarComponent = new CalendarComponent();
-        Pet pet = new Pet();
-        Sale sale = new Sale();
-        Request request = new Request();
         RequestPage requestPage = new RequestPage();
 
-        Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, "autoTestRequestCat", birth, 0, 1);
-        sale.salePetByAPI(false, false, true, 10000, pet_id);
-
-        Date today = calendarComponent.getTodayDate();
-        int request_id = request.createRequestByAPI(10000, 10001, false,
-                "Санкт-Петербург", "59.939084", "30.315879", 0,0, 6,
-                false, true, today);
-
         login
-                .setCookie(AuthConfig.breederToken);
+                .setCookie(DataBuilder.breederToken);
         basePage
-                .openPage("/buy/" + request_id)
+                .openPage("/buy/" + DataBuilder.request_id)
                 .clickOnButton("Откликнуться");
         requestPage
-                .choosePetToResponse(pet_id);
+                .choosePetToResponse(DataBuilder.petForSale_id);
         basePage
                 .clickOnButton("Предложить (1)")
                 .checkGreenMessage()
-                .checkBlockDisplay("Отменить отклик");
-
-        sale.cancelPetSaleByAPI(pet_id);
-        pet.deletePetByAPI(pet_id);
-        request.deleteRequestByAPI(request_id);
+                .checkBlockDisplay("Отменить отклик")
+                .clickOnButton("Отменить отклик")
+                .checkGreenMessage();
     }
 }

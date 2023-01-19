@@ -3,7 +3,7 @@ package com.petyes.tests;
 import com.petyes.api.Auction;
 import com.petyes.api.Login;
 import com.petyes.api.Pet;
-import com.petyes.config.AuthConfig;
+import com.petyes.domain.DataBuilder;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
 import org.junit.jupiter.api.Disabled;
@@ -38,7 +38,7 @@ public class AuctionTests extends TestBase {
         String dayAfterTomorrow = formaterAuction.format(dateDayAfterTomorrow);
 
         login
-                .setCookie(AuthConfig.breederToken);
+                .setCookie(DataBuilder.breederToken);
         basePage
                 .openPage("/for-sale/create/" + pet_id)
                 .chooseRadio("Аукцион");
@@ -75,7 +75,7 @@ public class AuctionTests extends TestBase {
         String price= "99 999";
 
         login
-                .setCookie(AuthConfig.breederToken);
+                .setCookie(DataBuilder.breederToken);
         basePage
                 .openPage("/auction/" + auction_id)
                 .clickOnButton("Управление")
@@ -101,7 +101,7 @@ public class AuctionTests extends TestBase {
         int auction_id = auction.createAuctionByAPI(tomorrow, dayAfterTomorrow, 10000, 1, 20000, false, false);
 
         login
-                .setCookie(AuthConfig.breederToken);
+                .setCookie(DataBuilder.breederToken);
         basePage
                 .openPage("/auction/" + auction_id)
                 .clickOnButton("Управление")

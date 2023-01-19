@@ -1,6 +1,6 @@
 package com.petyes.api;
 
-import com.petyes.config.AuthConfig;
+import com.petyes.domain.DataBuilder;
 import com.petyes.helpers.AllureRestAssuredFilter;
 import com.petyes.models.ResponseData;
 import io.qameta.allure.Step;
@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import static io.restassured.RestAssured.given;
 
 public class Response {
+    DataBuilder dataBuilder = new DataBuilder();
 
     @Step("Отклик на запрос по API")
     public void responseByAPI(int request_id, int pet_id) {
@@ -21,7 +22,7 @@ public class Response {
                 .build();
         given()
                 .filter(AllureRestAssuredFilter.withCustomTemplates())
-                .header("Authorization", "Bearer " + AuthConfig.breederToken)
+                .header("Authorization", "Bearer " + DataBuilder.breederToken)
                 .contentType("application/json;charset=UTF-8")
                 .body(responseData)
                 .when()

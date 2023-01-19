@@ -1,7 +1,7 @@
 package com.petyes.api;
 
 import com.petyes.config.App;
-import com.petyes.config.AuthConfig;
+import com.petyes.domain.DataBuilder;
 import com.petyes.helpers.AllureRestAssuredFilter;
 import io.qameta.allure.Step;
 import com.petyes.models.AgeRangeData;
@@ -15,6 +15,7 @@ import java.util.Date;
 import static io.restassured.RestAssured.given;
 
 public class Request {
+    DataBuilder dataBuilder = new DataBuilder();
 
     @Step("Создание запроса по API")
     public int createRequestByAPI(int price_min, int price_max, boolean important_price,
@@ -53,7 +54,7 @@ public class Request {
                 .build();
         int id = given()
                 .filter(AllureRestAssuredFilter.withCustomTemplates())
-                .header("Authorization", "Bearer " + AuthConfig.customerToken)
+                .header("Authorization", "Bearer " + DataBuilder.customerToken)
                 .contentType("application/json;charset=UTF-8")
                 .body(requestData)
                 .when()
@@ -72,7 +73,7 @@ public class Request {
                 .build();
         given()
                 .filter(AllureRestAssuredFilter.withCustomTemplates())
-                .header("Authorization", "Bearer " + AuthConfig.customerToken)
+                .header("Authorization", "Bearer " + DataBuilder.customerToken)
                 .contentType("application/json;charset=UTF-8")
                 .body(requestData)
                 .when()

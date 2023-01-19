@@ -3,7 +3,7 @@ package com.petyes.tests;
 import com.petyes.api.Login;
 import com.petyes.api.Pet;
 import com.petyes.api.Sale;
-import com.petyes.config.AuthConfig;
+import com.petyes.domain.DataBuilder;
 import com.petyes.pages.PetPage;
 import com.petyes.pages.BasePage;
 import com.petyes.pages.components.CalendarComponent;
@@ -31,7 +31,7 @@ public class SalePetTests extends TestBase{
         int pet_id = pet.createPetByAPI(false, "autoTestSaleCat", birth, 0, 1);
 
         login
-                .setCookie(AuthConfig.breederToken);
+                .setCookie(DataBuilder.breederToken);
         basePage
                 .openPage("/for-sale/create/" + pet_id)
                 .enterNumberInInput("not_for_breeding_price", "10000")
@@ -46,10 +46,10 @@ public class SalePetTests extends TestBase{
     @Test
     @Tag("smoke")
     @Tag("regression")
-    @DisplayName("Отдать даром питомца без породы")
+    @DisplayName("Отдать даром нового питомца без породы")
     void freeSaleExistingPetTest() {
-        Pet pet = new Pet();
-        Sale sale = new Sale();
+        /*Pet pet = new Pet();
+        Sale sale = new Sale();*/
         BasePage basePage = new BasePage();
         Login login = new Login();
         CalendarComponent calendarComponent = new CalendarComponent();
@@ -60,14 +60,15 @@ public class SalePetTests extends TestBase{
         String birth = formater.format(dateBirth);
 
         login
-                .setCookie(AuthConfig.breederToken);
+                .setCookie(DataBuilder.breederToken);
         basePage
                 .openPage("/sale-pets-list")
                 .clickOnButton("Новое животное");
         petPage
-                .selectPetTypeSaleNewPet("cat");
+                .selectPetTypeSaleNewPet("cat")
+                .selectBreed("Без породы");
         basePage
-                .enterValueInInput("nickname", "autoTestFreeSaleCat");
+                .enterValueInInput("nickname", "autoTestNewFreeSaleCat");
         calendarComponent
                 .enterDate("birth", birth);
         basePage
@@ -79,9 +80,9 @@ public class SalePetTests extends TestBase{
                 .clickOnButton("Перейти к объявлению")
                 .checkBlockDisplay("Кошка 20 дней");
 
-        //int pet_id = basePage.getIdFromUrl();
-        //sale.cancelPetSaleByAPI(pet_id);
-        //pet.deletePetByAPI(pet_id);
+        /*int pet_id = basePage.getIdFromUrl();
+        sale.cancelPetSaleByAPI(pet_id);
+        pet.deletePetByAPI(pet_id);*/
     }
 
     @Test
@@ -102,7 +103,7 @@ public class SalePetTests extends TestBase{
         String comment = "Автотестовый комментарий";
 
         login
-                .setCookie(AuthConfig.breederToken);
+                .setCookie(DataBuilder.breederToken);
         basePage
                 .openPage("/for-sale/cat/" + sale_id)
                 .clickOnButton("Редактировать")
@@ -130,7 +131,7 @@ public class SalePetTests extends TestBase{
         int sale_id = sale.salePetByAPI(false, false, true, 10000, pet_id);
 
         login
-                .setCookie(AuthConfig.breederToken);
+                .setCookie(DataBuilder.breederToken);
         basePage
                 .openPage("/for-sale/cat/" + sale_id)
                 .clickOnButton("Снять с продажи")

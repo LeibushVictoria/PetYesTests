@@ -1,20 +1,15 @@
 package com.petyes.tests;
 
 import com.petyes.api.Login;
-import com.petyes.api.Pet;
-import com.petyes.api.Sale;
-import com.petyes.config.AuthConfig;
+import com.petyes.domain.DataBuilder;
 import com.petyes.domain.ItemsForLogin;
 import com.petyes.pages.BasePage;
-import com.petyes.pages.components.CalendarComponent;
 import com.petyes.pages.components.CityComponent;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
-
-import java.util.Date;
 
 public class SaleListTests extends TestBase {
 
@@ -25,13 +20,6 @@ public class SaleListTests extends TestBase {
         BasePage basePage = new BasePage();
         Login login = new Login();
         CityComponent cityComponent = new CityComponent();
-        CalendarComponent calendarComponent = new CalendarComponent();
-        Pet pet = new Pet();
-        Sale sale = new Sale();
-
-        Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, "autoTestSaleCat", birth, 0, 1);
-        int sale_id = sale.salePetByAPI(false, false, true, 9998, pet_id);
 
         login
                 .setCookie(items.getToken());
@@ -43,16 +31,13 @@ public class SaleListTests extends TestBase {
                 .chooseRadio("Кошки")
                 .selectValueInDropdownInFilter("Выберите породу", "Абиссинская")
                 .chooseRadio("Куплю")
-                .enterValueByKeys(0, "9997")
-                .enterValueByKeys(1, "9999")
+                .enterValueByKeys(0, "9999")
+                .enterValueByKeys(1, "10002")
                 .chooseRadio("Самец")
                 .chooseCheckbox("До 6 месяцев")
                 .chooseCheckbox("Кастрация/стерилизация")
                 .clickOnSubmitButton()
-                .checkLinkById(sale_id);
-
-        sale.cancelPetSaleByAPI(pet_id);
-        pet.deletePetByAPI(pet_id);
+                .checkLinkById(DataBuilder.sale_id);
     }
 
     @Test
@@ -61,23 +46,13 @@ public class SaleListTests extends TestBase {
     void viewSaleTest() {
         BasePage basePage = new BasePage();
         Login login = new Login();
-        CalendarComponent calendarComponent = new CalendarComponent();
-        Pet pet = new Pet();
-        Sale sale = new Sale();
-
-        Date birth = calendarComponent.getOtherDate(-20);
-        int pet_id = pet.createPetByAPI(false, "autoTestSaleCat", birth, 0, 1);
-        int sale_id = sale.salePetByAPI(false, false, true, 9998, pet_id);
 
         login
-                .setCookie(AuthConfig.customerToken);
+                .setCookie(DataBuilder.customerToken);
         basePage
-                .openPage("/for-sale/cat/" + sale_id)
+                .openPage("/for-sale/cat/" + DataBuilder.sale_id)
                 .checkBlockDisplay("Кошка Абиссинская 20 дней")
                 .checkBlockDisplay("Продавец Автотест");
-
-        sale.cancelPetSaleByAPI(pet_id);
-        pet.deletePetByAPI(pet_id);
     }
 
     @Test
@@ -88,7 +63,7 @@ public class SaleListTests extends TestBase {
         Login login = new Login();
 
         login
-                .setCookie(AuthConfig.customerToken);
+                .setCookie(DataBuilder.customerToken);
         basePage
                 .openPage("/for-sale")
                 .clickOnButton("Оставить заявку")
