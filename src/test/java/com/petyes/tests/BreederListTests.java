@@ -43,7 +43,8 @@ public class BreederListTests extends TestBase {
         login
                 .setCookie(DataBuilder.customerToken);
         basePage
-                .openPage("/breeders");
+                .openPage("/breeders")
+                .enterSearchValue("Продавец Автотест");
         breedersPage
                 .openBreederPage("Продавец Автотест");
         basePage
@@ -61,7 +62,8 @@ public class BreederListTests extends TestBase {
         login
                 .setCookie(DataBuilder.customerToken);
         basePage
-                .openPage("/breeders");
+                .openPage("/breeders")
+                .enterSearchValue("Продавец Автотест");
         breedersPage
                 .openRewiewPopup("Продавец Автотест")
                 .clickRatingButton(3)
@@ -90,6 +92,6 @@ public class BreederListTests extends TestBase {
                 .chooseRadio("Кошки")
                 .selectValueInDropdownInFilter("Выберите породу", "Абиссинская")
                 .clickOnSubmitButton()
-                .checkLinkById(DataBuilder.customer_id);
+                .checkLinkById(DataBuilder.breeder_id);
     }
 }

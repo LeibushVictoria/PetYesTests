@@ -73,6 +73,12 @@ public class BasePage {
         return this;
     }
 
+    @Step("Ввести значение в строку поиска")
+    public BasePage enterSearchValue(String value) {
+        $("input[type=\"search\"]").setValue(value);
+        return this;
+    }
+
     @Step("Ввести значение в поле в фильтрах")
     public BasePage enterValueInInputInFilter(int id, String value) {
         $(".as-input__field", id).setValue(value);

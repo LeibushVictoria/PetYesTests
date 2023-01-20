@@ -42,7 +42,7 @@ public class PetPage {
 
     @Step("Выбрать дополнительный параметр")
     public PetPage chooseOption(String optionName, String radio) {
-        $$(".as-form-item").findBy(text(optionName)).$$(".as-radio__text").findBy(text(radio)).click();
+        $$(".as-form-item").findBy(text(optionName)).$$(".as-radio").findBy(text(radio)).click();
         return this;
     }
 
